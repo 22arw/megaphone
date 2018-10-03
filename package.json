@@ -8,7 +8,7 @@
     "client": "ng build --watch",
     "server": "nodemon",
     "start": "node app.js",
-    "heroku-prebuild": "npm run client",
+    "heroku-prebuild": "ng build --prod",
     "heroku-postbuild": ""
   },
   "author": "XPX",
