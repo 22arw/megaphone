@@ -1,6 +1,8 @@
 const express = require('express');
 const path = require('path');
 
+const models = require('./app/models');
+
 const app = express();
 
 const port = process.env.PORT || 3000;
@@ -15,4 +17,8 @@ app.get('*', (req, res) => {
   }
 });
 
-app.listen(port, () => console.log(`Megaphone is listening on port ${port}!`));
+models.sequelize.sync().then(() => {
+  app.listen(port, () =>
+    console.log(`Megaphone is listening on port ${port}!`)
+  );
+});
