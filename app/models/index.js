@@ -8,8 +8,8 @@ if (!process.env.DEV) {
   sequelize = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
-    port: match[4],
-    host: match[3],
+    // port: match[4],
+    // host: match[3],
     logging: true //false
   });
 } else {
