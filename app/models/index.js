@@ -4,6 +4,7 @@ let sequelize = '';
 
 if (!process.env.DEV) {
   // We are in production
+  console.log('Running the production version of the database connection!');
   sequelize = new Sequelize(DATABASE_URL, {
     dialect: 'postgres',
     protocol: 'postgres',
@@ -13,6 +14,7 @@ if (!process.env.DEV) {
   });
 } else {
   // We are in development
+  console.log('Running the development version of the database connection!');
   sequelize = new Sequelize(DATABASE_URL);
 }
 
