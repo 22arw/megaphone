@@ -15,28 +15,34 @@
 if using Mac:
 
 ```shell
-$ brew update && brew install postgresql
+brew update && brew install postgresql
 ```
 
-if using PC: [https://www.postgresql.org/](https://www.postgresql.org/)
+if using Windows: [https://www.postgresql.org/](https://www.postgresql.org/)
 
 #### Setup the database
 
 ```shell
-$ createdb databasename
+createdb databasename
 ```
 
 #### Download the repo
 
-`git clone https://github.com/22arw/megaphone megaphone`
+```shell
+git clone https://github.com/22arw/megaphone.git megaphone
+```
 
 #### Navigate to the folder
 
-`cd megaphone`
+```shell
+cd megaphone
+```
 
 #### Create a .env file
 
-`touch .env`
+```shell
+touch .env
+```
 
 #### Open the .env file and add the following lines replacing the database URL with your information
 
@@ -47,11 +53,15 @@ DEV=true
 
 #### Install dependencies
 
-`npm i`
+```shell
+npm install
+```
 
 #### Run the dev server
 
-`npm run dev`
+```shell
+npm run dev
+```
 
 #### Open your browser to [localhost:3000](localhost:3000)
 
