@@ -12,7 +12,12 @@
 
 #### Install PostgreSQL
 
-if using Mac: `brew update && brew install postgresql`
+if using Mac:
+
+```shell
+brew update && brew install postgresql
+```
+
 if using PC: [https://www.postgresql.org/](https://www.postgresql.org/)
 
 #### Setup the database
@@ -33,7 +38,7 @@ if using PC: [https://www.postgresql.org/](https://www.postgresql.org/)
 
 #### Open the .env file and add the following lines replacing the database URL with your information
 
-```
+```shell
 LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename
 DEV=true
 ```
