@@ -1,8 +1,7 @@
 const Sequelize = require('sequelize');
+const DATABASE_URL = require('../../config/db');
 
-const sequelize = new Sequelize('megaphone', 'kevinfalting', '', {
-  dialect: 'postgres'
-});
+const sequelize = new Sequelize(DATABASE_URL);
 
 const models = {
   User: sequelize.import('./user')
