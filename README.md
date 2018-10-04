@@ -24,8 +24,12 @@ Navigate to the folder
 Create a .env file
 `touch .env`
 
-Open the .env file and add the following line replacing it with your information
-`LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename`
+Open the .env file and add the following lines replacing the database URL with your information
+
+```
+LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename
+DEV=true
+```
 
 Install dependencies
 `npm i`
