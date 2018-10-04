@@ -63,8 +63,8 @@ npm install
 npm run dev
 ```
 
-#### Open your browser to [localhost:3000](localhost:3000)
+#### Open your browser to [http://localhost:3000/](http://localhost:3000/)
 
-[localhost:3000](localhost:3000)
+[http://localhost:3000/](http://localhost:3000/)
 
 Any changes you save to the app will recompile automatically. Refresh the browser window to see your changes.
