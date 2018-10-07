@@ -20,7 +20,7 @@ app.use(cookieParser());
 app.use(express.static('public')); // Sends frontend to user
 app.use('/api', apiRouter);
 
-models.sequelize.sync().then(() => {
+models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
   app.listen(port, () =>
     console.log(`Megaphone is listening on port ${port}!`)
   );
