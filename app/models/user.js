@@ -6,6 +6,9 @@ const user = (sequelize, DataTypes) => {
     },
     password: {
       type: DataTypes.STRING
+    },
+    isAdmin: {
+      type: DataTypes.BOOLEAN
     }
   });
 
