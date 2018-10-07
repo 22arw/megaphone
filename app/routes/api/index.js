@@ -1,13 +1,13 @@
 const express = require('express');
 const router = express.Router();
 
-const registerRouter = require('./register');
+const userRouter = require('./user');
 
 router
   .get('/', (req, res, next) => {
     res.send('This is the base api route.');
     // TODO: Eventually serve an api reference page at the root
   })
-  .use('/register', registerRouter);
+  .use('/user', userRouter);
 
 module.exports = router;
