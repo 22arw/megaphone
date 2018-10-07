@@ -8,7 +8,7 @@ const app = express();
 
 const port = process.env.PORT || 3000;
 
-const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg', '.ttf', '.svg'];
+const allowedExt = ['.js', '.ico', '.css', '.png', '.jpg'];
 
 app.get('*', (req, res) => {
   if (allowedExt.filter(ext => req.url.indexOf(ext) > 0).length > 0) {
