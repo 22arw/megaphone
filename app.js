@@ -1,5 +1,6 @@
 // NPM Packages
 const express = require('express');
+const cookieParser = require('cookie-parser');
 
 // Initializations
 require('dotenv').config();
@@ -13,6 +14,9 @@ const models = require('./app/models');
 const apiRouter = require('./app/routes/api');
 
 // Application Flow
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
 app.use(express.static('public')); // Sends frontend to user
 app.use('/api', apiRouter);
 
