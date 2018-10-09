@@ -23,8 +23,14 @@
             "polyfills": "Angular/src/polyfills.ts",
             "tsConfig": "Angular/src/tsconfig.app.json",
             "assets": ["Angular/src/favicon.ico", "Angular/src/assets"],
-            "styles": ["Angular/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "Angular/src/styles.scss"
+            ],
+            "scripts": [
+              "./node_modules/jquery/dist/jquery.min.js",
+              "./node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {

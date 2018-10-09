@@ -19,6 +19,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public')); // Sends frontend to user
 app.use('/api', apiRouter);
+app.use('*', express.static('public'));
 
 models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
   app.listen(port, () =>
