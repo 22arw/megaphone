@@ -19,6 +19,8 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static('public')); // Sends frontend to user
 app.use('/api', apiRouter);
+
+// Catch all route just sends back the client to render the landing page.
 app.use('*', express.static('public'));
 
 models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
