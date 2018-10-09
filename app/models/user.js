@@ -8,7 +8,8 @@ const user = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     },
     isAdmin: {
-      type: DataTypes.BOOLEAN
+      type: DataTypes.BOOLEAN,
+      default: false
     }
   });
 

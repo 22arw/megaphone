@@ -4,10 +4,8 @@ const createUser = user => {
   console.log('Called the create user function');
 };
 
-const getAllUsers = () => {
-  User.findAll().then(user => {
-    return user;
-  });
+const getAllUsers = async () => {
+  return await User.findAll();
 };
 
 const userController = {
