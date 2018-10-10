@@ -16,7 +16,7 @@ const apiRouter = require('./app/routes/api');
 // Application Flow
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
+app.use(cookieParser()); // add secret
 app.use(express.static('public')); // Sends frontend to user
 app.use('/api', apiRouter);
 
