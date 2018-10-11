@@ -75,7 +75,11 @@ app.get('/logout', (req, res) => {
 app.use('/api', apiRouter);
 
 app.get('/', (req, res) => {
-  res.sendFile(__dirname + '/app/views/index.html');
+  if (!req.session.userId) {
+    res.sendFile(__dirname + '/app/views/index.html');
+  } else {
+    res.redirect('/home');
+  }
 });
 
 app.use('/home', requireUserMiddleware, express.static('public'));
