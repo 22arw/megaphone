@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/app/views/index.html');
 });
 
-app.use('/home', express.static(path.join(__dirname, 'public')));
+app.use('/home', express.static('public'));
 
 models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
   app.listen(port, () =>
