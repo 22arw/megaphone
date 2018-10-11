@@ -29,15 +29,19 @@ app.use(
   })
 );
 
+if (process.env.NODE_ENV === 'production') {
+  app.set('trust proxy', 1); // trust first proxy
+}
+
 app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/app/views/login.html');
 });
 
 app.post('/login', async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-
-  const authResult = await authController.loginUser(email, password);
+  const authResult = await authController.loginUser(
+    req.body.email,
+    req.body.password
+  );
 
   if (isNaN(authResult)) {
     res.send(authResult);
@@ -48,14 +52,10 @@ app.post('/login', async (req, res) => {
 });
 
 app.post('/register', async (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
-  const passwordConfirmation = req.body.passwordConfirmation;
-
   const authResult = await authController.registerUser(
-    email,
-    password,
-    passwordConfirmation
+    req.body.email,
+    req.body.password,
+    req.body.passwordConfirmation
   );
 
   if (isNaN(authResult)) {
