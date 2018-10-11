@@ -45,7 +45,7 @@ app.post('/login', async (req, res) => {
 
   req.session.userId = authResult;
 
-  res.redirect('/home');
+  res.redirect('/home', 200);
 });
 
 app.post('/register', async (req, res) => {
@@ -64,7 +64,7 @@ app.post('/register', async (req, res) => {
   }
 
   req.session.userId = authResult;
-  res.redirect('/home');
+  res.redirect('/home', 200);
 });
 
 app.use('/api', apiRouter);
