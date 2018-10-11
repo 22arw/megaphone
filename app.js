@@ -11,6 +11,9 @@ const port = process.env.PORT || 3000;
 // Reference Models
 const models = require('./app/models');
 
+// Reference Controllers
+const authController = require('./app/controllers/auth');
+
 // Reference Routes
 const apiRouter = require('./app/routes/api');
 
@@ -30,28 +33,38 @@ app.get('/login', (req, res) => {
   res.sendFile(__dirname + '/app/views/login.html');
 });
 
-app.post('/login', (req, res) => {
-  console.log(req.body);
-  req.session.userId = 1;
+app.post('/login', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+
+  const authResult = await authController.loginUser(email, password);
+
+  if (isNaN(authResult)) {
+    res.send(authResult);
+  }
+
+  req.session.userId = authResult;
+
   res.redirect('/home');
-  // find the user by the email
-  // encrypt the password, check for a match against stored hashed password of user
-  // if correct
-  // . set req.session.userId = userId
-  // . redirect to /app
 });
 
-app.post('/register', (req, res) => {
-  console.log(req.body);
-  res.redirect('/');
-  // validate credentials
-  // if valid
-  // . check if user already exists
-  // . if exists
-  // . . set req.session.userId = userId
-  // . else
-  // . . register user
-  // res.redirect to logged in app
+app.post('/register', async (req, res) => {
+  const email = req.body.email;
+  const password = req.body.password;
+  const passwordConfirmation = req.body.passwordConfirmation;
+
+  const authResult = await authController.registerUser(
+    email,
+    password,
+    passwordConfirmation
+  );
+
+  if (isNaN(authResult)) {
+    res.send(authResult);
+  }
+
+  req.session.userId = authResult;
+  res.redirect('/home');
 });
 
 app.use('/api', apiRouter);
@@ -60,7 +73,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/app/views/index.html');
 });
 
-app.use('/home', express.static('public'));
+app.use('/home', requireUserMiddleware, express.static('public'));
 
 models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
   app.listen(port, () =>
@@ -72,13 +85,13 @@ function requireUserMiddleware(req, res, next) {
   if (!req.session.userId) {
     switch (req.header['content-type']) {
       case 'application/json':
-        res.send(403);
+        res.sendStatus(403);
         break;
       case 'text/html':
         res.redirect('/login');
         break;
       default:
-        res.send(403);
+        res.sendStatus(403);
     }
   }
   next();

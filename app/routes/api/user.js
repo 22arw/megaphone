@@ -3,12 +3,11 @@ const router = express.Router();
 const userController = require('../../controllers/user');
 
 router
-  .get('/', async (req, res, next) => {
-    res.send('Well, hello there. ;)');
+  .get('/', (req, res, next) => {
+    res.send(`Called the get route for ${req.url}`);
   })
   .post('/', (req, res, next) => {
-    // This is where we create a user
-    res.send('Create user');
+    res.send(`Called the post route for ${req.url}`);
   });
 
 module.exports = router;
