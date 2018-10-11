@@ -4,10 +4,7 @@ const userController = require('../../controllers/user');
 
 router
   .get('/', async (req, res, next) => {
-    dbResponse = await userController.getAllUsers();
-    console.log('got a response from the db');
-    console.log(dbResponse);
-    res.send(dbResponse);
+    res.send('Well, hello there. ;)');
   })
   .post('/', (req, res, next) => {
     // This is where we create a user

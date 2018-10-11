@@ -49,6 +49,7 @@ touch .env
 ```
 LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename
 DEV=true
+SESSION_SECRET=someSecretPhrase
 ```
 
 #### Install dependencies

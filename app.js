@@ -1,8 +1,7 @@
 // NPM Packages
 const express = require('express');
-// const cookieParser = require('cookie-parser');
 const session = require('express-session');
-// const path = require('path');
+const path = require('path');
 
 // Initializations
 require('dotenv').config();
@@ -33,7 +32,8 @@ app.get('/login', (req, res) => {
 
 app.post('/login', (req, res) => {
   console.log(req.body);
-  res.redirect('/');
+  req.session.userId = 1;
+  res.redirect('/home');
   // find the user by the email
   // encrypt the password, check for a match against stored hashed password of user
   // if correct
@@ -60,7 +60,7 @@ app.get('/', (req, res) => {
   res.sendFile(__dirname + '/app/views/index.html');
 });
 
-app.get('/home', requireUserMiddleware, express.static('public'));
+app.use('/home', express.static(path.join(__dirname, 'public')));
 
 models.sequelize.sync({ force: process.env.DEV || false }).then(() => {
   app.listen(port, () =>
