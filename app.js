@@ -41,11 +41,10 @@ app.post('/login', async (req, res) => {
 
   if (isNaN(authResult)) {
     res.send(authResult);
+  } else {
+    req.session.userId = authResult;
+    res.redirect('/home');
   }
-
-  req.session.userId = authResult;
-
-  res.redirect(302, '/home');
 });
 
 app.post('/register', async (req, res) => {
@@ -61,10 +60,10 @@ app.post('/register', async (req, res) => {
 
   if (isNaN(authResult)) {
     res.send(authResult);
+  } else {
+    req.session.userId = authResult;
+    res.redirect('/home');
   }
-
-  req.session.userId = authResult;
-  res.redirect(302, '/home');
 });
 
 app.use('/api', apiRouter);
