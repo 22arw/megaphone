@@ -49,6 +49,8 @@ touch .env
 ```
 LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename
 DEV=true
+
+# These must also be initialized on the server in order to work.
 SESSION_SECRET=someSecretPhrase
 SALT_ROUNDS=10
 ```
