@@ -13,6 +13,21 @@ const user = (sequelize, DataTypes) => {
     }
   });
 
+  User.associate = models => {
+    // 1:m messages
+    User.hasMany(models.Message);
+
+    // n:m Organizations
+    User.belongsToMany(models.Organization, {
+      through: 'OrganizationManager'
+    });
+
+    // n:m Bases
+    User.belongsToMany(models.Base, {
+      through: 'BaseManager'
+    });
+  };
+
   return User;
 };
 

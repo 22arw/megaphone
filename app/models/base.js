@@ -23,6 +23,16 @@ const base = (sequelize, DataTypes) => {
     }
   });
 
+  Base.association = models => {
+    // 1:m Organizations
+    Base.hasMany(models.Organization);
+
+    // n:m Users
+    Base.belongsToMany(models.User, {
+      through: 'BaseManager'
+    });
+  };
+
   return Base;
 };
 

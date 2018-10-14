@@ -4,6 +4,12 @@ const subscription = (sequelize, DataTypes) => {
       type: DataTypes.STRING
     }
   });
+
+  Subscription.association = models => {
+    // m:1 Organization
+    Subscription.belongsTo(models.Organization);
+  };
+
   return Subscription;
 };
 
