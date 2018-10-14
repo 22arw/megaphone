@@ -22,6 +22,11 @@ const user = (sequelize, DataTypes) => {
       through: 'OrganizationManager'
     });
 
+    // 1:m Organizations as Owner
+    User.hasMany(models.Organization, {
+      as: 'owner'
+    });
+
     // n:m Bases
     User.belongsToMany(models.Base, {
       through: 'BaseManager'
