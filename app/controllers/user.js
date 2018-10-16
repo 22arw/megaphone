@@ -1,16 +1,17 @@
 const { User } = require('../models');
 
-const createUser = user => {
-  console.log('Called the create user function');
-};
-
-const getAllUsers = async () => {
-  return await User.findAll();
+const getData = async req => {
+  const userId = req.session.userId;
+  return await User.findAll({
+    where: {
+      id: userId
+      // include: [{ all: true }]
+    }
+  });
 };
 
 const userController = {
-  createUser: createUser,
-  getAllUsers: getAllUsers
+  getData: getData
 };
 
 module.exports = userController;

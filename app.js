@@ -85,7 +85,7 @@ app.get('/', (req, res) => {
 app.use('/home', requireUserMiddleware, express.static('public'));
 
 // CHANGE the TRUE to FALSE when ready for production
-models.sequelize.sync({ force: process.env.DEV || true }).then(() => {
+models.sequelize.sync({ force: false }).then(() => {
   app.listen(port, () =>
     console.log(`Megaphone is listening on port ${port}!`)
   );

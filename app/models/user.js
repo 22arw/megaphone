@@ -9,13 +9,13 @@ const user = (sequelize, DataTypes) => {
     },
     isAdmin: {
       type: DataTypes.BOOLEAN,
-      default: false
+      defaultValue: false
     }
   });
 
   User.associate = models => {
     // 1:m messages
-    User.hasMany(models.Message);
+    // User.hasMany(models.Message);
 
     // n:m Organizations
     User.belongsToMany(models.Organization, {
@@ -23,14 +23,14 @@ const user = (sequelize, DataTypes) => {
     });
 
     // 1:m Organizations as Owner
-    User.hasMany(models.Organization, {
-      as: 'owner'
-    });
+    // User.hasMany(models.Organization, {
+    //   as: 'owner'
+    // });
 
     // n:m Bases
-    User.belongsToMany(models.Base, {
-      through: 'BaseManager'
-    });
+    // User.belongsToMany(models.Base, {
+    //   through: 'BaseManager'
+    // });
   };
 
   return User;

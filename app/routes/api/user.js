@@ -2,12 +2,10 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../../controllers/user');
 
-router
-  .get('/', (req, res, next) => {
-    res.send(`Called the get route for ${req.url}`);
-  })
-  .post('/', (req, res, next) => {
-    res.send(`Called the post route for ${req.url}`);
-  });
+router.get('/', async (req, res) => {
+  // Get all of the user's data so that we can build the dashboard
+  const result = await userController.getData(req);
+  res.json(result);
+});
 
 module.exports = router;

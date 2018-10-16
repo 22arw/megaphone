@@ -18,10 +18,10 @@ if (!process.env.DEV) {
 
 const models = {
   User: sequelize.import('./user'),
-  Base: sequelize.import('./base'),
-  Organization: sequelize.import('./organization'),
-  Subscription: sequelize.import('./subscription'),
-  Message: sequelize.import('./message')
+  // Base: sequelize.import('./base'),
+  Organization: sequelize.import('./organization')
+  // Subscription: sequelize.import('./subscription'),
+  // Message: sequelize.import('./message')
 };
 
 Object.keys(models).forEach(key => {

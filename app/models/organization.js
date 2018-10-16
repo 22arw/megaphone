@@ -10,10 +10,10 @@ const organization = (sequelize, DataTypes) => {
 
   Organization.association = models => {
     // 1:m messages
-    Organization.hasMany(models.Message);
+    // Organization.hasMany(models.Message);
 
     // m:1 Bases
-    Organization.belongsTo(models.Base);
+    // Organization.belongsTo(models.Base);
 
     // n:m Users
     Organization.belongsToMany(models.User, {
