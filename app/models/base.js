@@ -1,25 +1,49 @@
 const base = (sequelize, DataTypes) => {
   const Base = sequelize.define('base', {
-    phoneNumber: {
+    basePhoneNumber: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },
-    name: {
+    baseName: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },
     baseCode: {
       type: DataTypes.STRING,
-      unique: true
+      unique: true,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },
     bandwidthUserId: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },
     bandwidthApiToken: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     },
     bandwidthApiSecret: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     }
   });
 

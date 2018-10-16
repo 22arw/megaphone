@@ -1,7 +1,11 @@
 const subscription = (sequelize, DataTypes) => {
   const Subscription = sequelize.define('subscription', {
     phoneNumber: {
-      type: DataTypes.STRING
+      type: DataTypes.STRING,
+      validate: {
+        notNull: true,
+        notEmpty: true
+      }
     }
   });
 

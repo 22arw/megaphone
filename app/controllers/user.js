@@ -5,8 +5,8 @@ const getData = async req => {
   return await User.findAll({
     where: {
       id: userId
-      // include: [{ all: true }]
-    }
+    },
+    include: [{ all: true, nested: true }]
   });
 };
 
