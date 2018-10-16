@@ -3,45 +3,45 @@ const base = (sequelize, DataTypes) => {
     basePhoneNumber: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     },
     baseName: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     },
     baseCode: {
       type: DataTypes.STRING,
       unique: true,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     },
     bandwidthUserId: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     },
     bandwidthApiToken: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     },
     bandwidthApiSecret: {
       type: DataTypes.STRING,
+      allowNull: false,
       validate: {
-        notNull: true,
         notEmpty: true
       }
     }

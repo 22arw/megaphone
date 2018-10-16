@@ -15,7 +15,10 @@ const registerUser = async (email, password, passwordConfirmation) => {
     password: hash
   };
 
-  const response = await User.create(user);
+  const response = await User.create(user).catch(err => {
+    console.error(`There was an error: ${err}`);
+    return 'There was an error';
+  });
 
   return response.id;
 };
@@ -23,6 +26,8 @@ const registerUser = async (email, password, passwordConfirmation) => {
 const loginUser = async (email, password) => {
   const user = await User.findOne({
     where: { email: email }
+  }).catch(err => {
+    console.error(err);
   });
 
   if (user === null) {
