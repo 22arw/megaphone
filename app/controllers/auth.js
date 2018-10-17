@@ -1,5 +1,4 @@
 const bcrypt = require('bcrypt');
-// const saltRounds = Number(process.env.SALT_ROUNDS);
 
 const { User } = require('../db/models');
 
@@ -7,8 +6,6 @@ const registerUser = async (email, password, passwordConfirmation) => {
   if (password !== passwordConfirmation) {
     return "passwords don't match.";
   }
-
-  // const hash = await bcrypt.hash(password, saltRounds);
 
   const user = {
     email: email,
