@@ -89,7 +89,7 @@ models.sequelize
   .sync({ force: process.env.NODE_ENV !== 'production' })
   .then(() => {
     app.listen(port, () => {
-      console.log(`Megaphone is listening on port ${port}!`);
+      console.log(`\nMegaphone is listening on port ${port}!`);
     });
   });
 

@@ -61,6 +61,12 @@ SALT_ROUNDS=10
 npm install
 ```
 
+### Install sequelize cli
+
+```shell
+npm install -g sequelize-cli
+```
+
 #### Run the dev server
 
 ```shell

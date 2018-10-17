@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "npm-run-all -p client server",
     "client": "ng build --watch",
-    "server": "nodemon",
+    "server": "nodemon --ignore public/",
     "seed": "node seeds.js",
     "start": "node app.js",
     "heroku-prebuild": "npm install && ng build --prod",
@@ -39,6 +39,7 @@
     "popper.js": "^1.14.4",
     "rxjs": "^6.2.2",
     "sequelize": "^4.39.0",
+    "sequelize-log-syntax-colors": "^2.0.0",
     "zone.js": "~0.8.26"
   },
   "devDependencies": {

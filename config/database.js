@@ -1,9 +1,13 @@
+const sequelizeLogColorizer = require('sequelize-log-syntax-colors');
+
 module.exports = {
   development: {
     url: process.env.DEVELOPMENT_DATABASE_URL,
     dialect: 'postgres',
     protocol: 'postgres',
-    logging: true //false
+    logging: text => {
+      console.log(sequelizeLogColorizer(text));
+    }
   },
   test: {
     // TEST isn't currently configured and will fail if you attempt to use it like this.
@@ -16,7 +20,6 @@ module.exports = {
   production: {
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
-    protocol: 'postgres',
-    logging: true //false
+    protocol: 'postgres'
   }
 };
