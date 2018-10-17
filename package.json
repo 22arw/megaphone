@@ -7,6 +7,7 @@
     "dev": "npm-run-all -p client server",
     "client": "ng build --watch",
     "server": "nodemon",
+    "seed": "node seeds.js",
     "start": "node app.js",
     "heroku-prebuild": "npm install && ng build --prod",
     "heroku-postbuild": ""
