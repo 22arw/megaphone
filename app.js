@@ -9,7 +9,7 @@ const app = express();
 const port = process.env.PORT || 3000;
 
 // Reference Models
-const models = require('./app/models');
+const models = require('./app/db/models');
 
 // Reference Controllers
 const authController = require('./app/controllers/auth');
@@ -84,13 +84,16 @@ app.get('/', (req, res) => {
 
 app.use('/home', requireUserMiddleware, express.static('public'));
 
-// CHANGE the TRUE to FALSE when ready for production
-models.sequelize.sync({ force: false }).then(() => {
-  app.listen(port, () =>
-    console.log(`Megaphone is listening on port ${port}!`)
-  );
-});
+// Sync database and then have app listen for connections.
+models.sequelize
+  .sync({ force: process.env.NODE_ENV !== 'production' })
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Megaphone is listening on port ${port}!`);
+    });
+  });
 
+// Functions declared
 function requireUserMiddleware(req, res, next) {
   if (!req.session.userId) {
     switch (req.header['content-type']) {

@@ -1,11 +1,12 @@
 module.exports = {
   development: {
-    url: process.env.DATABASE_URL,
+    url: process.env.DEVELOPMENT_DATABASE_URL,
     dialect: 'postgres',
     protocol: 'postgres',
     logging: true //false
   },
   test: {
+    // TEST isn't currently configured and will fail if you attempt to use it like this.
     username: 'root',
     password: null,
     database: 'database_test',

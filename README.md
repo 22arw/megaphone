@@ -47,8 +47,8 @@ touch .env
 #### Open the .env file and add the following lines replacing the database URL with your information
 
 ```
-LOCAL_DATABASE_URL=postgres://username:password@localhost:5432/databasename
-DEV=true
+NODE_ENV=development
+DEVELOPMENT_DATABASE_URL=postgres://kevinfalting:null@localhost:5432/megaphone
 
 # These must also be initialized on the server in order to work.
 SESSION_SECRET=someSecretPhrase
