@@ -82,9 +82,15 @@ npm install -g nodemon
 npm run dev
 ```
 
-### Seed the database (OPTIONAL)
+#### Open your browser to [http://localhost:3000/](http://localhost:3000/)
 
-This section will seed the database with demo users so that you can play around with the application.
+[http://localhost:3000/](http://localhost:3000/)
+
+Any changes you save to the app will recompile automatically. Refresh the browser window to see your changes.
+
+### Migrate and seed the database (OPTIONAL)
+
+This section will migrate and seed the database with demo users so that you can play around with the application.
 
 Demo users:
 
@@ -104,7 +110,11 @@ email: aaron@email.com
 password: asdf
 ```
 
-Open another tab in your terminal and run the following commands:
+Migrate the database, this creates all of the tables and relationships.
+
+```shell
+sequelize db:migrate
+```
 
 Perform the seeds, adds demo users to the database.
 
@@ -118,8 +128,8 @@ Undo the seeds, removes demo users from the database.
 sequelize db:seed:undo:all
 ```
 
-#### Open your browser to [http://localhost:3000/](http://localhost:3000/)
+Undo the database migrations, this removes all of the tables.
 
-[http://localhost:3000/](http://localhost:3000/)
-
-Any changes you save to the app will recompile automatically. Refresh the browser window to see your changes.
+```shell
+sequelize db:migrate:undo:all
+```
