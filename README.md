@@ -104,6 +104,8 @@ email: aaron@email.com
 password: asdf
 ```
 
+Open another tab in your terminal and run the following commands:
+
 Perform the seeds, adds demo users to the database.
 
 ```shell
