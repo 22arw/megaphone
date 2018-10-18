@@ -67,6 +67,12 @@ npm install
 npm install -g sequelize-cli
 ```
 
+### Install nodemon
+
+```shell
+npm install -g nodemon
+```
+
 #### Run the dev server
 
 ```shell
