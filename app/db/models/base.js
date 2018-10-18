@@ -1,15 +1,58 @@
 'use strict';
 module.exports = (sequelize, DataTypes) => {
-  const base = sequelize.define('base', {
-    basePhoneNumber: DataTypes.STRING,
-    baseName: DataTypes.STRING,
-    baseCode: DataTypes.STRING,
-    bandwidthUserId: DataTypes.STRING,
-    bandwidthApiToken: DataTypes.STRING,
-    bandwidthApiSecret: DataTypes.STRING
-  }, {});
-  base.associate = function(models) {
+  const Base = sequelize.define(
+    'Base',
+    {
+      basePhoneNumber: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      baseName: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      baseCode: {
+        type: DataTypes.STRING,
+        unique: true,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      bandwidthUserId: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      bandwidthApiToken: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      },
+      bandwidthApiSecret: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          notEmpty: true
+        }
+      }
+    },
+    {}
+  );
+  Base.associate = function(models) {
     // associations can be defined here
   };
-  return base;
+  return Base;
 };
