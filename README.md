@@ -48,7 +48,10 @@ touch .env
 
 ```
 NODE_ENV=development
-DEVELOPMENT_DATABASE_URL=postgres://kevinfalting:null@localhost:5432/megaphone
+DEVELOPMENT_DATABASE_URL=postgres://database:password@localhost:5432/databasename
+
+# WARNING: This drops and rebuilds the database from scratch, deleting all of the data. If you don't include this line, it will be false by default. In production, set it to false unless you want to completely delete ALL data IRREVERSIBLY!
+DROP_DATABASE_ON_RESTART=true
 
 # These must also be initialized on the server in order to work.
 SESSION_SECRET=someSecretPhrase
@@ -77,6 +80,40 @@ npm install -g nodemon
 
 ```shell
 npm run dev
+```
+
+### Seed the database (OPTIONAL)
+
+This section will seed the database with demo users so that you can play around with the application.
+
+Demo users:
+
+```
+// This user is an admin
+email: admin@email.com
+password: asdf
+
+// These users are standard users
+email: kevin@email.com
+password: asdf
+
+email: coach@email.com
+password: asdf
+
+email: aaron@email.com
+password: asdf
+```
+
+Perform the seeds, adds demo users to the database.
+
+```shell
+sequelize db:seed:all
+```
+
+Undo the seeds, removes demo users from the database.
+
+```shell
+sequelize db:seed:undo:all
 ```
 
 #### Open your browser to [http://localhost:3000/](http://localhost:3000/)

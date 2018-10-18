@@ -22,10 +22,18 @@ module.exports = {
       'Users',
       [
         {
-          email: 'kevin@email.com',
+          email: 'admin@email.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: true,
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          email: 'kevin@email.com',
+          password:
+            '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
+          isAdmin: false,
           createdAt: new Date(),
           updatedAt: new Date()
         },

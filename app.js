@@ -85,8 +85,11 @@ app.get('/', (req, res) => {
 app.use('/home', requireUserMiddleware, express.static('public'));
 
 // Sync database and then have app listen for connections.
+
 models.sequelize
-  .sync({ force: process.env.NODE_ENV !== 'production' })
+  .sync({
+    force: process.env.DROP_DATABASE_ON_RESTART
+  })
   .then(() => {
     app.listen(port, () => {
       console.log(`\nMegaphone is listening on port ${port}!`);
