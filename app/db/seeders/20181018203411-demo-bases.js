@@ -9,9 +9,11 @@ module.exports = {
           basePhoneNumber: '+12345678909',
           baseName: 'Test AFB 1',
           baseCode: 'test-12345',
-          bandwidthUserId: 'bandwidth user id',
-          bandwidthApiToken: 'bandwidth api token',
-          bandwidthApiSecret: 'bandwidth api secret',
+          bandwidthUserId: process.env.BANDWIDTH_USER_ID || 'bandwidth user id',
+          bandwidthApiToken:
+            process.env.BANDWIDTH_API_TOKEN || 'bandwidth api token',
+          bandwidthApiSecret:
+            process.env.BANDWIDTH_API_SECRET || 'bandwidth api secret',
           createdAt: new Date(),
           updatedAt: new Date()
         },

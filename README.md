@@ -50,6 +50,11 @@ touch .env
 NODE_ENV=development
 DEVELOPMENT_DATABASE_URL=postgres://database:password@localhost:5432/databasename
 
+# If you have a bandwidth account, you can enter your api credentials here, and then when you go to seed the database, these will be used.
+BANDWIDTH_USER_ID=bandwidthuserid
+BANDWIDTH_API_TOKEN=bandwidthapitoken
+BANDWIDTH_API_SECRET=bandwidthapisecret
+
 # WARNING: This drops and rebuilds the database from scratch, deleting all of the data. If you don't include this line, it will be false by default. In production, set it to false unless you want to completely delete ALL data IRREVERSIBLY!
 DROP_DATABASE_ON_RESTART=true
 
