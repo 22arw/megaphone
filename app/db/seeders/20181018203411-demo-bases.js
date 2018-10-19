@@ -18,7 +18,7 @@ module.exports = {
       [
         {
           basePhoneNumber: '+12345678909',
-          baseName: 'McConnell AFB',
+          baseName: 'Test AFB 1',
           baseCode: 'test-12345',
           bandwidthUserId: 'bandwidth user id',
           bandwidthApiToken: 'bandwidth api token',
@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           basePhoneNumber: '+12345678908',
-          baseName: 'Sheppard AFB',
+          baseName: 'Test AFB 2',
           baseCode: 'test-23456',
           bandwidthUserId: 'bandwidth user id',
           bandwidthApiToken: 'bandwidth api token',
