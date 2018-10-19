@@ -40,8 +40,6 @@ module.exports = {
   }
 };
 
-// Need to perform a query for my demo user base id's.
-
 async function getDemoUsers() {
   let demoUsers = await models.User.findAll({
     where: {
