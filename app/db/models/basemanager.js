@@ -3,8 +3,16 @@ module.exports = (sequelize, DataTypes) => {
   const BaseManager = sequelize.define(
     'BaseManager',
     {
-      baseId: DataTypes.INTEGER,
-      userId: DataTypes.INTEGER
+      baseId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false
+      },
+      userId: {
+        type: DataTypes.INTEGER,
+        primaryKey: true,
+        allowNull: false
+      }
     },
     {}
   );
