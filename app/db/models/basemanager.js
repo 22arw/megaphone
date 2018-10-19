@@ -21,7 +21,3 @@ module.exports = (sequelize, DataTypes) => {
   };
   return BaseManager;
 };
-
-/**
- * Reference for composite key enforcement: https://gist.github.com/lucasscariot/5b8747fbc8a6948a805c646fae4ceef8
- */
