@@ -12,7 +12,8 @@ const getAllDataAssociatedWithUser = async userId => {
 
   // Is the user an admin?
   if (userData[0].isAdmin) {
-    // Do something to return all data from all databases
+    // Do something to return all data from all tables
+    // return await getAllAdminData();
   }
 
   // Collect data from BaseManager table
@@ -33,9 +34,15 @@ const getAllDataAssociatedWithUser = async userId => {
     where: {
       id: baseIds
     }
+  }).catch(err => {
+    console.error(err);
   });
 
-  //
+  // TODO:
+  // Collect data from OrganizationManager table
+  // Collect data from Organization table that the user manages
+  // Collect the number of subscribers for each organization the user manages
+  // Collect all of the messages for each organization that the user manages
 
   const result = {
     userData: userData,
