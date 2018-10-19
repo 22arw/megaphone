@@ -43,6 +43,7 @@ const getAllDataAssociatedWithUser = async userId => {
   // Collect data from Organization table that the user manages
   // Collect the number of subscribers for each organization the user manages
   // Collect all of the messages for each organization that the user manages
+  // Format the data so it's much easier to read on the front end.
 
   const result = {
     userData: userData,
