@@ -95,7 +95,7 @@ Any changes you save to the app will recompile automatically. Refresh the browse
 
 ### Migrate and seed the database (OPTIONAL)
 
-This section will migrate and seed the database with demo users so that you can play around with the application.
+This section will migrate and seed the database with demo users so that you can play around with the application. Do not expect to be able to send/receive messages through these users and their associated demo data. You'll have to create a base and input the appropriate information in order to send/receive messages through this application.
 
 Demo users:
 
@@ -138,3 +138,21 @@ Undo the database migrations, this removes all of the tables.
 ```shell
 sequelize db:migrate:undo:all
 ```
+
+## Using the application and user roles
+
+When a user creates an account, they do not have access to any organizations or bases. They can upgrade their account to a `Base Manager` by submitting their base code which only gives them access to create organizations under that base. If they do not upgrade their account to `Base Manager`, they can still be invited to be an `Organization Manager` by an `Organization Owner` that will allow them to send messages through that organization, but not create any organizations. A user can manage multiple organizations and bases. Only an `Admin` can create bases.
+
+- _User_
+  - Cannot Send Messages
+  - Cannot Create Organizations
+- _Organization Manager_:
+  - Can Send Messages
+  - Cannot Create Organizations
+- _Organization Owner_:
+  - Can invite other users to be an Organization Manager for their organization
+- _Base Manager_:
+  - Can Create Organizations
+- _Admin_:
+  - Can perform all functions across the entire application.
+  - Can create bases.
