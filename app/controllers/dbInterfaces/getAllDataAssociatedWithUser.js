@@ -38,13 +38,13 @@ const getAllDataAssociatedWithUser = async userId => {
   });
 
   // Collect data from Organization table that the user manages
-  const organizationManagerIds = organizationManagerData.map(org => {
+  const organizationsManagedIds = organizationManagerData.map(org => {
     return Number(org.orgId);
   });
 
   const organizationData = await models.Organization.findAll({
     where: {
-      id: organizationManagerIds
+      id: organizationsManagedIds
     }
   }).catch(err => {
     console.error(err);
@@ -67,17 +67,43 @@ const getAllDataAssociatedWithUser = async userId => {
     console.error(err);
   });
 
-  // TODO:
   // Collect the number of subscribers for each organization the user manages
+  const organizationSubscribers = await models.Subscription.findAll({
+    where: {
+      orgId: organizationsManagedIds
+    }
+  }).catch(err => {
+    console.error(err);
+  });
+
+  let orgSubers = organizationSubscribers;
+  let subscribersPerOrganization = [];
+  for (let i = 0; i < orgSubers.length; i++) {
+    let accum = 0;
+    let currentOrgId = orgSubers[i].orgId;
+    for (let j = 0; j < orgSubers.length; j++) {
+      accum = currentOrgId === orgSubers[j].orgId ? ++accum : accum;
+    }
+    orgSubers = orgSubers.filter(e => e.orgId !== currentOrgId);
+    subscribersPerOrganization.push({
+      orgId: currentOrgId,
+      subscribers: accum
+    });
+  }
+
+  // TODO:
   // Collect all of the messages for each organization that the user manages. This is really a low priority. They didn't ask for this functionality and it's going to require requerying all the tables again.
+
   // Format the data so it's much easier to read on the front end.
+  const userData = {};
 
   const result = {
     userData: userData,
     baseManagerData: baseManagerData,
     baseData: baseData,
     organizationManagerData: organizationManagerData,
-    organizationData: organizationData
+    organizationData: organizationData,
+    subscribersPerOrganization: subscribersPerOrganization
   };
 
   return result;
