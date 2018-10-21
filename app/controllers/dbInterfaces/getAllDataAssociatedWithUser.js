@@ -1,7 +1,7 @@
-const Sequelize = require('sequelize');
+// const Sequelize = require('sequelize');
 const models = require('../../db/models');
 
-const Op = Sequelize.Op;
+// const Op = Sequelize.Op;
 
 const getAllDataAssociatedWithUser = async userId => {
   // Collect data from User table
@@ -12,12 +12,6 @@ const getAllDataAssociatedWithUser = async userId => {
   }).catch(err => {
     console.error(err);
   });
-
-  // Is the user an admin?
-  if (userData[0].isAdmin) {
-    // Do something to return all data from all tables
-    // return await getAllAdminData();
-  }
 
   // Collect data from BaseManager table
   const baseManagerData = await models.BaseManager.findAll({
@@ -93,6 +87,7 @@ const getAllDataAssociatedWithUser = async userId => {
 
   // TODO:
   // Collect all of the messages for each organization that the user manages. This is really a low priority. They didn't ask for this functionality and it's going to require requerying all the tables again.
+  // Collect a list of users that manage the organizations that the user is the owner of.
 
   // Format the data so it's much easier to read on the front end.
   const formattedUserData = {

@@ -1,26 +1,72 @@
 'use strict';
 
-module.exports = {
-  up: (queryInterface, Sequelize) => {
-    /*
-      Add altering commands here.
-      Return a promise to correctly handle asynchronicity.
+const models = require('../models');
 
-      Example:
-      return queryInterface.bulkInsert('Person', [{
-        name: 'John Doe',
-        isBetaMember: false
-      }], {});
-    */
+module.exports = {
+  up: async (queryInterface, Sequelize) => {
+    const demoUsers = await getDemoUsers();
+    const demoOrganizations = await getDemoOrganizations();
+    return queryInterface.bulkInsert(
+      'Messages',
+      [
+        {
+          orgId: demoOrganizations[0],
+          userId: demoUsers[1],
+          message: 'Hello World',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        },
+        {
+          orgId: demoOrganizations[1],
+          userId: demoUsers[2],
+          message: 'What! Who sent me!?',
+          createdAt: new Date(),
+          updatedAt: new Date()
+        }
+      ],
+      {}
+    );
   },
 
-  down: (queryInterface, Sequelize) => {
-    /*
-      Add reverting commands here.
-      Return a promise to correctly handle asynchronicity.
-
-      Example:
-      return queryInterface.bulkDelete('Person', null, {});
-    */
+  down: async (queryInterface, Sequelize) => {
+    const demoOrganizations = await getDemoOrganizations();
+    return queryInterface.bulkDelete('Messages', null, {
+      where: {
+        orgId: demoOrganizations
+      }
+    });
   }
 };
+
+async function getDemoUsers() {
+  let demoUsers = await models.User.findAll({
+    where: {
+      email: [
+        'admin@email.com',
+        'kevin@email.com',
+        'coach@email.com',
+        'aaron@email.com'
+      ]
+    }
+  });
+
+  demoUsers = demoUsers.map(user => {
+    return Number(user.dataValues.id);
+  });
+
+  return demoUsers;
+}
+
+async function getDemoOrganizations() {
+  let demoOrganizations = await models.Organization.findAll({
+    where: {
+      subscriptionCode: ['testorg1', 'testorg2', 'testorg3']
+    }
+  });
+
+  demoOrganizations = demoOrganizations.map(org => {
+    return Number(org.dataValues.id);
+  });
+
+  return demoOrganizations;
+}
