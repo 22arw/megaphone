@@ -1,7 +1,4 @@
-// const Sequelize = require('sequelize');
 const models = require('../../db/models');
-
-// const Op = Sequelize.Op;
 
 const getAllDataAssociatedWithUser = async userId => {
   // Collect data from User table

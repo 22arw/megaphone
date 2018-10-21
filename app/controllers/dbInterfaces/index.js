@@ -1,3 +1,4 @@
 module.exports = {
-  getAllUserData: require('./getAllDataAssociatedWithUser')
+  getAllUserData: require('./getAllDataAssociatedWithUser'),
+  getAdminData: require('./getAdminData')
 };

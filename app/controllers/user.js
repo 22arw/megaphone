@@ -1,18 +1,18 @@
 const dbInterface = require('./dbInterfaces');
 
-const getData = async req => {
+const getUserData = async req => {
   const userId = req.session.userId;
+  return await dbInterface.getAllUserData(userId);
+};
 
-  const result = await dbInterface.getAllUserData(userId);
-
-  // Make any manipulations here to format the json before sending response.
-  const formattedResult = result;
-
-  return formattedResult;
+const getAdminData = async req => {
+  const userId = req.session.userId;
+  return await dbInterface.getAdminData(userId);
 };
 
 const userController = {
-  getData: getData
+  getUserData: getUserData,
+  getAdminData: getAdminData
 };
 
 module.exports = userController;
