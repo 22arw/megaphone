@@ -39,6 +39,7 @@
     "popper.js": "^1.14.4",
     "rxjs": "^6.2.2",
     "sequelize": "^4.39.0",
+    "sequelize-cli": "^5.2.0",
     "sequelize-log-syntax-colors": "^2.0.0",
     "zone.js": "~0.8.26"
   },
