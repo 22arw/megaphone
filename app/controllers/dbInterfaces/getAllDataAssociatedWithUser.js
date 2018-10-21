@@ -95,18 +95,62 @@ const getAllDataAssociatedWithUser = async userId => {
   // Collect all of the messages for each organization that the user manages. This is really a low priority. They didn't ask for this functionality and it's going to require requerying all the tables again.
 
   // Format the data so it's much easier to read on the front end.
-  const userData = {};
+  const formattedUserData = {
+    email: userData[0].email,
+    isAdmin: userData[0].isAdmin,
+    bases: baseData.map(base => {
+      const isBaseManager = baseManagerData.reduce(
+        (bool, row, i, baseManagerData) => {
+          return row.baseId === base.id;
+        },
+        false
+      );
+      return {
+        baseId: base.id,
+        baseName: base.baseName,
+        basePhoneNumber: base.basePhoneNumber,
+        canCreateOrgs: isBaseManager,
+        orgs: (() => {
+          let orgArr = [];
 
-  const result = {
-    userData: userData,
-    baseManagerData: baseManagerData,
-    baseData: baseData,
-    organizationManagerData: organizationManagerData,
-    organizationData: organizationData,
-    subscribersPerOrganization: subscribersPerOrganization
+          for (let i = 0; i < organizationData.length; i++) {
+            if (base.id === organizationData[i].baseId) {
+              const org = organizationData[i];
+
+              let numberOfSubscribers = 0;
+              for (let j = 0; j < subscribersPerOrganization.length; j++) {
+                if (subscribersPerOrganization[j].orgId === org.id) {
+                  numberOfSubscribers =
+                    subscribersPerOrganization[j].subscribers;
+                }
+              }
+
+              orgArr.push({
+                orgId: org.id,
+                orgName: org.orgName,
+                subscriptionCode: org.subscriptionCode,
+                numberOfSubscribers: numberOfSubscribers,
+                isOrgOwner: userData[0].id === org.orgOwner
+              });
+            }
+          }
+
+          return orgArr;
+        })()
+      };
+    })
   };
 
-  return result;
+  // const result = {
+  //   userData: userData,
+  //   baseManagerData: baseManagerData,
+  //   baseData: baseData,
+  //   organizationManagerData: organizationManagerData,
+  //   organizationData: organizationData,
+  //   subscribersPerOrganization: subscribersPerOrganization
+  // };
+
+  return formattedUserData;
 };
 
 module.exports = getAllDataAssociatedWithUser;

@@ -27,6 +27,12 @@ module.exports = {
           orgId: demoOrganizations[0],
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          userId: demoUsers[2],
+          orgId: demoOrganizations[2],
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
@@ -66,7 +72,7 @@ async function getDemoUsers() {
 async function getDemoOrganizations() {
   let demoOrganizations = await models.Organization.findAll({
     where: {
-      subscriptionCode: ['testorg1', 'testorg2']
+      subscriptionCode: ['testorg1', 'testorg2', 'testorg3']
     }
   });
 

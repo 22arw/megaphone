@@ -88,7 +88,7 @@ app.use('/home', requireUserMiddleware, express.static('public'));
 
 models.sequelize
   .sync({
-    force: process.env.DROP_DATABASE_ON_RESTART
+    force: process.env.DROP_DATABASE_ON_RESTART === 'true'
   })
   .then(() => {
     app.listen(port, () => {

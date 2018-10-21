@@ -25,6 +25,14 @@ module.exports = {
           subscriptionCode: 'testorg2',
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          orgName: 'Test Organization 3',
+          orgOwner: demoUsers[1],
+          baseId: demoBases[1],
+          subscriptionCode: 'testorg3',
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
@@ -34,7 +42,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Organizations', null, {
       where: {
-        subscriptionCode: ['testorg1', 'testorg2']
+        subscriptionCode: ['testorg1', 'testorg2', 'testorg3']
       }
     });
   }
