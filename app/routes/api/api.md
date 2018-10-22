@@ -1,14 +1,14 @@
 # API Reference for Megaphone
 
 `/api`
-|> Forwards you to this page. [https://github.com/22arw/megaphone/blob/master/app/routes/api/index.js](https://github.com/22arw/megaphone/blob/master/app/routes/api/index.js)
+|> Forwards you to this page. [https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md](https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md)
 
 ### `/api/user`
 
 `GET /api/user`
 |> Returns a json of all the data associated with the logged in user.
 
-```typescript
+```javascript
 {
   email: String,
   isAdmin: Boolean,
