@@ -17,6 +17,9 @@ const authController = require('./app/controllers/auth');
 // Reference Routes
 const apiRouter = require('./app/routes/api');
 
+// Reference Middleware functions
+const requireUserMiddleware = require('./app/middleware/requireUser');
+
 // Application Flow
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
@@ -95,20 +98,3 @@ models.sequelize
       console.log(`\nMegaphone is listening on port ${port}!`);
     });
   });
-
-// Functions declared
-function requireUserMiddleware(req, res, next) {
-  if (!req.session.userId) {
-    switch (req.header['content-type']) {
-      case 'application/json':
-        res.sendStatus(403);
-        break;
-      case 'text/html':
-        res.redirect('/login');
-        break;
-      default:
-        res.sendStatus(403);
-    }
-  }
-  next();
-}

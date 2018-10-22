@@ -156,3 +156,7 @@ When a user creates an account, they do not have access to any organizations or 
 - _Admin_:
   - Can perform all functions across the entire application.
   - Can create bases.
+
+## API Reference
+
+For more information on API routes go here: [https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md](https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md)

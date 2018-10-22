@@ -1,23 +1,10 @@
 const express = require('express');
 const router = express.Router();
 
+const adminRouter = require('./admin');
 const userRouter = require('./user');
 
-function requireUserMiddleware(req, res, next) {
-  if (!req.session.userId) {
-    switch (req.header['content-type']) {
-      case 'application/json':
-        res.sendStatus(403);
-        break;
-      case 'text/html':
-        res.redirect('/login');
-        break;
-      default:
-        res.sendStatus(403);
-    }
-  }
-  next();
-}
+const requireUserMiddleware = require('../../middleware/requireUser');
 
 router
   .get('/', (req, res, next) => {
@@ -26,6 +13,8 @@ router
       'https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md'
     );
   })
-  .use('/user', requireUserMiddleware, userRouter);
+  .use(requireUserMiddleware)
+  .use('/user', userRouter)
+  .use('/admin', adminRouter);
 
 module.exports = router;
