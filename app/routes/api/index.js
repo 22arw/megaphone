@@ -22,7 +22,9 @@ function requireUserMiddleware(req, res, next) {
 router
   .get('/', (req, res, next) => {
     // TODO: Eventually serve an api reference page at the root
-    res.send('This is the base api route.');
+    res.redirect(
+      'https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md'
+    );
   })
   .use('/user', requireUserMiddleware, userRouter);
 
