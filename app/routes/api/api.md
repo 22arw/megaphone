@@ -9,7 +9,7 @@
 |> Returns a json of all data from the database.
 
 ```javascript
-The json structure has not been finalized yet.
+'The return json structure has not been finalized yet.';
 ```
 
 If there is an error, the following will be returned:

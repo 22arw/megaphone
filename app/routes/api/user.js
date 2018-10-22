@@ -8,9 +8,4 @@ router.get('/', async (req, res) => {
   res.json(result);
 });
 
-router.get('/admin', async (req, res) => {
-  const result = await userController.getAdminData(req);
-  res.json(result);
-});
-
 module.exports = router;

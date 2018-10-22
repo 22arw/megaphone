@@ -5,14 +5,8 @@ const getUserData = async req => {
   return await dbInterface.getAllUserData(userId);
 };
 
-const getAdminData = async req => {
-  const userId = req.session.userId;
-  return await dbInterface.getAdminData(userId);
-};
-
 const userController = {
-  getUserData: getUserData,
-  getAdminData: getAdminData
+  getUserData: getUserData
 };
 
 module.exports = userController;
