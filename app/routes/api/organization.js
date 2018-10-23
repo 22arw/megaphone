@@ -26,17 +26,41 @@ router
     } else {
       console.error(`Some error occurred when attempting to create an organization:
       ${JSON.stringify(createOrgResponse)}`);
-      res.json(createOrgResponse);
+      res.status(400).json(createOrgResponse);
     }
   })
-  .get('/updateorgname', async (req, res) => {
-    res.send('Update Org Name Route');
+  .post('/updateorgname', async (req, res) => {
+    res.status(400).json({
+      error: 'route is not configured yet.'
+    });
   })
-  .get('/updateorgowner', async (req, res) => {
-    res.send('Update Org Owner Route');
+  .post('/updateorgowner', async (req, res) => {
+    res.status(400).json({
+      error: 'route is not configured yet.'
+    });
   })
-  .get('/addorgmanager', async (req, res) => {
-    res.send('Add Org Manager Route');
+  .post('/addorgmanager', async (req, res) => {
+    const userId = req.session.userId;
+    const orgId = req.body.orgId;
+    const newOrgManagerEmail = req.body.newOrgManagerEmail;
+
+    if (!(userId && orgId && newOrgManagerEmail)) {
+      res.json({
+        error: 'Missing data on request.'
+      });
+    }
+
+    const addOrgManagerResponse = await orgController
+      .addOrgManager(userId, orgId, newOrgManagerEmail)
+      .catch(err => console.error(err));
+
+    if (addOrgManagerResponse === true) {
+      res.sendStatus(200);
+    } else {
+      console.error(`An error occurred when attempting to add an organization manager:
+      ${JSON.stringify(addOrgManagerResponse)}`);
+      res.status(400).json(addOrgManagerResponse);
+    }
   });
 
 module.exports = router;

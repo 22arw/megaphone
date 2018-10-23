@@ -3,9 +3,10 @@
 `/api`
 |> Forwards you to this page. [https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md](https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md)
 
-### `/api/admin`
+## `/api/admin`
 
-`GET /api/admin`
+### `GET /api/admin`
+
 |> Returns a json of all data from the database.
 
 ```javascript
@@ -20,12 +21,36 @@ If there is an error, the following will be returned:
 }
 ```
 
-### `/api/organization`
+## `/api/organization`
 
-`POST /api/organization/createorg`
+### `POST /api/organization/addorgmanager`
+
+|> Adds another user as an org manager to the user's org that they own.
+
+This route expects the following information in the body of the request:
+
+```javascript
+{
+  newOrgManagerEmail: String, // The email being added to the org
+  orgId: Number, // The org that is having a manager added to
+}
+```
+
+Response
+
+If good, then response code `200`, otherwise:
+
+```javascript
+{
+  error: String; // A description of the error
+}
+```
+
+### `POST /api/organization/createorg`
+
 |> Creates an organization using the data in the body. User must be admin or base manager.
 
-This route expects the following information in the body:
+This route expects the following information in the body of the request:
 
 ```javascript
 {
@@ -45,9 +70,10 @@ If good, then response code `200`, otherwise:
 }
 ```
 
-### `/api/user`
+## `/api/user`
 
-`GET /api/user`
+### `GET /api/user`
+
 |> Returns a json of all the data associated with the logged in user.
 
 ```javascript
