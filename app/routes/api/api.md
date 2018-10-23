@@ -20,6 +20,31 @@ If there is an error, the following will be returned:
 }
 ```
 
+### `/api/organization`
+
+`POST /api/organization/createorg`
+|> Creates an organization using the data in the body. User must be admin or base manager.
+
+This route expects the following information in the body:
+
+```javascript
+{
+  baseId: Number, // The base ID it will be created under
+  orgName: String, // The full name of the organization
+  subscriptionCode: String // This is the code people will use to sign up for the organization.
+}
+```
+
+Response
+
+If good, then response code `200`, otherwise:
+
+```javascript
+{
+  error: String; // A description of the error
+}
+```
+
 ### `/api/user`
 
 `GET /api/user`
