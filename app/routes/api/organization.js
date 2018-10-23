@@ -21,7 +21,13 @@ router
       orgName,
       subscriptionCode
     );
-    res.json(createOrgResponse);
+    if (createOrgResponse === true) {
+      res.sendStatus(200);
+    } else {
+      console.error(`Some error occurred when attempting to create an organization:
+      ${JSON.stringify(createOrgResponse)}`);
+      res.json(createOrgResponse);
+    }
   })
   .get('/updateorgname', async (req, res) => {
     res.send('Update Org Name Route');

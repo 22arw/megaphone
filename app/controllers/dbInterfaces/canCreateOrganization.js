@@ -2,7 +2,10 @@ const models = require('../../db/models');
 const isAdminInterface = require('./isAdmin');
 
 const canCreateOrganization = async (userId, baseId) => {
-  const orgManager = await models.BaseManager.findAll({
+  if (isNaN(baseId)) {
+    return false;
+  }
+  const baseManager = await models.BaseManager.findAll({
     where: {
       userId: userId,
       baseId: baseId
@@ -11,11 +14,29 @@ const canCreateOrganization = async (userId, baseId) => {
     console.error(err);
   });
 
+  const isBaseManager = Array.isArray(baseManager) && baseManager.length === 1;
+
+  const base = await models.Base.findAll({
+    where: {
+      id: baseId
+    }
+  });
+
+  const baseExists = Array.isArray(base) && base.length === 1;
+
   const isAdmin = await isAdminInterface(userId).catch(err => {
     console.error(err);
   });
 
-  return (Array.isArray(orgManager) && orgManager.length === 1) || isAdmin;
+  // console.log(` - - - - - - - - -
+  // baseManager: ${baseManager}
+  // isBaseManager: ${isBaseManager}
+  // base: ${base}
+  // baseExists: ${baseExists}
+  // isAdmin: ${isAdmin}
+  // - - - - - - - - -`);
+
+  return baseExists && (isBaseManager || isAdmin);
 };
 
 module.exports = canCreateOrganization;
