@@ -13,6 +13,7 @@ const createOrganization = async (
       console.error(err);
     }
   );
+
   if (!canCreateOrg) {
     return {
       error: 'You do not have permission to create this org under this base.'
