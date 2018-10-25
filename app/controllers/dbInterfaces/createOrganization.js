@@ -11,9 +11,7 @@ const createOrganization = async (
     orgOwner: userId,
     baseId: baseId,
     subscriptionCode: subscriptionCode.toUpperCase()
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   const orgManager = await models.OrganizationManager.create({
     userId: userId,

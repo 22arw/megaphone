@@ -12,9 +12,9 @@ module.exports = async (userId, orgId) => {
     }
   }).catch(err => console.error(err));
 
-  console.log(` - - - - - -
-  orgManager: ${JSON.stringify(orgManager)}
-  - - - - - -`);
+  // console.log(` - - - - - -
+  // orgManager: ${JSON.stringify(orgManager)}
+  // - - - - - -`);
 
   return Array.isArray(orgManager) && orgManager.length === 1;
 };

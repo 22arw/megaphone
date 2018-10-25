@@ -36,12 +36,10 @@ router
       res.status(400).json({ error: 'Missing data on request.' });
     }
 
-    const createOrgResponse = await orgController.createOrg(
-      userId,
-      baseId,
-      orgName,
-      subscriptionCode
-    );
+    const createOrgResponse = await orgController
+      .createOrg(userId, baseId, orgName, subscriptionCode)
+      .catch(err => console.error(err));
+
     if (createOrgResponse === true) {
       res.json({ success: createOrgResponse });
     } else {

@@ -9,15 +9,13 @@ const isAdmin = async userId => {
     where: {
       id: userId
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
-  console.log(` - - - - - -
-  isAdmin
-  user: ${JSON.stringify(user)}
-  return: ${user[0].dataValues.isAdmin === true}
-  - - - - - -`);
+  // console.log(` - - - - - -
+  // isAdmin
+  // user: ${JSON.stringify(user)}
+  // return: ${user[0].dataValues.isAdmin === true}
+  // - - - - - -`);
 
   return user[0].dataValues.isAdmin === true;
 };

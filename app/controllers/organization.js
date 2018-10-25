@@ -43,7 +43,7 @@ const createOrg = async (userId, baseId, orgName, subscriptionCode) => {
   const isAdmin = await dbInterface
     .isAdmin(userId)
     .catch(err => console.error(err));
-  const doesBaseExist = dbInterface
+  const doesBaseExist = await dbInterface
     .doesBaseExist(baseId)
     .catch(err => console.error(err));
 

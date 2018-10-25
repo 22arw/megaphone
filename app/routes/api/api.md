@@ -62,7 +62,43 @@ This route expects the following information in the body of the request:
 
 Response
 
-If good, then response code `200`, otherwise:
+Returns:
+
+```javascript
+{
+  success: Boolean;
+}
+```
+
+otherwise:
+
+```javascript
+{
+  error: String; // A description of the error
+}
+```
+
+### `POST /api/organization/isSubscriptionCodeUnique`
+
+|> Returns a json object describing if the subscriptionCode is unique.
+
+Expects:
+
+```javascript
+{
+  subscriptionCode: String; // This is the code people will use to sign up for the organization.
+}
+```
+
+Returns:
+
+```javascript
+{
+  isAdmin: Boolean;
+}
+```
+
+otherwise:
 
 ```javascript
 {
@@ -107,5 +143,13 @@ If good, then response code `200`, otherwise:
 ```javascript
 {
   isAdmin: Boolean;
+}
+```
+
+otherwise:
+
+```javascript
+{
+  error: String; // A description of the error
 }
 ```

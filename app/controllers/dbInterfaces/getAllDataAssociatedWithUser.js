@@ -6,27 +6,21 @@ const getAllDataAssociatedWithUser = async userId => {
     where: {
       id: userId
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   // Collect data from BaseManager table
   const baseManagerData = await models.BaseManager.findAll({
     where: {
       userId: userId
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   // Collect data from OrganizationManager table
   const organizationManagerData = await models.OrganizationManager.findAll({
     where: {
       userId: userId
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   // Collect data from Organization table that the user manages
   const organizationsManagedIds = organizationManagerData.map(org => {
@@ -37,9 +31,7 @@ const getAllDataAssociatedWithUser = async userId => {
     where: {
       id: organizationsManagedIds
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   // Collect data from what Bases these organizations are a part of AND
   // Collect data from Base table that the user manages or has organizations that they are a part of
@@ -54,18 +46,14 @@ const getAllDataAssociatedWithUser = async userId => {
     where: {
       id: [...new Set(baseIds.concat(organizationsBaseIds))]
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   // Collect the number of subscribers for each organization the user manages
   const organizationSubscribers = await models.Subscription.findAll({
     where: {
       orgId: organizationsManagedIds
     }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   let orgSubers = organizationSubscribers;
   let subscribersPerOrganization = [];

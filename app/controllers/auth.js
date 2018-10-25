@@ -32,9 +32,7 @@ const loginUser = async (email, password) => {
 
   const user = await User.findOne({
     where: { email: email }
-  }).catch(err => {
-    console.error(err);
-  });
+  }).catch(err => console.error(err));
 
   if (user === null) {
     return { error: 'That user does not exist. Please create an account.' };
