@@ -1,18 +1,6 @@
 const models = require('../../db/models');
 
-const getAdminData = async userId => {
-  const userData = await models.User.findAll({
-    where: {
-      id: userId
-    }
-  }).catch(err => {
-    console.error(err);
-  });
-
-  if (!userData[0].dataValues.isAdmin) {
-    return { error: 'This user is not an admin' };
-  }
-
+const getAdminData = async () => {
   const users = await models.User.findAll().catch(err => {
     console.error(err);
   });

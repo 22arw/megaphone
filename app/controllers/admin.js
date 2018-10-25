@@ -1,8 +1,7 @@
 const dbInterface = require('./dbInterfaces');
 
 const getAdminData = async req => {
-  const userId = req.session.userId;
-  return await dbInterface.getAdminData(userId);
+  return await dbInterface.getAdminData();
 };
 
 const adminController = {
