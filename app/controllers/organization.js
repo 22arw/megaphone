@@ -30,7 +30,7 @@ const addOrgManager = async (userId, orgId, newOrgManagerEmail) => {
   }
 
   const addOrgManagerResponse = await dbInterface
-    .addOrgManager(userId, orgId, newOrgManagerEmail)
+    .addOrgManager(orgId, newOrgManagerEmail)
     .catch(err => console.error(err));
 
   return addOrgManagerResponse;

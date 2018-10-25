@@ -11,7 +11,6 @@ module.exports = {
   isBaseManager: require('./isBaseManager'),
   isBaseNameUnique: require('./isBaseNameUnique'),
   isBasePhoneNumberUnique: require('./isBasePhoneNumberUnique'),
-  // What's the deal here!?
   isOrgManager: require('./isOrgManager'),
   isOrgOwner: require('./isOrgOwner'),
   isSubscribed: require('./isSubscribed'),

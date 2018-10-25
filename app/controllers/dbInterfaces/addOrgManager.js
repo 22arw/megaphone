@@ -1,7 +1,7 @@
 const models = require('../../db/models');
 const isOrgManager = require('./isOrgManager');
 
-const addOrgManager = async (userId, orgId, newOrgManagerEmail) => {
+const addOrgManager = async (orgId, newOrgManagerEmail) => {
   const user = await models.User.findAll({
     where: {
       email: newOrgManagerEmail
