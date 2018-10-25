@@ -23,7 +23,7 @@ If there is an error, the following will be returned:
 
 ## `/api/organization`
 
-### `POST /api/organization/addorgmanager`
+### `POST /api/organization/addOrgManager`
 
 |> Adds another user as an org manager to the user's org that they own.
 
@@ -46,7 +46,7 @@ If good, then response code `200`, otherwise:
 }
 ```
 
-### `POST /api/organization/createorg`
+### `POST /api/organization/createOrg`
 
 |> Creates an organization using the data in the body. User must be admin or base manager.
 
@@ -97,5 +97,15 @@ If good, then response code `200`, otherwise:
       ]
     }
   ]
+}
+```
+
+### `GET /api/user/isAdmin`
+
+|> Returns a json object describing if the currently logged in user is an Admin.
+
+```javascript
+{
+  isAdmin: Boolean;
 }
 ```

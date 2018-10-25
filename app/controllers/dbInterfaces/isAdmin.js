@@ -13,6 +13,12 @@ const isAdmin = async userId => {
     console.error(err);
   });
 
+  console.log(` - - - - - -
+  isAdmin
+  user: ${JSON.stringify(user)}
+  return: ${user[0].dataValues.isAdmin === true}
+  - - - - - -`);
+
   return user[0].dataValues.isAdmin === true;
 };
 

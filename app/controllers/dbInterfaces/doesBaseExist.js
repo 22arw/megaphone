@@ -11,6 +11,12 @@ const doesBaseExist = async baseId => {
     }
   }).catch(err => console.error(err));
 
+  console.log(` - - - - - -
+  doesBaseExist
+  base: ${JSON.stringify(base)}
+  return: ${Array.isArray(base) && base.length === 1}
+  - - - - - -`);
+
   return Array.isArray(base) && base.length === 1;
 };
 

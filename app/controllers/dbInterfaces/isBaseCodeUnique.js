@@ -7,6 +7,10 @@ const isBaseCodeUnique = async baseCode => {
     }
   }).catch(err => console.error(err));
 
+  // console.log(` - - - - - -
+  // base: ${JSON.stringify(base)}
+  // - - - - - -`);
+
   return !Array.isArray(base) || !base.length;
 };
 

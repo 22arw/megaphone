@@ -1,6 +1,6 @@
 const models = require('../../db/models');
 
-const isOrgManager = async (userId, orgId) => {
+module.exports = async (userId, orgId) => {
   if (isNaN(orgId) || isNaN(userId)) {
     return false;
   }
@@ -12,11 +12,11 @@ const isOrgManager = async (userId, orgId) => {
     }
   }).catch(err => console.error(err));
 
-  // console.log(` - - - - - -
-  // orgManager: ${JSON.stringify(orgManager)}
-  // - - - - - -`);
+  console.log(` - - - - - -
+  orgManager: ${JSON.stringify(orgManager)}
+  - - - - - -`);
 
   return Array.isArray(orgManager) && orgManager.length === 1;
 };
 
-module.exports = isOrgManager;
+// module.exports = isOrgManager;

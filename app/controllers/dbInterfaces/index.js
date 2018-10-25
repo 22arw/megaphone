@@ -1,6 +1,5 @@
 module.exports = {
   addOrgManager: require('./addOrgManager'),
-  canCreateOrg: require('./canCreateOrganization'),
   createOrganization: require('./createOrganization'),
   doesBaseExist: require('./doesBaseExist'),
   doesOrgExist: require('./doesOrgExist'),
@@ -12,7 +11,9 @@ module.exports = {
   isBaseManager: require('./isBaseManager'),
   isBaseNameUnique: require('./isBaseNameUnique'),
   isBasePhoneNumberUnique: require('./isBasePhoneNumberUnique'),
+  // What's the deal here!?
   isOrgManager: require('./isOrgManager'),
+  isOrgOwner: require('./isOrgOwner'),
   isSubscribed: require('./isSubscribed'),
   isSubscriptionCodeUnique: require('./isSubscriptionCodeUnique'),
   isUserEmailUnique: require('./isUserEmailUnique'),

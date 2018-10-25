@@ -3,49 +3,13 @@ const router = express.Router();
 const orgController = require('../../controllers/organization');
 
 router
-  .post('/createorg', async (req, res) => {
-    const userId = req.session.userId;
-    const baseId = req.body.baseId;
-    const orgName = req.body.orgName;
-    const subscriptionCode = req.body.subscriptionCode;
-
-    if (!(userId && baseId && orgName && subscriptionCode)) {
-      res.json({
-        error: 'Missing data on request.'
-      });
-    }
-
-    const createOrgResponse = await orgController.createOrg(
-      userId,
-      baseId,
-      orgName,
-      subscriptionCode
-    );
-    if (createOrgResponse === true) {
-      res.sendStatus(200);
-    } else {
-      console.error(`Some error occurred when attempting to create an organization:
-      ${JSON.stringify(createOrgResponse)}`);
-      res.status(400).json(createOrgResponse);
-    }
-  })
-  .post('/updateorgname', async (req, res) => {
-    res.status(400).json({
-      error: 'route is not configured yet.'
-    });
-  })
-  .post('/updateorgowner', async (req, res) => {
-    res.status(400).json({
-      error: 'route is not configured yet.'
-    });
-  })
-  .post('/addorgmanager', async (req, res) => {
+  .post('/addOrgManager', async (req, res) => {
     const userId = req.session.userId;
     const orgId = req.body.orgId;
     const newOrgManagerEmail = req.body.newOrgManagerEmail;
 
     if (!(userId && orgId && newOrgManagerEmail)) {
-      res.json({
+      res.status(400).json({
         error: 'Missing data on request.'
       });
     }
@@ -55,12 +19,47 @@ router
       .catch(err => console.error(err));
 
     if (addOrgManagerResponse === true) {
-      res.sendStatus(200);
+      res.json({ success: addOrgManagerResponse });
     } else {
       console.error(`An error occurred when attempting to add an organization manager:
-      ${JSON.stringify(addOrgManagerResponse)}`);
-      res.status(400).json(addOrgManagerResponse);
+    ${JSON.stringify(addOrgManagerResponse)}`);
+      res.status(400).json({ error: addOrgManagerResponse });
     }
+  })
+  .post('/createOrg', async (req, res) => {
+    const userId = req.session.userId;
+    const baseId = req.body.baseId;
+    const orgName = req.body.orgName;
+    const subscriptionCode = req.body.subscriptionCode;
+
+    if (!(userId && baseId && orgName && subscriptionCode)) {
+      res.status(400).json({ error: 'Missing data on request.' });
+    }
+
+    const createOrgResponse = await orgController.createOrg(
+      userId,
+      baseId,
+      orgName,
+      subscriptionCode
+    );
+    if (createOrgResponse === true) {
+      res.json({ success: createOrgResponse });
+    } else {
+      console.error(`Some error occurred when attempting to create an organization:
+      ${JSON.stringify(createOrgResponse)}`);
+      res.status(400).json(createOrgResponse);
+    }
+  })
+  .post('/isSubscriptionCodeUnique', async (req, res) => {
+    const subscriptionCode = req.body.subscriptionCode;
+    if (!subscriptionCode) {
+      res.status(400).json({ error: 'Missing data on request.' });
+    }
+    const response = await orgController
+      .isSubscriptionCodeUnique(subscriptionCode)
+      .catch(err => console.error(err));
+
+    res.json({ isSubscriptionCodeUnique: response });
   });
 
 module.exports = router;

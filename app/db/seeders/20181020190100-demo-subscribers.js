@@ -58,7 +58,7 @@ module.exports = {
 async function getDemoOrganizations() {
   let demoOrganizations = await models.Organization.findAll({
     where: {
-      subscriptionCode: ['testorg1', 'testorg2']
+      subscriptionCode: ['TESTORG1', 'TESTORG2', 'TESTORG3']
     }
   });
 

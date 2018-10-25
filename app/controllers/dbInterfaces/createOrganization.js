@@ -1,6 +1,4 @@
 const models = require('../../db/models');
-const canCreateOrgInterface = require('./canCreateOrganization');
-const subscriptionCodeIsUniqueInterface = require('./subscriptionCodeIsUnique');
 
 const createOrganization = async (
   userId,
@@ -8,35 +6,11 @@ const createOrganization = async (
   orgName,
   subscriptionCode
 ) => {
-  const canCreateOrg = await canCreateOrgInterface(userId, baseId).catch(
-    err => {
-      console.error(err);
-    }
-  );
-
-  if (!canCreateOrg) {
-    return {
-      error: 'You do not have permission to create this org under this base.'
-    };
-  }
-
-  const subscriptionCodeIsUnique = await subscriptionCodeIsUniqueInterface(
-    subscriptionCode
-  ).catch(err => {
-    console.error(err);
-  });
-  if (!subscriptionCodeIsUnique) {
-    return {
-      error:
-        'That subscription code is already in use, please chose another one.'
-    };
-  }
-
   const org = await models.Organization.create({
     orgName: orgName,
     orgOwner: userId,
     baseId: baseId,
-    subscriptionCode: subscriptionCode
+    subscriptionCode: subscriptionCode.toUpperCase()
   }).catch(err => {
     console.error(err);
   });

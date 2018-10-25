@@ -8,13 +8,15 @@ const isBaseManager = async (userId, baseId) => {
   const baseManager = await models.BaseManager.findAll({
     where: {
       userId: userId,
-      orgId: orgId
+      baseId: baseId
     }
   }).catch(err => console.error(err));
 
-  // console.log(` - - - - - -
-  // baseManager: ${JSON.stringify(baseManager)}
-  // - - - - - -`);
+  console.log(` - - - - - -
+  isBaseManager
+  baseManager: ${JSON.stringify(baseManager)}
+  return: ${Array.isArray(baseManager) && baseManager.length === 1}
+  - - - - - -`);
 
   return Array.isArray(baseManager) && baseManager.length === 1;
 };
