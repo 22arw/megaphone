@@ -1,6 +1,10 @@
 const models = require('../../db/models');
 
 const isAdmin = async userId => {
+  if (isNaN(userId)) {
+    return false;
+  }
+
   const user = await models.User.findAll({
     where: {
       id: userId

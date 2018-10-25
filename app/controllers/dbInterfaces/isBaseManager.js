@@ -1,7 +1,7 @@
 const models = require('../../db/models');
 
 const isBaseManager = async (userId, baseId) => {
-  if (isNaN(baseId)) {
+  if (isNaN(baseId) || isNaN(userId)) {
     return false;
   }
 

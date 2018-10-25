@@ -1,7 +1,7 @@
 const models = require('../../db/models');
 
 const isOrgManager = async (userId, orgId) => {
-  if (isNaN(orgId)) {
+  if (isNaN(orgId) || isNaN(userId)) {
     return false;
   }
 
