@@ -50,13 +50,18 @@ router
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;
     if (!subscriptionCode) {
-      res.status(400).json({ error: 'Missing data on request.' });
+      res
+        .status(400)
+        .json({ success: false, error: 'Missing data on request.' });
     }
-    const response = await orgController
+    const isSubscriptionCodeUnique = await orgController
       .isSubscriptionCodeUnique(subscriptionCode)
       .catch(err => console.error(err));
 
-    res.json({ isSubscriptionCodeUnique: response });
+    res.json({
+      success: true,
+      isSubscriptionCodeUnique: isSubscriptionCodeUnique
+    });
   });
 
 module.exports = router;
