@@ -13,10 +13,12 @@ router.get('/', async (req, res) => {
 
 router.get('/isAdmin', async (req, res) => {
   const userId = req.session.userId;
-  const result = await userController
+  const isAdmin = await userController
     .isAdmin(userId)
     .catch(err => console.error(err));
-  res.json(result);
+  res.json({
+    isAdmin: isAdmin
+  });
 });
 
 module.exports = router;

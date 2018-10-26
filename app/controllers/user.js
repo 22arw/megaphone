@@ -7,9 +7,7 @@ const getUserData = async userId => {
 };
 
 const isAdmin = async userId => {
-  return {
-    isAdmin: await dbInterface.isAdmin(userId).catch(err => console.error(err))
-  };
+  return await dbInterface.isAdmin(userId).catch(err => console.error(err));
 };
 
 const userController = {
