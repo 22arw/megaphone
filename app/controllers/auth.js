@@ -1,45 +1,57 @@
 const bcrypt = require('bcrypt');
 
 const { User } = require('../db/models');
+
+const dbInterface = require('./dbInterfaces');
 const utils = require('../utils');
 
 const registerUser = async (email, password, passwordConfirmation) => {
   if (!utils.isValidEmail(email)) {
-    return { error: 'That is not a valid email address' };
+    return 'That is not a valid email address';
   }
 
   if (password !== passwordConfirmation) {
-    return { error: "passwords don't match." };
+    return "Passwords don't match.";
   }
 
-  const user = {
-    email: email,
-    password: password
-  };
+  const doesUserExist = await dbInterface
+    .doesUserExist(email)
+    .catch(err => console.error(err));
+  if (doesUserExist) {
+    return 'That user already exists';
+  }
 
-  const response = await User.create(user).catch(err => {
-    console.error(`There was an error: ${err}`);
-    return { error: 'There was an error creating the user.' };
-  });
-
-  return response.id;
+  return await dbInterface
+    .createUser(email, password)
+    .catch(err => console.error(err));
 };
 
 const loginUser = async (email, password) => {
   if (!utils.isValidEmail(email)) {
-    return { error: 'That is not a valid email address' };
+    return 'That is not a valid email address';
   }
 
-  const user = await User.findOne({
-    where: { email: email }
-  }).catch(err => console.error(err));
+  // const user = await User.findOne({
+  //   where: { email: email }
+  // }).catch(err => console.error(err));
 
-  if (user === null) {
-    return { error: 'That user does not exist. Please create an account.' };
+  const doesUserExist = await dbInterface
+    .doesUserExist(email)
+    .catch(err => console.error(err));
+
+  if (!doesUserExist) {
+    return 'That user does not exist. Please create an account.';
   }
-  const match = await bcrypt.compare(password, user.password);
 
-  return match ? user.id : false;
+  const user = await dbInterface
+    .getUserByEmail(email)
+    .catch(err => console.error(err));
+
+  // const match = await bcrypt.compare(password, user.password);
+
+  return (await bcrypt.compare(password, user.password))
+    ? user
+    : 'The username or password you entered could not be authenticated.';
 };
 
 const authController = {

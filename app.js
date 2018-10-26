@@ -41,32 +41,45 @@ app.get('/login', (req, res) => {
 });
 
 app.post('/login', async (req, res) => {
-  const authResult = await authController.loginUser(
+  const user = await authController.loginUser(
     req.body.email,
     req.body.password
   );
 
-  if (isNaN(authResult)) {
-    res.send(authResult);
-  } else {
-    req.session.userId = authResult;
-    res.redirect('/home');
+  if (!user.id) {
+    res.status(400).json({
+      success: false,
+      error: user
+    });
   }
+
+  req.session.userId = user.id;
+  res.redirect('/home');
+
+  // if (isNaN(authResult)) {
+  //   res.send(authResult);
+  // } else {
+  //   req.session.userId = authResult;
+  //   res.redirect('/home');
+  // }
 });
 
 app.post('/register', async (req, res) => {
-  const authResult = await authController.registerUser(
+  const user = await authController.registerUser(
     req.body.email,
     req.body.password,
     req.body.passwordConfirmation
   );
 
-  if (isNaN(authResult)) {
-    res.send(authResult);
-  } else {
-    req.session.userId = authResult;
-    res.redirect('/home');
+  if (!user.id) {
+    res.status(400).json({
+      success: false,
+      error: user
+    });
   }
+
+  req.session.userId = user.id;
+  res.redirect('/home');
 });
 
 app.get('/logout', (req, res) => {

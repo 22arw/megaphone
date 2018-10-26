@@ -9,9 +9,9 @@ router
     const newOrgManagerEmail = req.body.newOrgManagerEmail;
 
     if (!(userId && orgId && newOrgManagerEmail)) {
-      res.status(400).json({
-        error: 'Missing data on request.'
-      });
+      res
+        .status(400)
+        .json({ success: false, error: 'Missing data on request.' });
     }
 
     const addOrgManagerResponse = await orgController
@@ -19,11 +19,9 @@ router
       .catch(err => console.error(err));
 
     if (addOrgManagerResponse === true) {
-      res.json({ success: addOrgManagerResponse });
+      res.json({ success: true });
     } else {
-      console.error(`An error occurred when attempting to add an organization manager:
-    ${JSON.stringify(addOrgManagerResponse)}`);
-      res.status(400).json({ error: addOrgManagerResponse });
+      res.status(400).json({ success: false, error: addOrgManagerResponse });
     }
   })
   .post('/createOrg', async (req, res) => {
@@ -41,11 +39,12 @@ router
       .catch(err => console.error(err));
 
     if (createOrgResponse === true) {
-      res.json({ success: createOrgResponse });
+      res.json({ success: true });
     } else {
-      console.error(`Some error occurred when attempting to create an organization:
-      ${JSON.stringify(createOrgResponse)}`);
-      res.status(400).json(createOrgResponse);
+      res.status(400).json({
+        success: false,
+        error: createOrgResponse
+      });
     }
   })
   .post('/isSubscriptionCodeUnique', async (req, res) => {
