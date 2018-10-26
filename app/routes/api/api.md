@@ -23,29 +23,6 @@ If there is an error, the following will be returned:
 
 ## `/api/organization`
 
-### `POST /api/organization/addOrgManager`
-
-|> Adds another user as an org manager to the user's org that they own.
-
-This route expects the following information in the body of the request:
-
-```javascript
-{
-  newOrgManagerEmail: String, // The email being added to the org
-  orgId: Number, // The org that is having a manager added to
-}
-```
-
-Response
-
-If good, then response code `200`, otherwise:
-
-```javascript
-{
-  error: String; // A description of the error
-}
-```
-
 ### `POST /api/organization/createOrg`
 
 |> Creates an organization using the data in the body. User must be admin or base manager.
@@ -62,19 +39,32 @@ This route expects the following information in the body of the request:
 
 Response
 
-Returns:
-
-```javascript
+```typescript
 {
-  success: Boolean;
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
 }
 ```
 
-otherwise:
+### `POST /api/organization/createOrgManager`
+
+|> Creates another org manager for the user's org that they own.
+
+This route expects the following information in the body of the request:
 
 ```javascript
 {
-  error: String; // A description of the error
+  newOrgManagerEmail: String, // The email of the user being added to the org
+  orgId: Number, // The org that is having a manager added to
+}
+```
+
+Response
+
+```typescript
+{
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
 }
 ```
 
@@ -90,19 +80,11 @@ Expects:
 }
 ```
 
-Returns:
+Response:
 
 ```javascript
 {
-  isAdmin: Boolean;
-}
-```
-
-otherwise:
-
-```javascript
-{
-  error: String; // A description of the error
+  subscriptionCode: Boolean; // Is the subscription code unique?
 }
 ```
 
@@ -140,16 +122,10 @@ otherwise:
 
 |> Returns a json object describing if the currently logged in user is an Admin.
 
+Response:
+
 ```javascript
 {
   isAdmin: Boolean;
-}
-```
-
-otherwise:
-
-```javascript
-{
-  error: String; // A description of the error
 }
 ```
