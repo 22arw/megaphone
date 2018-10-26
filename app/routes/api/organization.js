@@ -3,7 +3,7 @@ const router = express.Router();
 const orgController = require('../../controllers/organization');
 
 router
-  .post('/addOrgManager', async (req, res) => {
+  .post('/createOrgManager', async (req, res) => {
     const userId = req.session.userId;
     const orgId = req.body.orgId;
     const newOrgManagerEmail = req.body.newOrgManagerEmail;
@@ -14,15 +14,15 @@ router
         .json({ success: false, error: 'Missing data on request.' });
     }
 
-    const addOrgManagerResponse = await orgController
-      .addOrgManager(userId, orgId, newOrgManagerEmail)
+    const orgManager = await orgController
+      .createOrgManager(userId, orgId, newOrgManagerEmail)
       .catch(err => console.error(err));
 
-    if (addOrgManagerResponse === true) {
-      res.json({ success: true });
-    } else {
-      res.status(400).json({ success: false, error: addOrgManagerResponse });
+    if (!orgManager.userId) {
+      res.status(400).json({ success: false, error: orgManager });
     }
+
+    res.json({ success: true });
   })
   .post('/createOrg', async (req, res) => {
     const userId = req.session.userId;

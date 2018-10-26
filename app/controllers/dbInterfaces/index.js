@@ -1,6 +1,7 @@
 module.exports = {
   addOrgManager: require('./addOrgManager'),
   createOrganization: require('./createOrganization'),
+  createOrgManager: require('./createOrgManager'),
   createUser: require('./createUser'),
   doesBaseExist: require('./doesBaseExist'),
   doesOrgExist: require('./doesOrgExist'),

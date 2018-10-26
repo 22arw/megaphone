@@ -6,5 +6,5 @@ module.exports = async (email, password) => {
     password: password
   }).catch(err => console.error(err));
 
-  return user[0].dataValues;
+  return user.dataValues;
 };

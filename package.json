@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "npm-run-all -p client server",
     "client": "ng build --watch",
+    "dev:rebuildDb": "sequelize db:migrate:undo:all && sequelize db:migrate && sequelize db:seed:all",
     "server": "nodemon --ignore public/",
     "seed": "node seeds.js",
     "start": "node app.js",

@@ -1,6 +1,6 @@
 const dbInterface = require('./dbInterfaces');
 
-const addOrgManager = async (userId, orgId, newOrgManagerEmail) => {
+const createOrgManager = async (userId, orgId, newOrgManagerEmail) => {
   const isAdmin = await dbInterface
     .isAdmin(userId)
     .catch(err => console.error(err));
@@ -29,11 +29,25 @@ const addOrgManager = async (userId, orgId, newOrgManagerEmail) => {
     return 'That user does not exist.';
   }
 
-  const addOrgManagerResponse = await dbInterface
-    .addOrgManager(orgId, newOrgManagerEmail)
+  const user = await dbInterface
+    .getUserByEmail(newOrgManagerEmail)
     .catch(err => console.error(err));
 
-  return addOrgManagerResponse;
+  const isOrgManager = await dbInterface
+    .isOrgManager(user.id, orgId)
+    .catch(err => console.error(err));
+
+  if (isOrgManager) {
+    return 'That user is already a manager for this organization.';
+  }
+
+  const orgManager = await dbInterface
+    .createOrgManager(user.id, orgId)
+    .catch(err => console.error(err));
+
+  return orgManager.userId === user.id
+    ? orgManager
+    : 'An error occurred when creating the org manager';
 };
 
 const createOrg = async (userId, baseId, orgName, subscriptionCode) => {
@@ -75,8 +89,8 @@ const isSubscriptionCodeUnique = async subscriptionCode => {
 };
 
 const orgController = {
-  addOrgManager: addOrgManager,
   createOrg: createOrg,
+  createOrgManager: createOrgManager,
   isSubscriptionCodeUnique: isSubscriptionCodeUnique
 };
 
