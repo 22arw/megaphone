@@ -46,15 +46,6 @@ router
     }
 
     res.json({ success: true });
-
-    // if (createOrgResponse === true) {
-    //   res.json({ success: true });
-    // } else {
-    //   res.status(400).json({
-    //     success: false,
-    //     error: createOrgResponse
-    //   });
-    // }
   })
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;
