@@ -55,13 +55,6 @@ app.post('/login', async (req, res) => {
 
   req.session.userId = user.id;
   res.redirect('/home');
-
-  // if (isNaN(authResult)) {
-  //   res.send(authResult);
-  // } else {
-  //   req.session.userId = authResult;
-  //   res.redirect('/home');
-  // }
 });
 
 app.post('/register', async (req, res) => {
