@@ -31,7 +31,9 @@ router
     const subscriptionCode = req.body.subscriptionCode;
 
     if (!(userId && baseId && orgName && subscriptionCode)) {
-      res.status(400).json({ error: 'Missing data on request.' });
+      res
+        .status(400)
+        .json({ success: false, error: 'Missing data on request.' });
     }
 
     const org = await orgController
@@ -62,6 +64,26 @@ router
       success: true,
       isSubscriptionCodeUnique: isSubscriptionCodeUnique
     });
+  })
+  .post('/updateOrgOwner', async (req, res) => {
+    const userId = req.session.userId;
+    const orgId = req.body.orgId;
+    const newOrgOwnerEmail = req.body.newOrgOwnerEmail;
+
+    if (!(orgId && newOrgOwnerEmail)) {
+      res
+        .status(400)
+        .json({ success: false, error: 'Missing data on request.' });
+    }
+
+    const org = await orgController
+      .updateOrgOwner(userId, orgId, newOrgOwnerEmail)
+      .catch(err => console.error(err));
+
+    if (org !== true) {
+      res.status(400).json({ success: false, error: org });
+    }
+    res.json({ success: true });
   });
 
 module.exports = router;

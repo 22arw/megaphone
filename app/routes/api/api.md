@@ -88,6 +88,28 @@ Response:
 }
 ```
 
+### `POST /api/organization/updateOrgManager`
+
+|> Transfers ownership of the organization to another user.
+
+This route expects the following information in the body of the request:
+
+```javascript
+{
+  newOrgOwnerEmail: String, // The email of the user gaining ownership
+  orgId: Number, // The org that is transferring ownership
+}
+```
+
+Response
+
+```typescript
+{
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
+}
+```
+
 ## `/api/user`
 
 ### `GET /api/user`

@@ -91,10 +91,61 @@ const isSubscriptionCodeUnique = async subscriptionCode => {
     .catch(err => console.error(err));
 };
 
+const updateOrgOwner = async (userId, orgId, newOrgOwnerEmail) => {
+  const isAdmin = await dbInterface
+    .isAdmin(userId)
+    .catch(err => console.error(err));
+
+  const isOrgOwner = await dbInterface
+    .isOrgOwner(userId, orgId)
+    .catch(err => console.error(err));
+
+  if (!(isAdmin || isOrgOwner)) {
+    return 'You cannot transfer ownership of this organization.';
+  }
+
+  const doesOrgExist = await dbInterface
+    .doesOrgExist(orgId)
+    .catch(err => console.error(err));
+
+  if (!doesOrgExist) {
+    return 'That organization does not exist.';
+  }
+
+  const doesUserExist = await dbInterface
+    .doesUserExist(newOrgOwnerEmail)
+    .catch(err => console.error(err));
+
+  if (!doesUserExist) {
+    return 'That user does not exist.';
+  }
+
+  const user = await dbInterface
+    .getUserByEmail(newOrgOwnerEmail)
+    .catch(err => console.error(err));
+
+  const org = await dbInterface
+    .updateOrgOwner(user.id, orgId)
+    .catch(err => console.error(err));
+
+  const isOrgManager = await dbInterface
+    .isOrgManager(user.id, orgId)
+    .catch(err => console.error(err));
+
+  if (!isOrgManager) {
+    const orgManager = await dbInterface
+      .createOrgManager(user.id, orgId)
+      .catch(err => console.error(err));
+  }
+
+  return org === 1 ? true : 'An error occurred updating the org owner.';
+};
+
 const orgController = {
   createOrg: createOrg,
   createOrgManager: createOrgManager,
-  isSubscriptionCodeUnique: isSubscriptionCodeUnique
+  isSubscriptionCodeUnique: isSubscriptionCodeUnique,
+  updateOrgOwner: updateOrgOwner
 };
 
 module.exports = orgController;

@@ -19,5 +19,6 @@ module.exports = {
   isOrgOwner: require('./isOrgOwner'),
   isSubscribed: require('./isSubscribed'),
   isSubscriptionCodeUnique: require('./isSubscriptionCodeUnique'),
-  isUserEmailUnique: require('./isUserEmailUnique')
+  isUserEmailUnique: require('./isUserEmailUnique'),
+  updateOrgOwner: require('./updateOrgOwner')
 };
