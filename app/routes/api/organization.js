@@ -34,18 +34,27 @@ router
       res.status(400).json({ error: 'Missing data on request.' });
     }
 
-    const createOrgResponse = await orgController
+    const org = await orgController
       .createOrg(userId, baseId, orgName, subscriptionCode)
       .catch(err => console.error(err));
 
-    if (createOrgResponse === true) {
-      res.json({ success: true });
-    } else {
+    if (!org.id) {
       res.status(400).json({
         success: false,
-        error: createOrgResponse
+        error: org
       });
     }
+
+    res.json({ success: true });
+
+    // if (createOrgResponse === true) {
+    //   res.json({ success: true });
+    // } else {
+    //   res.status(400).json({
+    //     success: false,
+    //     error: createOrgResponse
+    //   });
+    // }
   })
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;

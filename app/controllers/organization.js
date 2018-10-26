@@ -62,24 +62,27 @@ const createOrg = async (userId, baseId, orgName, subscriptionCode) => {
     .catch(err => console.error(err));
 
   if (!(doesBaseExist && (isBaseManager || isAdmin))) {
-    return {
-      error: 'You do not have permission to create this org under this base.'
-    };
+    return 'You do not have permission to create this org under this base.';
   }
   const isSubscriptionCodeUnique = await dbInterface
     .isSubscriptionCodeUnique(subscriptionCode)
     .catch(err => console.error(err));
 
   if (!isSubscriptionCodeUnique) {
-    return {
-      error:
-        'That subscription code is already in use, please chose another one.'
-    };
+    return 'That subscription code is already in use, please chose another one.';
   }
 
-  return await dbInterface
-    .createOrganization(userId, baseId, orgName, subscriptionCode)
+  const org = await dbInterface
+    .createOrg(userId, baseId, orgName, subscriptionCode)
     .catch(err => console.error(err));
+
+  const orgManager = await dbInterface
+    .createOrgManager(userId, org.id)
+    .catch(err => console.error(err));
+
+  return org.orgOwner === orgManager.userId
+    ? org
+    : 'An error occurred creating the organization';
 };
 
 const isSubscriptionCodeUnique = async subscriptionCode => {
