@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const bandwidthController = require('../../controllers/bandwidth');
+// const bandwidthController = require('../../controllers/bandwidth');
 
 router.post('/', async (req, res) => {
   const text = req.body.text;
