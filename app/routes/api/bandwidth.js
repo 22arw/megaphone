@@ -9,7 +9,7 @@ router.post('/', async (req, res) => {
   console.log(` - - - - - - - -
   from: ${from}
   body: ${text}
-  req.body: ${req.body}
+  req.body: ${JSON.stringify(req.body)}
   - - - - - - - - - `);
   res.send('route not configured');
 });
