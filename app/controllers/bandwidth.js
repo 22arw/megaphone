@@ -37,6 +37,8 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
     apiSecret: base.bandwidthApiSecret
   };
 
+  return { message: 'this is wierd', bandwidthConfig: bandwidthConfig };
+
   const doesOrgExist = await dbInterface
     .doesOrgExistBySubscriptionCode(text)
     .catch(err => console.error(err));
