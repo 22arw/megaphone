@@ -12,19 +12,16 @@ router.post('/', async (req, res) => {
     // handle keywords
   }
 
-  const {
-    message,
-    bandwidthConfig
-  } = await bandwidthController
+  const subscriptionHandler = await bandwidthController
     .subscriptionHandler(phoneNumber, text, basePhoneNumber)
     .catch(err => console.error(err));
 
-  const bandwidth = new Bandwidth(bandwidthConfig);
+  const bandwidth = new Bandwidth(subscriptionHandler.bandwidthConfig);
 
   bandwidth.Message.send({
     from: basePhoneNumber,
     to: phoneNumber,
-    text: message
+    text: subscriptionHandler.message
   })
     .then(message => {
       console.log(`Message sent: ${JSON.stringify(message)}
