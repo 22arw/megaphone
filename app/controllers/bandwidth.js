@@ -7,10 +7,6 @@ const keyword = async (phoneNumber, text, basePhoneNumber) => {
     .getBaseByBasePhoneNumber(basePhoneNumber)
     .catch(err => console.error(err));
 
-  console.log('- - - - - HEY - - -- -- -');
-
-  console.log(`After getting the Base info: ${JSON.stringify(base)}`);
-
   const bandwidthConfig = {
     userId: base.bandwidthUserId,
     apiToken: base.bandwidthApiToken,
@@ -32,6 +28,8 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
   const base = await dbInterface
     .getBaseByBasePhoneNumber(basePhoneNumber)
     .catch(err => console.error(err));
+
+  console.log(`After getting the Base info: ${JSON.stringify(base)}`);
 
   const bandwidthConfig = {
     userId: base.bandwidthUserId,
