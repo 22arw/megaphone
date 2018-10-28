@@ -51,6 +51,7 @@ NODE_ENV=development
 DEVELOPMENT_DATABASE_URL=postgres://database:password@localhost:5432/databasename
 
 # If you have a bandwidth account, you can enter your api credentials here, and then when you go to seed the database, these will be used.
+BASE_PHONE_NUMBER=+12345678909
 BANDWIDTH_USER_ID=bandwidthuserid
 BANDWIDTH_API_TOKEN=bandwidthapitoken
 BANDWIDTH_API_SECRET=bandwidthapisecret

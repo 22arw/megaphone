@@ -3,6 +3,7 @@ const router = express.Router();
 
 const adminRouter = require('./admin');
 const baseRouter = require('./base');
+const bandwidthRouter = require('/bandwidth');
 const orgRouter = require('./organization');
 const userRouter = require('./user');
 
@@ -15,6 +16,7 @@ router
       'https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md'
     );
   })
+  .use('/bandwidth', bandwidthRouter)
   .use(requireUserMiddleware) // Require the user to be authenticated to access these routes.
   .use('/base', baseRouter)
   .use('/organization', orgRouter)
