@@ -26,4 +26,25 @@ router.post('/createBaseManager', async (req, res) => {
   }
 });
 
+router.post('/deleteBaseManager', async (req, res) => {
+  const userId = req.session.userId;
+  const baseId = req.body.baseId;
+
+  try {
+    if (!baseId) {
+      throw new Error('Missing data in request.');
+    }
+    const baseManager = await baseController.deleteBaseManager(userId, baseId);
+    if (baseManager instanceof Error) throw baseManager;
+    res.json({
+      success: true
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
+});
+
 module.exports = router;

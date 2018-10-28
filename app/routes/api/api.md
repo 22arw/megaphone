@@ -21,6 +21,50 @@ If there is an error, the following will be returned:
 }
 ```
 
+### `POST /api/admin/createBaseManager`
+
+|> Creates a new Base Manager for the user supplied.
+
+Expects
+
+```javascript
+{
+  baseCode: String,
+  newBaseManagerEmail: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  success: Boolean,
+  error?: String
+}
+```
+
+### `POST /api/admin/deleteBaseManager`
+
+|> Deletes the Base Manager for the user supplied.
+
+Expects
+
+```javascript
+{
+  baseCode: String,
+  deleteBaseManagerEmail: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  success: Boolean,
+  error?: String
+}
+```
+
 ## `/api/base`
 
 ### `POST /api/base/createBaseManager`
@@ -41,6 +85,27 @@ If there is an error, the following will be returned:
 {
   success: Boolean,
   error?: String;
+}
+```
+
+### `POST /api/admin/deleteBaseManager`
+
+|> Deletes the Base Manager for the logged in user.
+
+Expects
+
+```javascript
+{
+  baseCode: String;
+}
+```
+
+Returns:
+
+```typescript
+{
+  success: Boolean,
+  error?: String
 }
 ```
 

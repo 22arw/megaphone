@@ -28,6 +28,30 @@ const createBaseManager = async (userId, baseCode) => {
   return baseManager;
 };
 
+const deleteBaseManager = async (userId, baseId) => {
+  const doesBaseExist = await dbInterface
+    .doesBaseExist(baseId)
+    .catch(err => console.error(err));
+
+  if (!doesBaseExist) return new Error('No base exists with that code.');
+
+  const isBaseManager = await dbInterface
+    .isBaseManager(userId, baseId)
+    .catch(err => console.error(err));
+
+  if (!isBaseManager)
+    return new Error('This user cannot perform this operation.');
+
+  const deleteBaseManager = await dbInterface
+    .deleteBaseManager(userId, baseId)
+    .catch(err => console.error(err));
+
+  return deleteBaseManager
+    ? 'Base manager removed.'
+    : new Error('Deleting the Base Manager failed.');
+};
+
 module.exports = {
-  createBaseManager: createBaseManager
+  createBaseManager: createBaseManager,
+  deleteBaseManager: deleteBaseManager
 };
