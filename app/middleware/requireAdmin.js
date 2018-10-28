@@ -1,4 +1,3 @@
-// const models = require('../db/models');
 const dbInterface = require('../controllers/dbInterfaces');
 
 async function requireAdminMiddleware(req, res, next) {
