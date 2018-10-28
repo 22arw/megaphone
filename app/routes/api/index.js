@@ -2,6 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 const adminRouter = require('./admin');
+const baseRouter = require('./base');
 const orgRouter = require('./organization');
 const userRouter = require('./user');
 
@@ -15,6 +16,7 @@ router
     );
   })
   .use(requireUserMiddleware) // Require the user to be authenticated to access these routes.
+  .use('/base', baseRouter)
   .use('/organization', orgRouter)
   .use('/user', userRouter)
   .use(requireAdminMiddleware) // Require the user to be an admin to access these routes

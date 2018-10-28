@@ -21,6 +21,29 @@ If there is an error, the following will be returned:
 }
 ```
 
+## `/api/base`
+
+### `POST /api/base/createBaseManager`
+
+|> Creates a new Base Manager for the currently logged in user. Only admins can add other Base Managers. See `/api/admin/createBaseManager`.
+
+Expects
+
+```javascript
+{
+  baseCode: String;
+}
+```
+
+If there is an error, the following will be returned:
+
+```typescript
+{
+  success: Boolean,
+  error?: String;
+}
+```
+
 ## `/api/organization`
 
 ### `POST /api/organization/createOrg`
