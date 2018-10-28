@@ -7,6 +7,8 @@ const keyword = async (phoneNumber, text, basePhoneNumber) => {
     .getBaseByBasePhoneNumber(basePhoneNumber)
     .catch(err => console.error(err));
 
+  console.log('- - - - - HEY - - -- -- -');
+
   console.log(`After getting the Base info: ${JSON.stringify(base)}`);
 
   const bandwidthConfig = {
