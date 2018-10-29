@@ -72,7 +72,7 @@ async function getDemoUsers() {
 async function getDemoOrganizations() {
   let demoOrganizations = await models.Organization.findAll({
     where: {
-      subscriptionCode: ['TESTORG1', 'TESTORG2', 'TESTORG3']
+      subscriptionCode: ['testorg1', 'testorg2', 'testorg3']
     }
   });
 

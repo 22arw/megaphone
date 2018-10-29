@@ -1,5 +1,13 @@
 const dbInterface = require('./dbInterfaces');
 
+const help = `The following commands are available on this service:
+  HELP - Returns this message.
+  WHO - Returns a message with all of your subscriptions.
+  
+To unsubscribe from an organization, just reply with the subscription code you used to subscribe.
+  
+To block all messages from this number, reply STOP.`;
+
 const keyword = async (phoneNumber, text, basePhoneNumber) => {
   let message = '';
 
@@ -16,10 +24,41 @@ const keyword = async (phoneNumber, text, basePhoneNumber) => {
   // handle keywords
   switch (text) {
     case 'help':
+      message = help;
+      break;
     case 'who':
+      const allOrgsUnderBase = await dbInterface
+        .getAllOrgsUnderBase(base.id)
+        .catch(err => console.error(err));
+      if (allOrgsUnderBase.length === 0) {
+        message = 'You have no subscriptions.';
+        break;
+      }
+      const allSubscriptionsByPhoneNumber = await dbInterface
+        .getAllSubscriptionsByPhoneNumber(phoneNumber)
+        .catch(err => console.error(err));
+      if (allSubscriptionsByPhoneNumber.length === 0) {
+        message = 'You have no subscriptions.';
+        break;
+      }
+      message = 'You are subscribed to the following organizations:';
+      allSubscriptionsByPhoneNumber.map(sub => {
+        for (let org = 0; org < allOrgsUnderBase.length; org++) {
+          if (sub.orgId === allOrgsUnderBase[org].id) {
+            message += `\n${allOrgsUnderBase[
+              org
+            ].subscriptionCode.toUpperCase()}: ${
+              allOrgsUnderBase[org].orgName
+            }`;
+          }
+        }
+      });
+      break;
     default:
       break;
   }
+
+  return { message: message, bandwidthConfig: bandwidthConfig };
 };
 
 const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
@@ -29,15 +68,11 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
     .getBaseByBasePhoneNumber(basePhoneNumber)
     .catch(err => console.error(err));
 
-  console.log(`After getting the Base info: ${JSON.stringify(base)}`);
-
   const bandwidthConfig = {
     userId: base.bandwidthUserId,
-    apiToken: base.bandwidthApiToke,
+    apiToken: base.bandwidthApiToken,
     apiSecret: base.bandwidthApiSecret
   };
-
-  // return { message: 'this is wierd', bandwidthConfig: bandwidthConfig };
 
   const doesOrgExist = await dbInterface
     .doesOrgExistBySubscriptionCode(text)
@@ -66,17 +101,19 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
   }
 
   const isSubscribed = await dbInterface
-    .isSubscribed(phoneNumber, text)
+    .isSubscribed(phoneNumber, org.id)
     .catch(err => console.error(err));
 
-  if (!isSubscribed) {
+  console.log(`isSubscribed: ${isSubscribed}`);
+
+  if (isSubscribed) {
     const unsubscribe = await dbInterface
       .unsubscribe(org.id, phoneNumber)
       .catch(err => console.error(err));
     if (!unsubscribe) {
       message = 'Something went wrong, please try again.';
     } else {
-      message = `You've been successfully unsubscribed from ${text}, ${
+      message = `You've been successfully unsubscribed from ${text.toUpperCase()}, ${
         base.baseName
       }`;
     }
@@ -88,11 +125,13 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
     if (subscribe.phoneNumber !== phoneNumber) {
       message = 'Something went wrong, please try again.';
     } else {
-      message = `You've been successfully subscribed to ${text}, ${
+      message = `You've been successfully subscribed to ${text.toUpperCase()}, ${
         base.baseName
       }`;
     }
   }
+
+  message += `\n\n${help}`;
 
   return { message: message, bandwidthConfig: bandwidthConfig };
 };
