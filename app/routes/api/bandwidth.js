@@ -16,18 +16,18 @@ router.post('/', async (req, res) => {
     .subscriptionHandler(phoneNumber, text, basePhoneNumber)
     .catch(err => console.error(err));
 
-  const bandwidth = new Bandwidth(subscriptionHandler.bandwidthConfig);
+  // const bandwidth = new Bandwidth(subscriptionHandler.bandwidthConfig);
 
-  bandwidth.Message.send({
-    from: basePhoneNumber,
-    to: phoneNumber,
-    text: subscriptionHandler.message
-  })
-    .then(message => {
-      console.log(`Message sent: ${JSON.stringify(message)}
-    messageId: ${message.id}`);
-    })
-    .catch(err => console.error(err));
+  // bandwidth.Message.send({
+  //   from: basePhoneNumber,
+  //   to: phoneNumber,
+  //   text: subscriptionHandler.message
+  // })
+  //   .then(message => {
+  //     console.log(`Message sent: ${JSON.stringify(message)}
+  //   messageId: ${message.id}`);
+  //   })
+  //   .catch(err => console.error(err));
 
   res.end();
 });
