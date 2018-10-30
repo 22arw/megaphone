@@ -18,7 +18,9 @@ module.exports = {
   getBaseByBaseCode: require('./getBaseByBaseCode'),
   getBaseByBasePhoneNumber: require('./getBaseByBasePhoneNumber'),
   getBaseById: require('./getBaseById'),
+  getOrgById: require('./getOrgById'),
   getOrgBySubscriptionCode: require('./getOrgBySubscriptionCode'),
+  getSubscribers: require('./getSubcribers'),
   getUserByEmail: require('./getUserByEmail'),
   getUserById: require('./getUserById'),
   isAdmin: require('./isAdmin'),
@@ -31,6 +33,7 @@ module.exports = {
   isSubscribed: require('./isSubscribed'),
   isSubscriptionCodeUnique: require('./isSubscriptionCodeUnique'),
   isUserEmailUnique: require('./isUserEmailUnique'),
+  logMessage: require('./logMessage'),
   subscribe: require('./subscribe'),
   unsubscribe: require('./unsubscribe'),
   updateOrgOwner: require('./updateOrgOwner')
