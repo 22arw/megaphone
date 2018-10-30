@@ -62,7 +62,7 @@ const sendMessage = async (userId, orgId, message) => {
   });
 
   bandwidth.Message.sendMultiple(messages).then(response => {
-    console.log(`Message sending result: ${response}`);
+    console.log(`Message sending result: ${JSON.stringify(response)}`);
   });
 
   return true;
