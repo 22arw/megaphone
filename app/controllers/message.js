@@ -70,6 +70,9 @@ const sendMessage = async (userId, orgId, message) => {
           return res.message.id;
         })}`
       );
+      dbInterface
+        .logMessage(userId, orgId, message)
+        .catch(err => console.error(err));
       return true;
     })
     .catch(err => {
@@ -77,8 +80,6 @@ const sendMessage = async (userId, orgId, message) => {
         'There was an error sending your message. Please try again.'
       );
     });
-
-  // return true;
 };
 
 module.exports = {
