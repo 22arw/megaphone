@@ -65,6 +65,11 @@ const sendMessage = async (userId, orgId, message) => {
 
   bandwidth.Message.sendMultiple(messages)
     .then(response => {
+      console.log(
+        `Message sent: ${response.map(res => {
+          return res.message.id;
+        })}`
+      );
       return true;
     })
     .catch(err => {
