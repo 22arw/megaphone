@@ -53,7 +53,7 @@ const sendMessage = async (userId, orgId, message) => {
     apiSecret: base.bandwidthApiSecret
   });
 
-  message += `\n- ${base.baseName}`;
+  message += `\n- ${org.subscriptionCode}, ${org.orgName}`;
 
   const messages = subscribers.map(subscriber => {
     return {
@@ -63,11 +63,17 @@ const sendMessage = async (userId, orgId, message) => {
     };
   });
 
-  bandwidth.Message.sendMultiple(messages).then(response => {
-    console.log(`Message sending result: ${JSON.stringify(response)}`);
-  });
+  bandwidth.Message.sendMultiple(messages)
+    .then(response => {
+      return true;
+    })
+    .catch(err => {
+      return new Error(
+        'There was an error sending your message. Please try again.'
+      );
+    });
 
-  return true;
+  // return true;
 };
 
 module.exports = {

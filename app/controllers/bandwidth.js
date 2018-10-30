@@ -80,7 +80,7 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
 
   if (!doesOrgExist) {
     return {
-      message: 'That organization code was incorrect.',
+      message: 'That is an invalid command. Reply HELP for more info.',
       bandwidthConfig: bandwidthConfig
     };
   }
@@ -95,7 +95,7 @@ const subscriptionHandler = async (phoneNumber, text, basePhoneNumber) => {
 
   if (!doesOrgBelongToBase) {
     return {
-      message: 'That organization code was incorrect.',
+      message: 'That is an invalid command. Reply HELP for more info.',
       bandwidthConfig: bandwidthConfig
     };
   }
