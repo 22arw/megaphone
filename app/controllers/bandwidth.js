@@ -41,7 +41,7 @@ const keyword = async (phoneNumber, text, basePhoneNumber) => {
         message = 'You have no subscriptions.';
         break;
       }
-      message = 'You are subscribed to the following organizations:';
+      message = 'You are subscribed to the following organizations:\n';
       allSubscriptionsByPhoneNumber.map(sub => {
         for (let org = 0; org < allOrgsUnderBase.length; org++) {
           if (sub.orgId === allOrgsUnderBase[org].id) {
