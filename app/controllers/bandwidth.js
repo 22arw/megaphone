@@ -4,7 +4,7 @@ const help = `The following commands are available on this service:
   HELP - Returns this message.
   WHO - Returns a message with all of your subscriptions.
   
-To unsubscribe from an organization, just reply with the subscription code you used to subscribe.
+To subscribe to or unsubscribe from an organization, just reply with the subscription code you used to subscribe.
   
 To block all messages from this number, reply STOP.`;
 
