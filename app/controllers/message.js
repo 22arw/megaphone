@@ -53,7 +53,7 @@ const sendMessage = async (userId, orgId, message) => {
     apiSecret: base.bandwidthApiSecret
   });
 
-  message += `\n- ${org.subscriptionCode}`;
+  message += `\n- ${org.subscriptionCode.toUpperCase()}`;
 
   const messages = subscribers.map(subscriber => {
     return {
