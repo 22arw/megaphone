@@ -37,7 +37,11 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/login', (req, res) => {
-  res.sendFile(__dirname + '/app/views/login.html');
+  if (!req.session.userId) {
+    res.sendFile(__dirname + '/app/views/login.html');
+  } else {
+    res.redirect('/home');
+  }
 });
 
 app.post('/login', async (req, res) => {
