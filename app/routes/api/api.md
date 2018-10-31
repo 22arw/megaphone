@@ -21,6 +21,32 @@ If there is an error, the following will be returned:
 }
 ```
 
+### `POST /api/admin/createBase`
+
+|> Creates a new Base.
+
+Expects
+
+```javascript
+{
+  basePhoneNumber: String
+  baseName: String,
+  baseCode: String,
+  bandwidthUserId: String,
+  bandwidthApiToken: String,
+  bandwidthApiSecret: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  success: Boolean,
+  error?: String
+}
+```
+
 ### `POST /api/admin/createBaseManager`
 
 |> Creates a new Base Manager for the user supplied.
