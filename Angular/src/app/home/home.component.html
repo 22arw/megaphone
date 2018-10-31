@@ -1,12 +1,23 @@
 <div class="container-fluid">
   <div class="row">
     <div class="col-md-3 side-nav">
-      <h3>22ARW - 22d Air Refueling Wing</h3>
-      <p>22MXG - 22d Maintenance Group</p>
+      <div>
+        {{ userData.email }} <i class="fas fa-cog"></i>
+      </div>
+      <div *ngIf="userData.bases.length !== 0">
+        <div *ngFor="let base of userData.bases">
+          <span>{{base.baseName}}</span> <i *ngIf="base.canCreateOrgs" class="fas fa-cog"></i><br>
+          <span>{{toPrettyPhone(base.basePhoneNumber)}}</span>
+          <div *ngIf="base.orgs.length !== 0">
+            <div *ngFor="let org of base.orgs">
+              <span>{{org.orgName}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div class="col main">
-      <a href="/api/user">See all user data</a>
-      <h1>Place holder for Organization Data</h1>
+      <pre>{{userData | json}}</pre>
     </div>
   </div>
 </div>

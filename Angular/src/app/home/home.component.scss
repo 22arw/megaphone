@@ -1,9 +1,9 @@
 .side-nav {
-  height: 91vh;
+  max-height: 91vh;
   background-color: azure;
 }
 
 .main {
-  height: 91vh;
+  max-height: 91vh;
   overflow: scroll;
 }

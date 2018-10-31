@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../api.service';
+import User from '../interfaces/user';
 
 @Component({
   selector: 'app-home',
@@ -6,10 +8,22 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
+  userData: User;
+  userDataStringified: String;
 
-  constructor() { }
+  constructor(private ApiService: ApiService) {}
 
   ngOnInit() {
+    this.ApiService.getUserData().then(res => {
+      this.userData = res;
+      this.userDataStringified = JSON.stringify(res);
+    });
   }
 
+  toPrettyPhone(phoneNumber: String): String {
+    let phone = phoneNumber.substring(1).split('');
+    return `${phone[0]} \(${phone[1]}${phone[2]}${phone[3]}\) ${phone[4]}${
+      phone[5]
+    }${phone[6]}-${phone[7]}${phone[8]}${phone[9]}${phone[10]}`;
+  }
 }
