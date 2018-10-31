@@ -4,11 +4,11 @@
       <div>
         {{ userData.email }} <i class="fas fa-cog"></i>
       </div>
-      <div *ngIf="userData.bases.length !== 0">
+      <div *ngIf="userData.bases.length != 0">
         <div *ngFor="let base of userData.bases">
           <span>{{base.baseName}}</span> <i *ngIf="base.canCreateOrgs" class="fas fa-cog"></i><br>
           <span>{{toPrettyPhone(base.basePhoneNumber)}}</span>
-          <div *ngIf="base.orgs.length !== 0">
+          <div *ngIf="base.orgs.length != 0">
             <div *ngFor="let org of base.orgs">
               <span>{{org.orgName}}</span>
             </div>
