@@ -1,4 +1,46 @@
 const dbInterface = require('./dbInterfaces');
+const utils = require('../utils');
+
+const createBase = async (
+  basePhoneNumber,
+  baseName,
+  baseCode,
+  bandwidthUserId,
+  bandwidthApiToken,
+  bandwidthApiSecret
+) => {
+  if (!utils.isValidPhoneNumber(basePhoneNumber)) {
+    return new Error(
+      'Not a valid phone number. Please make sure it is in the format: "+12345678909"'
+    );
+  }
+
+  const isBasePhoneNumberUnique = await dbInterface
+    .isBasePhoneNumberUnique(basePhoneNumber)
+    .catch(err => console.error(err));
+
+  if (!isBasePhoneNumberUnique) return new Error('Phone number not unique.');
+
+  const isBaseCodeUnique = await dbInterface
+    .isBaseCodeUnique(baseCode)
+    .catch(err => console.error(err));
+
+  if (!isBaseCodeUnique) return new Error('Base code is not unique.');
+
+  const base = await dbInterface
+    .createBase(
+      basePhoneNumber,
+      baseName,
+      baseCode,
+      bandwidthUserId,
+      bandwidthApiToken,
+      bandwidthApiSecret
+    )
+    .catch(err => console.error(err));
+
+  if (baseCode !== base.baseCode) return new Error('Operation failed.');
+  return base;
+};
 
 const createBaseManager = async (userId, baseCode) => {
   const doesBaseExist = await dbInterface
@@ -52,6 +94,7 @@ const deleteBaseManager = async (userId, baseId) => {
 };
 
 module.exports = {
+  createBase: createBase,
   createBaseManager: createBaseManager,
   deleteBaseManager: deleteBaseManager
 };

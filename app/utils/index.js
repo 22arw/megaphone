@@ -1,3 +1,4 @@
 module.exports = {
-  isValidEmail: require('./isValidEmail')
+  isValidEmail: require('./isValidEmail'),
+  isValidPhoneNumber: require('./isValidPhoneNumber')
 };

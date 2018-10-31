@@ -6,11 +6,11 @@ const isValidEmail = email => {
     return false;
   }
 
+  email = email.trim().toLowerCase();
+
   if (email.split(' ').length > 1) {
     return false;
   }
-
-  email = email.trim().toLowerCase();
 
   const validDomainsArray = ['mil', 'gov'];
   const validDomains = validDomainsArray.join('|');

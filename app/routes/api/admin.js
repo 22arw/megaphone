@@ -1,12 +1,66 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../../controllers/admin');
+const baseController = require('../../controllers/base');
 
 router.get('/', async (req, res) => {
   const adminData = await adminController
     .getAdminData(req)
     .catch(err => console.error(err));
   res.json(adminData);
+});
+
+// ADMIN ONLY
+router.post('/createBase', async (req, res) => {
+  const basePhoneNumber = req.body.basePhoneNumber;
+  const baseName = req.body.baseName;
+  const baseCode = req.body.baseCode;
+  const bandwidthUserId = req.body.bandwidthUserId;
+  const bandwidthApiToken = req.body.bandwidthApiToken;
+  const bandwidthApiSecret = req.body.bandwidthApiSecret;
+
+  try {
+    if (
+      !(
+        basePhoneNumber &&
+        basePhoneNumber !== '' &&
+        baseName &&
+        baseName !== '' &&
+        baseCode &&
+        baseCode !== '' &&
+        bandwidthUserId &&
+        bandwidthUserId !== '' &&
+        bandwidthApiToken &&
+        bandwidthApiToken !== '' &&
+        bandwidthApiSecret &&
+        bandwidthApiSecret !== ''
+      )
+    ) {
+      throw new Error('Missing information on request.');
+    }
+
+    const base = await baseController
+      .createBase(
+        basePhoneNumber,
+        baseName,
+        baseCode,
+        bandwidthUserId,
+        bandwidthApiToken,
+        bandwidthApiSecret
+      )
+      .catch(err => console.error(err));
+
+    if (base instanceof Error) throw base;
+
+    res.json({
+      success: true
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      error: error.message
+    });
+  }
 });
 
 router.post('/createBaseManager', async (req, res) => {
