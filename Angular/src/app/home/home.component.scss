@@ -1,9 +1,15 @@
 .side-nav {
   max-height: 91vh;
-  background-color: azure;
+  overflow: scroll;
 }
 
-.main {
+.dashboard {
   max-height: 91vh;
   overflow: scroll;
+}
+
+hr {
+  margin: 5px;
+  width: 100%;
+  border: 1px grey solid;
 }

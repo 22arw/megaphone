@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import User from '../interfaces/user';
+import Admin from '../interfaces/admin';
 
 @Component({
   selector: 'app-home',
@@ -8,15 +9,19 @@ import User from '../interfaces/user';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-  userData: User;
-  userDataStringified: String;
+  user: User;
+  admin: Admin;
 
   constructor(private ApiService: ApiService) {}
 
   ngOnInit() {
     this.ApiService.getUserData().then(res => {
-      this.userData = res;
-      this.userDataStringified = JSON.stringify(res);
+      this.user = res;
+      if (res.isAdmin) {
+        this.ApiService.getAdminData().then(res => {
+          this.admin = res;
+        });
+      }
     });
   }
 
