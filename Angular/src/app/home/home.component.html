@@ -17,15 +17,13 @@
           <ng-container *ngIf="base.canCreateOrgs || user.isAdmin">
             <a class="nav-link" id="v-pills-{{base.baseId}}-tab" data-toggle="pill" href="#v-pills-{{base.baseId}}"
               role="tab" attr.aria-controls="v-pills-{{base.baseId}}" aria-selected="true">
-              <span class="base-name">{{ base.baseName }}</span>
-              <span class="base-phone-number">{{ toPrettyPhone(base.basePhoneNumber) }}</span>
+              <span class="base-name">{{ base.baseName }}</span> <i class="fas fa-cog"></i>
             </a>
           </ng-container>
 
           <!-- If the user is not a base manager -->
           <ng-container *ngIf="!base.canCreateOrgs">
-            <span class="base-name">{{ base.baseName }}</span>
-            <span class="base-phone-number" id="{{base.basePhoneNumber}}">{{ toPrettyPhone(base.basePhoneNumber) }}</span>
+            <span class="base-name not-manager">{{ base.baseName }}</span>
           </ng-container>
 
           <!-- List orgs managed by user -->
@@ -34,6 +32,8 @@
               href="#v-pills-{{base.baseId}}-{{org.orgId}}" role="tab" attr.aria-controls="v-pills-{{base.baseId}}-{{org.orgId}}"
               aria-selected="true">{{org.orgName}}</a>
           </ng-container>
+
+          <hr>
 
         </ng-container>
 
@@ -44,10 +44,22 @@
 
         <div class="tab-pane fade show" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
           <pre>{{user | json}}</pre>
+          <!-- 
+            TODO:
+            - Submit base code to become a base manager
+            - 
+          -->
         </div>
 
         <div *ngIf="admin" class="tab-pane fade show" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
           <pre>{{ admin | json}}</pre>
+          <!-- 
+            TODO:
+            - Create Base
+            - Delete Base
+            - Update Base
+            - 
+          -->
         </div>
 
         <ng-container *ngFor="let base of user.bases; let isFirst = first">
@@ -57,6 +69,11 @@
 
             <div class="tab-pane fade show" id="v-pills-{{base.baseId}}" role="tabpanel" attr.aria-labelledby="v-pills-{{base.baseId}}-tab">
               {{base.baseName}}
+              <!-- 
+                TODO:
+                - Create org
+                - 
+              -->
             </div>
 
           </ng-container>
@@ -69,7 +86,9 @@
 
               <!-- This part of the dashboard will show for all managers -->
               <div class="container">
-                <h3>{{org.orgName}}</h3>
+                <span class="org-name">{{org.orgName}}</span>
+                <span class="base-phone-number">Text '{{org.subscriptionCode | uppercase}}' to
+                  {{toPrettyPhone(base.basePhoneNumber)}}</span>
                 <div class="row">
                   <div class="col-12 col-md-6">
                     <textarea (keyup)='charCount($event)' class="form-control" rows="5" id="text-{{org.orgId}}"
@@ -92,9 +111,25 @@
                     <div id="message-response-{{org.orgId}}"></div>
                   </div>
                 </div>
+                <!-- This part of the dashboard will only show for orgOwners NOT admins, to curb confusion. -->
+                <div class="row">
+                  <div class="col">
+                    <ng-container *ngIf="org.isOrgOwner">
+                      <hr>
+                      <!-- 
+                        TODO:
+                        - Add org manager
+                        - Remove org manager
+                        - Transfer org ownership
+                        - Update org details form
+                        - Delete org button
+                       -->
+                    </ng-container>
+                  </div>
+                </div>
               </div>
 
-              <!-- This part of the dashboard will only show for orgOwners NOT admins, to curb confusion. -->
+
             </div>
 
           </ng-container>

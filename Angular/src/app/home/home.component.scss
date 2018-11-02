@@ -4,9 +4,26 @@ hr {
   border: 1px grey solid;
 }
 
+.base-name {
+  color: black;
+
+  &.not-manager {
+    padding-left: 1em;
+  }
+}
+
+.base-phone-number {
+  display: block;
+}
+
 .dashboard {
   max-height: 91vh;
   overflow: scroll;
+}
+
+.org-name {
+  font-weight: bold;
+  font-size: 1.5em;
 }
 
 .side-nav {

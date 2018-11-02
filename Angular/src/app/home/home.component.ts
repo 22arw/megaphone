@@ -27,6 +27,15 @@ export class HomeComponent implements OnInit {
     });
   }
 
+  addOrgManager(orgId: number): void {
+    const newOrgManagerEmail = (document.getElementById(
+      `new-org-manager-email-${orgId}`
+    ) as HTMLInputElement).value
+      .trim()
+      .toLowerCase();
+    console.log(newOrgManagerEmail);
+  }
+
   canSendMessage(orgId: number): boolean {
     const numberOfSubscribers = Number(
       document.getElementById(`subscribers-${orgId}`).innerText
@@ -86,29 +95,18 @@ export class HomeComponent implements OnInit {
       `text-${orgId}`
     ) as HTMLInputElement).value;
 
-    messageResponseDiv.innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">
-    You're message is being sent. Standby please. 😁
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>`;
+    messageResponseDiv.innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">You're message is being sent. Standby please. 😁<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
 
     this.ApiService.sendMessage(orgId, message)
       .then(res => {
         if (res.success) {
-          messageResponseDiv.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">
-    You're message has been accepted. Give us a few minutes to reach everyone. 😎👍
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>`;
+          messageResponseDiv.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">You're message has been accepted. Give us a few minutes to reach everyone. 😎👍<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
+          (document.getElementById(`text-${orgId}`) as HTMLInputElement).value =
+            '';
         } else {
-          messageResponseDiv.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">
-    ${res.error} 😓
-    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-      <span aria-hidden="true">&times;</span>
-    </button>
-  </div>`;
+          messageResponseDiv.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">${
+            res.error
+          } 😓<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
         }
       })
       .catch(err => console.error(err));
@@ -120,4 +118,6 @@ export class HomeComponent implements OnInit {
       phone[5]
     }${phone[6]}-${phone[7]}${phone[8]}${phone[9]}${phone[10]}`;
   }
+
+  transferOrgOwner(orgId: number): void {}
 }
