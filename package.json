@@ -13,8 +13,8 @@
     "server": "nodemon --ignore public/",
     "seed": "node seeds.js",
     "start": "node app.js",
-    "heroku-prebuild": "npm install && ng build --prod",
-    "heroku-postbuild": ""
+    "heroku-prebuild": "npm install",
+    "heroku-postbuild": "ng build --prod"
   },
   "author": "XPX",
   "license": "ISC",
