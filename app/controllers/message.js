@@ -53,11 +53,12 @@ const sendMessage = async (userId, orgId, message) => {
     apiSecret: base.bandwidthApiSecret
   });
 
-  // message += `\n- ${org.subscriptionCode.toUpperCase()}`;
+  const text = `${message}\n- ${org.subscriptionCode.toUpperCase()}`;
+  message += `\n- ${org.subscriptionCode.toUpperCase()}`;
 
   const messages = subscribers.map(subscriber => {
     return {
-      text: `\n- ${org.subscriptionCode.toUpperCase()}`,
+      text: text,
       to: subscriber,
       from: base.basePhoneNumber
     };
