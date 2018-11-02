@@ -10,3 +10,7 @@ All of the tutorials and references that have been used to build this app.
 - https://www.codementor.io/mirko0/how-to-use-sequelize-with-node-and-express-i24l67cuz
 - Generating composite primary keys: https://gist.github.com/lucasscariot/5b8747fbc8a6948a805c646fae4ceef8
 -
+
+
+### Angular
+- https://stackoverflow.com/questions/18410341/using-multiple-buttons-on-same-function-that-redirects-to-different-functions

@@ -191,7 +191,7 @@ Returns:
 
 ## `/api/message`
 
-### `POST /api/message/sendMessage`
+### `POST /api/message/send`
 
 |> Sends a message for the currently logged in user to the organization specified.
 

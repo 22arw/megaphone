@@ -1,6 +1,7 @@
-.side-nav {
-  max-height: 91vh;
-  overflow: scroll;
+hr {
+  margin: 5px;
+  width: 100%;
+  border: 1px grey solid;
 }
 
 .dashboard {
@@ -8,8 +9,12 @@
   overflow: scroll;
 }
 
-hr {
-  margin: 5px;
-  width: 100%;
-  border: 1px grey solid;
+.side-nav {
+  max-height: 91vh;
+  overflow: scroll;
+}
+
+.signature-block {
+  display: block;
+  text-align: right;
 }
