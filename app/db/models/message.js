@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       },
       message: {
-        type: DataTypes.STRING(2048),
+        type: DataTypes.TEXT,
         allowNull: false,
         validate: {
           notEmpty: true
