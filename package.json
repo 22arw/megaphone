@@ -1,9 +1,6 @@
 {
   "name": "megaphone",
   "version": "1.0.0",
-  "engines": {
-    "node": "10.4.0"
-  },
   "description": "One way SMS Communication",
   "main": "app.js",
   "scripts": {
