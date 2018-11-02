@@ -54,7 +54,6 @@ const sendMessage = async (userId, orgId, message) => {
   });
 
   const text = `${message}\n- ${org.subscriptionCode.toUpperCase()}`;
-  message += `\n- ${org.subscriptionCode.toUpperCase()}`;
 
   const messages = subscribers.map(subscriber => {
     return {
