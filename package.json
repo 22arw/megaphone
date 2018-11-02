@@ -2,6 +2,9 @@
   "name": "megaphone",
   "version": "1.0.0",
   "description": "One way SMS Communication",
+  "engines": {
+    "node": "10.4.0"
+  },
   "main": "app.js",
   "scripts": {
     "dev": "npm-run-all -p client server",
