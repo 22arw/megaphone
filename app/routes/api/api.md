@@ -189,6 +189,30 @@ Returns:
 }
 ```
 
+## `/api/message`
+
+### `POST /api/message/sendMessage`
+
+|> Sends a message for the currently logged in user to the organization specified.
+
+Expects
+
+```javascript
+{
+  orgId: String,
+  message: String
+}
+```
+
+If there is an error, the following will be returned:
+
+```typescript
+{
+  success: Boolean,
+  error?: String;
+}
+```
+
 ## `/api/organization`
 
 ### `POST /api/organization/createOrg`
