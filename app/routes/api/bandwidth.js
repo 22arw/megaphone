@@ -10,7 +10,7 @@ router.post('/', async (req, res) => {
   const basePhoneNumber = req.body.to;
   if (!(text && phoneNumber && basePhoneNumber)) res.end();
   console.log(text);
-  if (text == 'unstop' || text == 'stop') {
+  if (text === 'unstop' || text === 'stop') {
     res.end();
   }
 
