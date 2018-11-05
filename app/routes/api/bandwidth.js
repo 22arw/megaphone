@@ -11,6 +11,7 @@ router.post('/', async (req, res) => {
   if (!(text && phoneNumber && basePhoneNumber)) res.end();
   console.log(text);
   if (text == 'unstop' || text == 'stop') {
+    console.log('are you even seeing this?');
     res.end();
   }
 
