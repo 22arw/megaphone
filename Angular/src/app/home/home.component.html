@@ -112,9 +112,10 @@
                   </div>
                 </div>
                 <!-- This part of the dashboard will only show for orgOwners NOT admins, to curb confusion. -->
-                <div class="row">
-                  <div class="col">
-                    <ng-container *ngIf="org.isOrgOwner">
+                <ng-container *ngIf="org.isOrgOwner">
+                  <div class="row">
+                    <div class="col">
+
                       <hr>
                       <!-- 
                         TODO:
@@ -124,9 +125,10 @@
                         - Update org details form
                         - Delete org button
                        -->
-                    </ng-container>
+
+                    </div>
                   </div>
-                </div>
+                </ng-container>
               </div>
 
 
