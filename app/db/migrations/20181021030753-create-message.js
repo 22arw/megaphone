@@ -23,7 +23,7 @@ module.exports = {
         }
       },
       message: {
-        type: Sequelize.STRING,
+        type: Sequelize.TEXT,
         allowNull: false,
         validate: {
           notEmpty: true

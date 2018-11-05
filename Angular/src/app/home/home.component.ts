@@ -10,7 +10,7 @@ import Admin from '../interfaces/admin';
 })
 export class HomeComponent implements OnInit {
   COST_PER_MESSAGE = 0.005;
-  MAX_CHAR_COUNT = 255;
+  MAX_CHAR_COUNT = 2048;
   user: User;
   admin: Admin;
 
@@ -51,26 +51,25 @@ export class HomeComponent implements OnInit {
   charCount(e: KeyboardEvent): void {
     const message = (<HTMLInputElement>e.target).value;
     const numberOfChars = message.length;
-    // const numberOfSignatureBlockChars =
-    //   e.srcElement.attributes.getNamedItem('subscriptioncode').value.length + 3;
-    // const numberOfMessages =
-    //   numberOfChars > 160
-    //     ? Math.ceil(numberOfChars / 153)
-    //     : Math.ceil(numberOfChars / 160);
-    // const maxChars =
-    //   numberOfChars <= 160
-    //     ? 160
-    //     : numberOfMessages * 153 >
-    //       this.MAX_CHAR_COUNT - numberOfSignatureBlockChars
-    //       ? this.MAX_CHAR_COUNT - numberOfSignatureBlockChars
-    //       : numberOfMessages * 153;
+    const numberOfSignatureBlockChars =
+      e.srcElement.attributes.getNamedItem('subscriptioncode').value.length + 3;
+    const numberOfMessages =
+      numberOfChars > 160
+        ? Math.ceil(numberOfChars / 153)
+        : Math.ceil(numberOfChars / 160);
+    const maxChars =
+      numberOfChars <= 160
+        ? 160
+        : numberOfMessages * 153 >
+          this.MAX_CHAR_COUNT - numberOfSignatureBlockChars
+          ? this.MAX_CHAR_COUNT - numberOfSignatureBlockChars
+          : numberOfMessages * 153;
     const id = e.srcElement.id.split('-')[1];
 
-    // const innerText = `${numberOfChars}/${maxChars} : ${numberOfMessages}`;
-    const innerText = `${numberOfChars}/${this.MAX_CHAR_COUNT}`;
+    const innerText = `${numberOfChars}/${maxChars} : ${numberOfMessages}`;
     const elementId = `character-count-${id}`;
     document.getElementById(elementId).innerText = innerText;
-    if (numberOfChars === this.MAX_CHAR_COUNT) {
+    if (numberOfChars === this.MAX_CHAR_COUNT - numberOfSignatureBlockChars) {
       document.getElementById(elementId).style.fontWeight = 'bold';
     } else {
       document.getElementById(elementId).style.fontWeight = 'normal';
@@ -83,8 +82,7 @@ export class HomeComponent implements OnInit {
 
   getMaxLength(subscriptionCode: string): number {
     // 3 is for the carriage return, a dash (-) and a space.
-    // return this.MAX_CHAR_COUNT - subscriptionCode.length - 3;
-    return this.MAX_CHAR_COUNT;
+    return this.MAX_CHAR_COUNT - subscriptionCode.length - 3;
   }
 
   sendMessage(orgId: number): void {
