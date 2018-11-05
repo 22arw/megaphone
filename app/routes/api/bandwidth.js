@@ -3,19 +3,13 @@ const express = require('express');
 const router = express.Router();
 const bandwidthController = require('../../controllers/bandwidth');
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
   if (req.body.text === undefined) res.end();
-  console.log(req.body.text);
   const text = req.body.text.toLowerCase().trim();
   const phoneNumber = req.body.from;
   const basePhoneNumber = req.body.to;
-  if (!(text && phoneNumber && basePhoneNumber)) res.end();
-  console.log(text);
-  if (text == 'unstop' || text == 'stop') {
-    console.log('are you even seeing this?');
-    return res.end();
-    // next();
-  }
+  if (!(text && phoneNumber && basePhoneNumber)) return res.end();
+  if (text == 'unstop' || text == 'stop') return res.end();
 
   let message = '';
   let bandwidthConfig = {};
