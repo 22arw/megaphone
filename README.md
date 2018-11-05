@@ -140,6 +140,12 @@ Undo the database migrations, this removes all of the tables.
 sequelize db:migrate:undo:all
 ```
 
+Or this command which performs all of the above in one shot.
+
+```shell
+npm run dev:rebuildDb
+```
+
 ## Using the application and user roles
 
 When a user creates an account, they do not have access to any organizations or bases. They can upgrade their account to a `Base Manager` by submitting their base code which only gives them access to create organizations under that base. If they do not upgrade their account to `Base Manager`, they can still be invited to be an `Organization Manager` by an `Organization Owner` that will allow them to send messages through that organization, but not create any organizations. A user can manage multiple organizations and bases. Only an `Admin` can create bases.
