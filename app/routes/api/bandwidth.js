@@ -3,7 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bandwidthController = require('../../controllers/bandwidth');
 
-router.post('/', async (req, res) => {
+router.post('/', async (req, res, next) => {
   if (req.body.text === undefined) res.end();
   console.log(req.body.text);
   const text = req.body.text.toLowerCase().trim();
@@ -13,7 +13,8 @@ router.post('/', async (req, res) => {
   console.log(text);
   if (text == 'unstop' || text == 'stop') {
     console.log('are you even seeing this?');
-    res.end();
+    return res.end();
+    // next();
   }
 
   let message = '';
