@@ -36,6 +36,16 @@ if (process.env.NODE_ENV === 'production') {
   app.set('trust proxy', 1); // trust first proxy
 }
 
+app.use(express.static('./app/views'));
+app.get('/', (req, res) => {
+  if (!req.session.userId) {
+    res.sendFile(__dirname + '/app/views/landing.html');
+  } else {
+    res.redirect('/home');
+  }
+});
+
+app.use('/login', express.static('./app/views'));
 app.get('/login', (req, res) => {
   if (!req.session.userId) {
     res.sendFile(__dirname + '/app/views/login.html');
@@ -86,14 +96,6 @@ app.get('/logout', (req, res) => {
 });
 
 app.use('/api', apiRouter);
-
-app.get('/', (req, res) => {
-  if (!req.session.userId) {
-    res.sendFile(__dirname + '/app/views/index.html');
-  } else {
-    res.redirect('/home');
-  }
-});
 
 app.use('/home', requireUserMiddleware, express.static('public'));
 
