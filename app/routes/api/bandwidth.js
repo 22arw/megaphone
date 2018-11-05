@@ -5,6 +5,7 @@ const bandwidthController = require('../../controllers/bandwidth');
 
 router.post('/', async (req, res) => {
   if (req.body.text === undefined) res.end();
+  console.log(req.body.text);
   const text = req.body.text.toLowerCase().trim();
   const phoneNumber = req.body.from;
   const basePhoneNumber = req.body.to;
