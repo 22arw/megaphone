@@ -41,3 +41,10 @@ hr {
   display: block;
   text-align: right;
 }
+
+#banner {
+  position: absolute;
+  z-index: 1;
+  width: 90%;
+  margin: 0 5%;
+}

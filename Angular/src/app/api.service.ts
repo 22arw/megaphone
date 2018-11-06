@@ -11,6 +11,35 @@ import StandardResponse from './interfaces/standardResponse';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  createOrganization = (
+    baseId: number,
+    orgName: string,
+    subscriptionCode: string
+  ): Promise<StandardResponse> => {
+    const promise = new Promise<StandardResponse>((resolve, reject) => {
+      this.http
+        .post(
+          '/api/organization/createOrg',
+          {
+            baseId: baseId,
+            orgName: orgName,
+            subscriptionCode: subscriptionCode
+          },
+          { withCredentials: true }
+        )
+        .toPromise()
+        .then(
+          res => {
+            resolve(res as StandardResponse);
+          },
+          err => {
+            reject(err);
+          }
+        );
+    });
+    return promise;
+  };
+
   getAdminData = (): Promise<Admin> => {
     const promise = new Promise<Admin>((resolve, reject) => {
       this.http

@@ -76,6 +76,30 @@ export class HomeComponent implements OnInit {
     }
   }
 
+  createOrganization(baseId: number): void {
+    const orgName = (document.getElementById(
+      `create-org-name-${baseId}`
+    ) as HTMLInputElement).value;
+    const subscriptionCode = (document.getElementById(
+      `create-org-subscription-code-${baseId}`
+    ) as HTMLInputElement).value;
+
+    this.ApiService.createOrganization(baseId, orgName, subscriptionCode)
+      .then(res => {
+        if (res.success) {
+          displayNotificationBanner(
+            `${orgName} was successfully created! 😎👍`,
+            'success'
+          );
+          console.log('success!');
+        } else {
+          displayNotificationBanner(res.error, 'danger');
+          console.log(res.error);
+        }
+      })
+      .catch(err => console.error(err));
+  }
+
   getCost(numberOfSubscribers: number): number {
     return numberOfSubscribers * this.COST_PER_MESSAGE;
   }
@@ -84,15 +108,6 @@ export class HomeComponent implements OnInit {
     // 3 is for the carriage return, a dash (-) and a space.
     return this.MAX_CHAR_COUNT - subscriptionCode.length - 3;
   }
-
-  // isSubscriptionCodeUnique(e: KeyboardEvent): boolean {
-
-  //   this.ApiService.isSubscriptionCodeUnique(subscriptionCode)
-  //     .then(res => {
-  //       return res.subscriptionCode;
-  //     })
-  //     .catch(err => console.error(err));
-  // }
 
   sendMessage(orgId: number): void {
     const messageResponseDiv = document.getElementById(
@@ -127,4 +142,30 @@ export class HomeComponent implements OnInit {
   }
 
   transferOrgOwner(orgId: number): void {}
+}
+
+function displayNotificationBanner(
+  message: string,
+  alertType:
+    | 'primary'
+    | 'secondary'
+    | 'success'
+    | 'danger'
+    | 'warning'
+    | 'info'
+    | 'light'
+    | 'dark'
+): void {
+  const notificationDiv = document.getElementById('banner');
+  const notificationMessage = `<div class="alert alert-${alertType} alert-dismissible fade show" role="alert">${message}<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
+  notificationDiv.innerHTML = notificationMessage;
+
+  (async () => {
+    await delay(7500);
+    notificationDiv.innerHTML = '';
+  })();
+}
+
+async function delay(ms: number) {
+  return new Promise(resolve => setTimeout(resolve, ms));
 }

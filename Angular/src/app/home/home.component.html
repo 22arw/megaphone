@@ -1,4 +1,5 @@
 <div class="container-fluid">
+  <div id="banner"></div>
   <div class="row">
     <div class="col-12 col-sm-3 side-nav">
       <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
@@ -11,7 +12,7 @@
 
         <hr>
 
-        <ng-container *ngFor="let base of user.bases; let isFirst = first">
+        <ng-container *ngFor="let base of user.bases; let isFirstBase = first">
 
           <!-- If the user is a base manager -->
           <ng-container *ngIf="base.canCreateOrgs || user.isAdmin">
@@ -27,9 +28,9 @@
           </ng-container>
 
           <!-- List orgs managed by user -->
-          <ng-container *ngFor="let org of base.orgs">
-            <a [class.active]="isFirst" class="nav-link" id="v-pills-{{base.baseId}}-{{org.orgId}}-tab" data-toggle="pill"
-              href="#v-pills-{{base.baseId}}-{{org.orgId}}" role="tab" attr.aria-controls="v-pills-{{base.baseId}}-{{org.orgId}}"
+          <ng-container *ngFor="let org of base.orgs; let isFirstOrg = first">
+            <a [class.active]="isFirstBase && isFirstOrg" class="nav-link" id="v-pills-{{base.baseId}}-{{org.orgId}}-tab"
+              data-toggle="pill" href="#v-pills-{{base.baseId}}-{{org.orgId}}" role="tab" attr.aria-controls="v-pills-{{base.baseId}}-{{org.orgId}}"
               aria-selected="true">{{org.orgName}}</a>
           </ng-container>
 
@@ -62,7 +63,7 @@
           -->
         </div>
 
-        <ng-container *ngFor="let base of user.bases; let isFirst = first">
+        <ng-container *ngFor="let base of user.bases; let isFirstBase = first">
 
           <!-- Create Base Manager dashboard -->
           <ng-container *ngIf="base.canCreateOrgs || user.isAdmin">
@@ -77,24 +78,26 @@
                     <!-- <h4>Create Organization</h4> -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="create-org-name-{{base.baseId}}">Organization Name</span>
+                        <span class="input-group-text" id="create-org-name-label-{{base.baseId}}">Organization Name</span>
                       </div>
-                      <input type="text" class="form-control" aria-label="Sizing example input" attr.aria-describedby="create-org-name-{{base.baseId}}"
-                        placeholder="22 Maintenance Group">
+                      <input type="text" id="create-org-name-{{base.baseId}}" class="form-control" aria-label="Sizing example input"
+                        attr.aria-describedby="create-org-name-label-{{base.baseId}}" placeholder="22 Maintenance Group">
                     </div>
 
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
-                        <span class="input-group-text" id="create-org-subscription-code-{{base.baseId}}">Subscription
+                        <span class="input-group-text" id="create-org-subscription-code-label-{{base.baseId}}">Subscription
                           Code</span>
                       </div>
                       <!-- 
                         TODO: add a listener that adds .is-valid or .is-invalid to the input as it checks if the subscription code is valid or not after each key release.
                        -->
-                      <input type="text" class="form-control" aria-label="Sizing example input" attr.aria-describedby="create-org-subscription-code-{{base.baseId}}"
+                      <input type="text" id="create-org-subscription-code-{{base.baseId}}" class="form-control"
+                        aria-label="Sizing example input" attr.aria-describedby="create-org-subscription-code-label-{{base.baseId}}"
                         placeholder="22MXG">
                     </div>
-                    <button type="button" class="btn btn-primary">Create Organization</button>
+                    <button type="button" (click)="createOrganization(base.baseId)" class="btn btn-primary">Create
+                      Organization</button>
                   </div>
                 </div>
               </div>
@@ -110,10 +113,10 @@
           </ng-container>
 
           <!-- Create org dashboards -->
-          <ng-container *ngFor="let org of base.orgs">
+          <ng-container *ngFor="let org of base.orgs; let isFirstOrg = first">
 
-            <div [class.active]="isFirst" class="tab-pane fade show" id="v-pills-{{base.baseId}}-{{org.orgId}}" role="tabpanel"
-              attr.aria-labelledby="v-pills-{{base.baseId}}-{{org.orgId}}-tab">
+            <div [class.active]="isFirstBase && isFirstOrg" class="tab-pane fade show" id="v-pills-{{base.baseId}}-{{org.orgId}}"
+              role="tabpanel" attr.aria-labelledby="v-pills-{{base.baseId}}-{{org.orgId}}-tab">
 
               <!-- This part of the dashboard will show for all managers -->
               <div class="container">

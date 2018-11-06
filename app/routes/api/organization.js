@@ -9,9 +9,7 @@ router
     const newOrgManagerEmail = req.body.newOrgManagerEmail;
 
     if (!(userId && orgId && newOrgManagerEmail)) {
-      res
-        .status(400)
-        .json({ success: false, error: 'Missing data on request.' });
+      res.json({ success: false, error: 'Missing data on request.' });
     }
 
     const orgManager = await orgController
@@ -19,7 +17,7 @@ router
       .catch(err => console.error(err));
 
     if (!orgManager.userId) {
-      res.status(400).json({ success: false, error: orgManager });
+      res.json({ success: false, error: orgManager });
     }
 
     res.json({ success: true });
@@ -31,9 +29,7 @@ router
     const subscriptionCode = req.body.subscriptionCode;
 
     if (!(userId && baseId && orgName && subscriptionCode)) {
-      res
-        .status(400)
-        .json({ success: false, error: 'Missing data on request.' });
+      res.json({ success: false, error: 'Missing data on request.' });
     }
 
     const org = await orgController
@@ -41,7 +37,7 @@ router
       .catch(err => console.error(err));
 
     if (!org.id) {
-      res.status(400).json({
+      res.json({
         success: false,
         error: org
       });
@@ -52,9 +48,7 @@ router
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;
     if (!subscriptionCode) {
-      res
-        .status(400)
-        .json({ success: false, error: 'Missing data on request.' });
+      res.json({ success: false, error: 'Missing data on request.' });
     }
     const isSubscriptionCodeUnique = await orgController
       .isSubscriptionCodeUnique(subscriptionCode)
@@ -71,9 +65,7 @@ router
     const newOrgOwnerEmail = req.body.newOrgOwnerEmail;
 
     if (!(orgId && newOrgOwnerEmail)) {
-      res
-        .status(400)
-        .json({ success: false, error: 'Missing data on request.' });
+      res.json({ success: false, error: 'Missing data on request.' });
     }
 
     const org = await orgController
@@ -81,7 +73,7 @@ router
       .catch(err => console.error(err));
 
     if (org !== true) {
-      res.status(400).json({ success: false, error: org });
+      res.json({ success: false, error: org });
     }
     res.json({ success: true });
   });
