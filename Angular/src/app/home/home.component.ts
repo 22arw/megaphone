@@ -85,6 +85,15 @@ export class HomeComponent implements OnInit {
     return this.MAX_CHAR_COUNT - subscriptionCode.length - 3;
   }
 
+  // isSubscriptionCodeUnique(e: KeyboardEvent): boolean {
+
+  //   this.ApiService.isSubscriptionCodeUnique(subscriptionCode)
+  //     .then(res => {
+  //       return res.subscriptionCode;
+  //     })
+  //     .catch(err => console.error(err));
+  // }
+
   sendMessage(orgId: number): void {
     const messageResponseDiv = document.getElementById(
       `message-response-${orgId}`

@@ -45,6 +45,31 @@ export class ApiService {
     return promise;
   };
 
+  isSubscriptionCodeUnique = (
+    subscriptionCode: string
+  ): Promise<{ subscriptionCode: boolean }> => {
+    const promise = new Promise<{ subscriptionCode: boolean }>(
+      (resolve, reject) => {
+        this.http
+          .post(
+            '/api/organization/isSubscriptionCodeUnique',
+            { subscriptionCode: subscriptionCode },
+            { withCredentials: true }
+          )
+          .toPromise()
+          .then(
+            res => {
+              resolve(res as { subscriptionCode: boolean });
+            },
+            err => {
+              reject(err);
+            }
+          );
+      }
+    );
+    return promise;
+  };
+
   sendMessage = (orgId: number, message: string): Promise<StandardResponse> => {
     const promise = new Promise<StandardResponse>((resolve, reject) => {
       this.http

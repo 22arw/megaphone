@@ -68,7 +68,38 @@
           <ng-container *ngIf="base.canCreateOrgs || user.isAdmin">
 
             <div class="tab-pane fade show" id="v-pills-{{base.baseId}}" role="tabpanel" attr.aria-labelledby="v-pills-{{base.baseId}}-tab">
-              {{base.baseName}}
+              <h2>{{base.baseName}}</h2>
+              <p>Phone Number: {{toPrettyPhone(base.basePhoneNumber)}}</p>
+
+              <div class="row">
+                <div class="col-md-10">
+                  <div class="create-org">
+                    <!-- <h4>Create Organization</h4> -->
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="create-org-name-{{base.baseId}}">Organization Name</span>
+                      </div>
+                      <input type="text" class="form-control" aria-label="Sizing example input" attr.aria-describedby="create-org-name-{{base.baseId}}"
+                        placeholder="22 Maintenance Group">
+                    </div>
+
+                    <div class="input-group mb-3">
+                      <div class="input-group-prepend">
+                        <span class="input-group-text" id="create-org-subscription-code-{{base.baseId}}">Subscription
+                          Code</span>
+                      </div>
+                      <!-- 
+                        TODO: add a listener that adds .is-valid or .is-invalid to the input as it checks if the subscription code is valid or not after each key release.
+                       -->
+                      <input type="text" class="form-control" aria-label="Sizing example input" attr.aria-describedby="create-org-subscription-code-{{base.baseId}}"
+                        placeholder="22MXG">
+                    </div>
+                    <button type="button" class="btn btn-primary">Create Organization</button>
+                  </div>
+                </div>
+              </div>
+
+
               <!-- 
                 TODO:
                 - Create org
