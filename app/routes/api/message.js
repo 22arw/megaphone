@@ -17,7 +17,7 @@ router.post('/send', async (req, res) => {
 
     if (sendMessageResponse instanceof Error) throw sendMessageResponse;
   } catch (error) {
-    res.status(400).json({
+    res.json({
       success: false,
       error: error.message
     });

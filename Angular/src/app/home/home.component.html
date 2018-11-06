@@ -44,12 +44,33 @@
       <div class="tab-content" id="v-pills-tabContent">
 
         <div class="tab-pane fade show" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-          <pre>{{user | json}}</pre>
+
+
+
+
           <!-- 
             TODO:
             - Submit base code to become a base manager
             - 
           -->
+          <div class="row">
+            <div class="col-md-10">
+              <div class="megaphone-form">
+                <div class="input-group mb-3">
+                  <div class="input-group-prepend">
+                    <span class="input-group-text" id="base-code-label">Subscription
+                      Code</span>
+                  </div>
+                  <input type="text" id="base-code" class="form-control" aria-label="Sizing example input"
+                    attr.aria-describedby="base-code-label" placeholder="Enter base code here.">
+                </div>
+                <button type="button" (click)="createBaseManager()" class="btn btn-primary">Upgrade Account</button>
+              </div>
+            </div>
+          </div>
+
+
+
         </div>
 
         <div *ngIf="admin" class="tab-pane fade show" id="v-pills-admin" role="tabpanel" aria-labelledby="v-pills-admin-tab">
@@ -74,7 +95,7 @@
 
               <div class="row">
                 <div class="col-md-10">
-                  <div class="create-org">
+                  <div class="megaphone-form">
                     <!-- <h4>Create Organization</h4> -->
                     <div class="input-group mb-3">
                       <div class="input-group-prepend">
@@ -101,13 +122,6 @@
                   </div>
                 </div>
               </div>
-
-
-              <!-- 
-                TODO:
-                - Create org
-                - 
-              -->
             </div>
 
           </ng-container>

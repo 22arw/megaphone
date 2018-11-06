@@ -56,7 +56,7 @@ router.post('/createBase', async (req, res) => {
       success: true
     });
   } catch (error) {
-    res.status(400).json({
+    res.json({
       success: false,
       error: error.message
     });
@@ -80,7 +80,7 @@ router.post('/createBaseManager', async (req, res) => {
       success: true
     });
   } catch (error) {
-    res.status(400).json({
+    res.json({
       success: false,
       error: error.message
     });
@@ -101,7 +101,7 @@ router.post('/deleteBaseManager', async (req, res) => {
       success: true
     });
   } catch (error) {
-    res.status(400).json({
+    res.json({
       success: false,
       error: error.message
     });

@@ -11,6 +11,27 @@ import StandardResponse from './interfaces/standardResponse';
 export class ApiService {
   constructor(private http: HttpClient) {}
 
+  createBaseManager = (baseCode: string): Promise<StandardResponse> => {
+    const promise = new Promise<StandardResponse>((resolve, reject) => {
+      this.http
+        .post(
+          '/api/base/createBaseManager',
+          { baseCode: baseCode },
+          { withCredentials: true }
+        )
+        .toPromise()
+        .then(
+          res => {
+            resolve(res as StandardResponse);
+          },
+          err => {
+            reject(err);
+          }
+        );
+    });
+    return promise;
+  };
+
   createOrganization = (
     baseId: number,
     orgName: string,

@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../api.service';
 import User from '../interfaces/user';
 import Admin from '../interfaces/admin';
+import { getSymbolIterator } from '@angular/core/src/util';
 
 @Component({
   selector: 'app-home',
@@ -74,6 +75,21 @@ export class HomeComponent implements OnInit {
     } else {
       document.getElementById(elementId).style.fontWeight = 'normal';
     }
+  }
+
+  createBaseManager(): void {
+    const baseCode = (document.getElementById('base-code') as HTMLInputElement)
+      .value;
+    this.ApiService.createBaseManager(baseCode)
+      .then(res => {
+        if (res.success) {
+          displayNotificationBanner('Success', 'success');
+          location.reload(true);
+        } else {
+          displayNotificationBanner(res.error, 'warning');
+        }
+      })
+      .catch(err => console.error(err));
   }
 
   createOrganization(baseId: number): void {
