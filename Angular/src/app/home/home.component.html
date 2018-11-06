@@ -141,9 +141,6 @@
                     <button type="button" class="btn btn-primary btn-lg btn-block" [disabled]="!canSendMessage(org.orgId)"
                       (click)="sendMessage(org.orgId)">Send to {{org.orgName}}</button>
                   </div>
-                  <div class="col-12 col-md-6">
-                    <div id="message-response-{{org.orgId}}"></div>
-                  </div>
                 </div>
                 <!-- This part of the dashboard will only show for orgOwners NOT admins, to curb confusion. -->
                 <ng-container *ngIf="org.isOrgOwner">

@@ -105,30 +105,31 @@ export class HomeComponent implements OnInit {
   }
 
   getMaxLength(subscriptionCode: string): number {
-    // 3 is for the carriage return, a dash (-) and a space.
+    // 3 is for the carriage return, a dash (-), and a space.
     return this.MAX_CHAR_COUNT - subscriptionCode.length - 3;
   }
 
   sendMessage(orgId: number): void {
-    const messageResponseDiv = document.getElementById(
-      `message-response-${orgId}`
-    );
     const message = (document.getElementById(
       `text-${orgId}`
     ) as HTMLInputElement).value;
 
-    messageResponseDiv.innerHTML = `<div class="alert alert-primary alert-dismissible fade show" role="alert">You're message is being sent. Standby please. 😁<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
+    displayNotificationBanner(
+      "You're message is being sent. Standby please. 😁",
+      'primary'
+    );
 
     this.ApiService.sendMessage(orgId, message)
       .then(res => {
         if (res.success) {
-          messageResponseDiv.innerHTML = `<div class="alert alert-success alert-dismissible fade show" role="alert">You're message has been accepted. Give us a few minutes to reach everyone. 😎👍<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
+          displayNotificationBanner(
+            "You're message has been accepted. Give us a few minutes to reach everyone. 😎👍",
+            'success'
+          );
           (document.getElementById(`text-${orgId}`) as HTMLInputElement).value =
             '';
         } else {
-          messageResponseDiv.innerHTML = `<div class="alert alert-danger alert-dismissible fade show" role="alert">${
-            res.error
-          } 😓<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button></div>`;
+          displayNotificationBanner(`${res.error} 😓`, 'danger');
         }
       })
       .catch(err => console.error(err));
@@ -161,7 +162,7 @@ function displayNotificationBanner(
   notificationDiv.innerHTML = notificationMessage;
 
   (async () => {
-    await delay(7500);
+    await delay(5000);
     notificationDiv.innerHTML = '';
   })();
 }
