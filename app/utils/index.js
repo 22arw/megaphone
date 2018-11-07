@@ -1,4 +1,5 @@
 module.exports = {
   isValidEmail: require('./isValidEmail'),
-  isValidPhoneNumber: require('./isValidPhoneNumber')
+  isValidPhoneNumber: require('./isValidPhoneNumber'),
+  tokenService: require('./tokenService')
 };
