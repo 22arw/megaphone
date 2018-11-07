@@ -5,7 +5,7 @@ const utils = require('../../utils');
 const TOKEN = utils.tokenService;
 const bcrypt = require('bcrypt');
 
-router.post('/login', (req, res) => {
+router.post('/login', async (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
 
@@ -14,6 +14,12 @@ router.post('/login', (req, res) => {
     console.log('\nMissing data on login request.');
     return res.sendStatus(401);
   }
+
+  const doesUserExist = await dbInterface
+    .doesUserExist(email)
+    .catch(err => console.error(err));
+
+  if (!doesUserExist) return res.sendStatus(401);
 
   dbInterface.getUserByEmail(email).then(async user => {
     if (!(await bcrypt.compare(password, user.password))) {
