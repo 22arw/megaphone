@@ -15,7 +15,7 @@ const apiRouter = require('./app/routes/api');
 
 // Application Flow
 app.use(cors());
-app.options('*', cors());
+app.options('*', cors()); // preflight
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 

@@ -6,8 +6,8 @@ const TOKEN = utils.tokenService;
 const bcrypt = require('bcrypt');
 
 router.post('/login', (req, res) => {
-  const email = req.body.email;
-  const password = req.body.password;
+  const email = req.body.data.email;
+  const password = req.body.data.password;
   if (!(email && password)) {
     console.log('\nMissing data on login request.');
     return res.sendStatus(401);
