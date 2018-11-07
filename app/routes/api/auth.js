@@ -6,23 +6,23 @@ const TOKEN = utils.tokenService;
 const bcrypt = require('bcrypt');
 
 router.post('/login', (req, res) => {
-  const email = req.body.data.email;
-  const password = req.body.data.password;
+  const email = req.body.email;
+  const password = req.body.password;
   if (!(email && password)) {
     console.log('\nMissing data on login request.');
     return res.sendStatus(401);
   }
 
-  dbInterface.getUserByEmail(email).then(user => {
-    if (!bcrypt.compare(password, user.password)) {
+  dbInterface.getUserByEmail(email).then(async user => {
+    if (!(await bcrypt.compare(password, user.password))) {
       console.log('\nIncorrect password at login.');
       return res.sendStatus(401);
+    } else {
+      const token = TOKEN.generate(user.id);
+      res.json({
+        token: token
+      });
     }
-
-    const token = TOKEN.generate(user.id);
-    res.json({
-      token: token
-    });
   });
 });
 
