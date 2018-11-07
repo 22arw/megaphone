@@ -8,6 +8,8 @@ const bcrypt = require('bcrypt');
 router.post('/login', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+
+  console.log(JSON.stringify(req.body));
   if (!(email && password)) {
     console.log('\nMissing data on login request.');
     return res.sendStatus(401);
