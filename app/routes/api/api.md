@@ -7,6 +7,24 @@
 
 - [Admin](#apiadmin)
   - [Get Admin Data](#post-apiadmin)
+  - [Create Base](#post-apiadmincreatebase)
+  - [Create Base Manager](#post-apiadmincreatebasemanager)
+  - [Delete Base Manager](#post-apiadmindeletebasemanager)
+- [Auth](#apiauth)
+  - [Login](#post-apiauthlogin)
+- [Base](#apibase)
+  - [Create Base Manager](#post-apibasecreatebasemanager)
+  - [Delete Base Manager](#post-apibasedeletebasemanager)
+- [Message](#apimessage)
+  - [Send Message](#post-apimessagesend)
+- [Organization](#apiorganization)
+  - [Create Organization](#post-apiorganizationcreateorg)
+  - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
+  - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
+  - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
+- [User](#apiuser)
+  - [Get User Data](#post-apiuser)
+  - [Is User Admin?](#post-apiuserisadmin)
 
 ### /api/admin
 
@@ -195,7 +213,7 @@ Returns:
 
 #### POST `/api/base/createBaseManager`
 
-|> Adds the Base Manager role for the currently logged in user. Only admins can add other Base Managers. See `/api/admin/createBaseManager`.
+|> Adds the Base Manager role for the currently logged in user. Only admins can add other Base Managers. See [Create Base Manager](#post-apiadmincreatebasemanager).
 
 Expects:
 
