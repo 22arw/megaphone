@@ -1,6 +1,6 @@
 # API Reference for Megaphone
 
-`/api`
+GET `/api`
 |> Forwards you to this page. [https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md](https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md)
 
 ## Table of Contents
