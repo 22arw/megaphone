@@ -5,6 +5,7 @@ GET `/api`
 
 ## Table of Contents
 
+- [Using the API](using-the-api)
 - [Admin](#apiadmin)
   - [Get Admin Data](#post-apiadmin)
   - [Create Base](#post-apiadmincreatebase)
@@ -15,6 +16,7 @@ GET `/api`
 - [Base](#apibase)
   - [Create Base Manager](#post-apibasecreatebasemanager)
   - [Delete Base Manager](#post-apibasedeletebasemanager)
+  - [Get All Bases](#get-apibasegetallbases)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
@@ -26,19 +28,35 @@ GET `/api`
   - [Get User Data](#post-apiuser)
   - [Is User Admin?](#post-apiuserisadmin)
 
-### /api/admin
+### Using the API
 
-#### POST `/api/admin`
+When making a call to the API for any of these routes, the token received upon logging in (see [Login](#post-apiauthlogin)) must accompany the request in at least one of the following methods:
 
-|> Returns a json of all data from the database.
-
-Expects:
+1. In the body of the request:
 
 ```javascript
 {
   token: String;
 }
 ```
+
+2. As a parameter in the url:
+
+website.com`?token=theTokenString`
+
+3. As a value in the header:
+
+```javascript
+{
+  x-access-token: String
+}
+```
+
+### /api/admin
+
+#### GET `/api/admin`
+
+|> Returns a json of all data from the database.
 
 Returns:
 
@@ -118,7 +136,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   basePhoneNumber: String,
   baseName: String,
   baseCode: String,
@@ -146,7 +163,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   baseCode: String,
   newBaseManagerEmail: String
 }
@@ -170,7 +186,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   baseCode: String,
   deleteBaseManagerEmail: String
 }
@@ -219,7 +234,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   baseCode: String;
 }
 ```
@@ -242,7 +256,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   baseCode: String;
 }
 ```
@@ -257,6 +270,31 @@ Returns:
 }
 ```
 
+#### GET `/api/base/getAllBases`
+
+|> Returns a list of all bases.
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  bases: [
+    id: Number,
+    basePhoneNumber: String,
+    baseName: String,
+    baseCode: String,
+    bandwidthUserId: String,
+    bandwidthApiToken: String,
+    bandwidthApiSecret: String,
+    createdAt: String,
+    updatedAt: String
+  ]
+}
+```
+
 ### /api/message
 
 #### POST `/api/message/send`
@@ -267,7 +305,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   orgId: String,
   message: String
 }
@@ -293,7 +330,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   baseId: Number, // The base ID it will be created under
   orgName: String, // The full name of the organization
   subscriptionCode: String // This is the code people will use to sign up for the organization.
@@ -318,7 +354,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   newOrgManagerEmail: String, // The email of the user being added to the org
   orgId: Number, // The org that is having a manager added to
 }
@@ -342,7 +377,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   subscriptionCode: String; // This is the code people will use to sign up for the organization.
 }
 ```
@@ -364,7 +398,6 @@ Expects:
 
 ```javascript
 {
-  token: String,
   newOrgOwnerEmail: String, // The email of the user gaining ownership
   orgId: Number, // The org that is transferring ownership
 }
@@ -382,17 +415,9 @@ Returns:
 
 ### /api/user
 
-#### POST `/api/user`
+#### GET `/api/user`
 
 |> Returns a json of all the data associated with the logged in user.
-
-Expects:
-
-```javascript
-{
-  token: String;
-}
-```
 
 Returns:
 
@@ -421,17 +446,9 @@ Returns:
 }
 ```
 
-#### POST `/api/user/isAdmin`
+#### GET `/api/user/isAdmin`
 
 |> Returns a json object describing if the currently logged in user is an Admin.
-
-Expects:
-
-```javascript
-{
-  token: String;
-}
-```
 
 Returns:
 

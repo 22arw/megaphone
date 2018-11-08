@@ -3,7 +3,7 @@ const router = express.Router();
 const adminController = require('../../controllers/admin');
 const baseController = require('../../controllers/base');
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   let adminData = await adminController
     .getAdminData()
     .catch(err => console.error(err));

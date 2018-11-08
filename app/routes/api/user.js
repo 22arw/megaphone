@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../../controllers/user');
 
-router.post('/', async (req, res) => {
+router.get('/', async (req, res) => {
   const userId = req.userId;
   let result = await userController
     .getUserData(userId)
@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
   res.json(result);
 });
 
-router.post('/isAdmin', async (req, res) => {
+router.get('/isAdmin', async (req, res) => {
   const userId = req.userId;
   const isAdmin = await userController
     .isAdmin(userId)

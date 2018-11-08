@@ -93,8 +93,14 @@ const deleteBaseManager = async (userId, baseId) => {
     : new Error('Deleting the Base Manager failed.');
 };
 
+const getAllBases = async () => {
+  const bases = dbInterface.getAllBases().catch(err => console.error(err));
+  return bases.length !== 0 ? bases : new Error('There are no bases');
+};
+
 module.exports = {
   createBase: createBase,
   createBaseManager: createBaseManager,
-  deleteBaseManager: deleteBaseManager
+  deleteBaseManager: deleteBaseManager,
+  getAllBases: getAllBases
 };
