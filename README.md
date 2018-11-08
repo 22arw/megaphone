@@ -88,11 +88,9 @@ npm install -g nodemon
 npm run dev
 ```
 
-#### Open your browser to [http://localhost:3000/](http://localhost:3000/)
+#### The application is now listening on localhost:3000
 
-[http://localhost:3000/](http://localhost:3000/)
-
-Any changes you save to the app will recompile automatically. Refresh the browser window to see your changes.
+There is no user interface for this part of the application, it only serves up the API. For the interface, see: [megaPhone-ui](https://github.com/22arw/megaPhone-ui)
 
 ### Migrate and seed the database (OPTIONAL)
 
@@ -102,17 +100,17 @@ Demo users:
 
 ```
 // This user is an admin
-email: admin@email.com
+email: admin@mail.mil
 password: asdf
 
 // These users are standard users
-email: kevin@email.com
+email: kevin@mail.mil
 password: asdf
 
-email: coach@email.com
+email: coach@mail.mil
 password: asdf
 
-email: aaron@email.com
+email: aaron@mail.mil
 password: asdf
 ```
 
