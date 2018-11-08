@@ -52,6 +52,8 @@ website.com`?token=theTokenString`
 }
 ```
 
+To keep the user logged in, each request to the API returns an updated token. Use this token in the next API call to keep the user logged in.
+
 ### /api/admin
 
 #### GET `/api/admin`
