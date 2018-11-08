@@ -3,6 +3,7 @@ const express = require('express');
 const router = express.Router();
 const bandwidthController = require('../../controllers/bandwidth');
 
+// TODO: Put a route guard on here that only allows access from the bandwidth api.
 router.post('/', async (req, res) => {
   if (req.body.text === undefined) res.end();
   const text = req.body.text.toLowerCase().trim();

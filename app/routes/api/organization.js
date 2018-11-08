@@ -4,7 +4,7 @@ const orgController = require('../../controllers/organization');
 
 router
   .post('/createOrgManager', async (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.userId;
     const orgId = req.body.orgId;
     const newOrgManagerEmail = req.body.newOrgManagerEmail;
 
@@ -17,13 +17,13 @@ router
       .catch(err => console.error(err));
 
     if (!orgManager.userId) {
-      res.json({ success: false, error: orgManager });
+      res.json({ token: req.token, success: false, error: orgManager });
     }
 
-    res.json({ success: true });
+    res.json({ token: req.token, success: true });
   })
   .post('/createOrg', async (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.userId;
     const baseId = req.body.baseId;
     const orgName = req.body.orgName;
     const subscriptionCode = req.body.subscriptionCode;
@@ -37,13 +37,10 @@ router
       .catch(err => console.error(err));
 
     if (!org.id) {
-      res.json({
-        success: false,
-        error: org
-      });
+      res.json({ token: req.token, success: false, error: org });
     }
 
-    res.json({ success: true });
+    res.json({ token: req.token, success: true });
   })
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;
@@ -55,12 +52,13 @@ router
       .catch(err => console.error(err));
 
     res.json({
+      token: req.token,
       success: true,
       isSubscriptionCodeUnique: isSubscriptionCodeUnique
     });
   })
   .post('/updateOrgOwner', async (req, res) => {
-    const userId = req.session.userId;
+    const userId = req.userId;
     const orgId = req.body.orgId;
     const newOrgOwnerEmail = req.body.newOrgOwnerEmail;
 
@@ -73,9 +71,9 @@ router
       .catch(err => console.error(err));
 
     if (org !== true) {
-      res.json({ success: false, error: org });
+      res.json({ token: req.token, success: false, error: org });
     }
-    res.json({ success: true });
+    res.json({ token: req.token, success: true });
   });
 
 module.exports = router;

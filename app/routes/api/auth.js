@@ -34,10 +34,4 @@ router.post('/login', async (req, res) => {
   });
 });
 
-router.post('/test', (req, res) => {
-  console.log('successfully logged in.');
-  console.log(`userId: ${req.userId}`);
-  res.end();
-});
-
 module.exports = router;

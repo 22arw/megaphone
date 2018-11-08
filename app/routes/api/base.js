@@ -3,7 +3,7 @@ const router = express.Router();
 const baseController = require('../../controllers/base');
 
 router.post('/createBaseManager', async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.userId;
   const baseCode = req.body.baseCode;
 
   try {
@@ -15,19 +15,14 @@ router.post('/createBaseManager', async (req, res) => {
       baseCode
     );
     if (baseManager instanceof Error) throw baseManager;
-    res.json({
-      success: true
-    });
+    res.json({ token: req.token, success: true });
   } catch (error) {
-    res.json({
-      success: false,
-      error: error.message
-    });
+    res.json({ token: req.token, success: false, error: error.message });
   }
 });
 
 router.post('/deleteBaseManager', async (req, res) => {
-  const userId = req.session.userId;
+  const userId = req.userId;
   const baseId = req.body.baseId;
 
   try {
@@ -36,14 +31,9 @@ router.post('/deleteBaseManager', async (req, res) => {
     }
     const baseManager = await baseController.deleteBaseManager(userId, baseId);
     if (baseManager instanceof Error) throw baseManager;
-    res.json({
-      success: true
-    });
+    res.json({ token: req.token, success: true });
   } catch (error) {
-    res.json({
-      success: false,
-      error: error.message
-    });
+    res.json({ token: req.token, success: false, error: error.message });
   }
 });
 

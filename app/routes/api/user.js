@@ -2,23 +2,21 @@ const express = require('express');
 const router = express.Router();
 const userController = require('../../controllers/user');
 
-router.get('/', async (req, res) => {
-  // Get all of the user's data so that we can build the dashboard
-  const userId = req.session.userId;
-  const result = await userController
+router.post('/', async (req, res) => {
+  const userId = req.userId;
+  let result = await userController
     .getUserData(userId)
     .catch(err => console.error(err));
+  result.token = req.token;
   res.json(result);
 });
 
-router.get('/isAdmin', async (req, res) => {
-  const userId = req.session.userId;
+router.post('/isAdmin', async (req, res) => {
+  const userId = req.userId;
   const isAdmin = await userController
     .isAdmin(userId)
     .catch(err => console.error(err));
-  res.json({
-    isAdmin: isAdmin
-  });
+  res.json({ token: req.token, isAdmin: isAdmin });
 });
 
 module.exports = router;

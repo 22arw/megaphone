@@ -3,10 +3,11 @@ const router = express.Router();
 const adminController = require('../../controllers/admin');
 const baseController = require('../../controllers/base');
 
-router.get('/', async (req, res) => {
-  const adminData = await adminController
-    .getAdminData(req)
+router.post('/', async (req, res) => {
+  let adminData = await adminController
+    .getAdminData()
     .catch(err => console.error(err));
+  adminData.token = req.token;
   res.json(adminData);
 });
 
@@ -52,14 +53,9 @@ router.post('/createBase', async (req, res) => {
 
     if (base instanceof Error) throw base;
 
-    res.json({
-      success: true
-    });
+    res.json({ token: req.token, success: true });
   } catch (error) {
-    res.json({
-      success: false,
-      error: error.message
-    });
+    res.json({ token: req.token, success: false, error: error.message });
   }
 });
 
@@ -76,14 +72,9 @@ router.post('/createBaseManager', async (req, res) => {
       newBaseManagerEmail
     );
     if (baseManager instanceof Error) throw baseManager;
-    res.json({
-      success: true
-    });
+    res.json({ token: req.token, success: true });
   } catch (error) {
-    res.json({
-      success: false,
-      error: error.message
-    });
+    res.json({ token: req.token, success: false, error: error.message });
   }
 });
 
@@ -97,14 +88,9 @@ router.post('/deleteBaseManager', async (req, res) => {
     }
     const baseManager = await adminController.deleteBaseManager(baseId, email);
     if (baseManager instanceof Error) throw baseManager;
-    res.json({
-      success: true
-    });
+    res.json({ token: req.token, success: true });
   } catch (error) {
-    res.json({
-      success: false,
-      error: error.message
-    });
+    res.json({ token: req.token, success: false, error: error.message });
   }
 });
 
