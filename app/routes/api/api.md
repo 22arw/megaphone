@@ -3,6 +3,11 @@
 `/api`
 |> Forwards you to this page. [https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md](https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md)
 
+## Table of Contents
+
+- [Admin](#apiadmin)
+  - [Get Admin Data](#post-apiadmin)
+
 ### /api/admin
 
 #### POST `/api/admin`
