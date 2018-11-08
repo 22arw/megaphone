@@ -1,5 +1,3 @@
-const bcrypt = require('bcrypt');
-
 const dbInterface = require('./dbInterfaces');
 const utils = require('../utils');
 
@@ -16,7 +14,7 @@ const registerUser = async (email, password, passwordConfirmation) => {
     .doesUserExist(email)
     .catch(err => console.error(err));
   if (doesUserExist) {
-    return 'The username or password you entered could not be authenticated.';
+    return 'The user already exists.';
   }
 
   return await dbInterface
@@ -24,31 +22,6 @@ const registerUser = async (email, password, passwordConfirmation) => {
     .catch(err => console.error(err));
 };
 
-const loginUser = async (email, password) => {
-  if (!utils.isValidEmail(email)) {
-    return 'That is not a valid email address';
-  }
-
-  const doesUserExist = await dbInterface
-    .doesUserExist(email)
-    .catch(err => console.error(err));
-
-  if (!doesUserExist) {
-    return 'The username or password you entered could not be authenticated.';
-  }
-
-  const user = await dbInterface
-    .getUserByEmail(email)
-    .catch(err => console.error(err));
-
-  return (await bcrypt.compare(password, user.password))
-    ? user
-    : 'The username or password you entered could not be authenticated.';
+module.exports = {
+  registerUser: registerUser
 };
-
-const authController = {
-  registerUser: registerUser,
-  loginUser: loginUser
-};
-
-module.exports = authController;
