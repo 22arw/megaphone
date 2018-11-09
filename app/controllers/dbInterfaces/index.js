@@ -1,5 +1,4 @@
 module.exports = {
-  addOrgManager: require('./addOrgManager'),
   createBase: require('./createBase'),
   createBaseManager: require('./createBaseManager'),
   createOrg: require('./createOrg'),

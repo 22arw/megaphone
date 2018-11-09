@@ -121,15 +121,6 @@ const getAllDataAssociatedWithUser = async userId => {
     })
   };
 
-  // const result = {
-  //   userData: userData,
-  //   baseManagerData: baseManagerData,
-  //   baseData: baseData,
-  //   organizationManagerData: organizationManagerData,
-  //   organizationData: organizationData,
-  //   subscribersPerOrganization: subscribersPerOrganization
-  // };
-
   return formattedUserData;
 };
 

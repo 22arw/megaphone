@@ -12,12 +12,6 @@ const isBaseManager = async (userId, baseId) => {
     }
   }).catch(err => console.error(err));
 
-  // console.log(` - - - - - -
-  // isBaseManager
-  // baseManager: ${JSON.stringify(baseManager)}
-  // return: ${Array.isArray(baseManager) && baseManager.length === 1}
-  // - - - - - -`);
-
   return Array.isArray(baseManager) && baseManager.length === 1;
 };
 
