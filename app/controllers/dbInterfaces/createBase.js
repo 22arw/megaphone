@@ -3,7 +3,6 @@ const models = require('../../db/models');
 module.exports = async (
   basePhoneNumber,
   baseName,
-  baseCode,
   bandwidthUserId,
   bandwidthApiToken,
   bandwidthApiSecret
@@ -11,7 +10,6 @@ module.exports = async (
   const base = await models.Base.create({
     basePhoneNumber: basePhoneNumber,
     baseName: baseName,
-    baseCode: baseCode,
     bandwidthUserId: bandwidthUserId,
     bandwidthApiToken: bandwidthApiToken,
     bandwidthApiSecret: bandwidthApiSecret

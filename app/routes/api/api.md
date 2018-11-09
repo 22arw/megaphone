@@ -98,7 +98,6 @@ Returns:
       id: Number;
       basePhoneNumber: String;
       baseName: String;
-      baseCode: String;
       bandwidthUserId: String;
       bandwidthApiToken: String;
       bandwidthApiSecret: String;
@@ -140,56 +139,9 @@ Expects:
 {
   basePhoneNumber: String,
   baseName: String,
-  baseCode: String,
   bandwidthUserId: String,
   bandwidthApiToken: String,
   bandwidthApiSecret: String
-}
-```
-
-Returns:
-
-```typescript
-{
-  token: String,
-  success: Boolean,
-  error?: String
-}
-```
-
-#### POST `/api/admin/createBaseManager`
-
-|> Creates a new Base Manager for the user supplied.
-
-Expects:
-
-```javascript
-{
-  baseCode: String,
-  newBaseManagerEmail: String
-}
-```
-
-Returns:
-
-```typescript
-{
-  token: String,
-  success: Boolean,
-  error?: String
-}
-```
-
-#### POST `/api/admin/deleteBaseManager`
-
-|> Removes the Base Manager role for the user supplied.
-
-Expects:
-
-```javascript
-{
-  baseCode: String,
-  deleteBaseManagerEmail: String
 }
 ```
 
@@ -228,50 +180,6 @@ Returns:
 
 ### /api/base
 
-#### POST `/api/base/createBaseManager`
-
-|> Adds the Base Manager role for the currently logged in user. Only admins can add other Base Managers. See [Create Base Manager](#post-apiadmincreatebasemanager).
-
-Expects:
-
-```javascript
-{
-  baseCode: String;
-}
-```
-
-Returns:
-
-```typescript
-{
-  token: String,
-  success: Boolean,
-  error?: String;
-}
-```
-
-#### POST `/api/base/deleteBaseManager`
-
-|> Removes the Base Manager role for the logged in user.
-
-Expects:
-
-```javascript
-{
-  baseCode: String;
-}
-```
-
-Returns:
-
-```typescript
-{
-  token: String,
-  success: Boolean,
-  error?: String
-}
-```
-
 #### GET `/api/base/getAllBases`
 
 |> Returns a list of all bases.
@@ -287,7 +195,6 @@ Returns:
     id: Number,
     basePhoneNumber: String,
     baseName: String,
-    baseCode: String,
     bandwidthUserId: String,
     bandwidthApiToken: String,
     bandwidthApiSecret: String,

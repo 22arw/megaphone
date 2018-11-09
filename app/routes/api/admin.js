@@ -15,7 +15,6 @@ router.get('/', async (req, res) => {
 router.post('/createBase', async (req, res) => {
   const basePhoneNumber = req.body.basePhoneNumber;
   const baseName = req.body.baseName;
-  const baseCode = req.body.baseCode;
   const bandwidthUserId = req.body.bandwidthUserId;
   const bandwidthApiToken = req.body.bandwidthApiToken;
   const bandwidthApiSecret = req.body.bandwidthApiSecret;
@@ -27,8 +26,6 @@ router.post('/createBase', async (req, res) => {
         basePhoneNumber !== '' &&
         baseName &&
         baseName !== '' &&
-        baseCode &&
-        baseCode !== '' &&
         bandwidthUserId &&
         bandwidthUserId !== '' &&
         bandwidthApiToken &&
@@ -44,7 +41,6 @@ router.post('/createBase', async (req, res) => {
       .createBase(
         basePhoneNumber,
         baseName,
-        baseCode,
         bandwidthUserId,
         bandwidthApiToken,
         bandwidthApiSecret
