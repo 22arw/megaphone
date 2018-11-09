@@ -65,7 +65,7 @@ async function getDemoUsers() {
 async function getDemoBases() {
   let demoBases = await models.Base.findAll({
     where: {
-      baseCode: ['test-12345', 'test-23456']
+      baseName: ['Test AFB 1', 'Test AFB 2']
     }
   });
 

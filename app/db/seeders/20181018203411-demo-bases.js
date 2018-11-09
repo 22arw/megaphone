@@ -8,7 +8,6 @@ module.exports = {
         {
           basePhoneNumber: process.env.BASE_PHONE_NUMBER || '+12345678909',
           baseName: 'Test AFB 1',
-          baseCode: 'test-12345',
           bandwidthUserId: process.env.BANDWIDTH_USER_ID || 'bandwidth user id',
           bandwidthApiToken:
             process.env.BANDWIDTH_API_TOKEN || 'bandwidth api token',
@@ -20,7 +19,6 @@ module.exports = {
         {
           basePhoneNumber: '+12345678908',
           baseName: 'Test AFB 2',
-          baseCode: 'test-23456',
           bandwidthUserId: process.env.BANDWIDTH_USER_ID || 'bandwidth user id',
           bandwidthApiToken:
             process.env.BANDWIDTH_API_TOKEN || 'bandwidth api token',
@@ -37,7 +35,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Bases', null, {
       where: {
-        baseCode: ['test-12345', 'test-23456']
+        baseName: ['Test AFB 1', 'Test AFB 2']
       }
     });
   }

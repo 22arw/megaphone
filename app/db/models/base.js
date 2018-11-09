@@ -19,14 +19,6 @@ module.exports = (sequelize, DataTypes) => {
           notEmpty: true
         }
       },
-      baseCode: {
-        type: DataTypes.STRING,
-        unique: true,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
-      },
       bandwidthUserId: {
         type: DataTypes.STRING,
         allowNull: false,

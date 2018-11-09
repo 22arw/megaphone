@@ -24,14 +24,6 @@ module.exports = {
           notEmpty: true
         }
       },
-      baseCode: {
-        type: Sequelize.STRING,
-        unique: true,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
-      },
       bandwidthUserId: {
         type: Sequelize.STRING,
         allowNull: false,
