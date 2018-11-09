@@ -18,7 +18,6 @@ module.exports = {
       },
       baseName: {
         type: Sequelize.STRING,
-        unique: true,
         allowNull: false,
         validate: {
           notEmpty: true
