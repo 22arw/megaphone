@@ -43,11 +43,10 @@ module.exports = {
           bandwidthApiToken,
           bandwidthApiSecret
         )
-        .catch(err => console.error(err));
-
-      if (basePhoneNumber !== base.basePhoneNumber) {
-        throw new Error('Error creating base.');
-      }
+        .catch(err => {
+          console.error(err);
+          throw new Error('Error creating base.');
+        });
 
       return res.json({
         token: req.token,
