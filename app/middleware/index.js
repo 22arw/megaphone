@@ -1,5 +1,6 @@
 module.exports = {
   auth: require('./auth'),
   requireAdmin: require('./requireAdmin'),
-  requireBaseManager: require('./requireBaseManager')
+  requireBaseManager: require('./requireBaseManager'),
+  validateBody: require('./validateBody')
 };

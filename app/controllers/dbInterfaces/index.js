@@ -13,6 +13,7 @@ module.exports = {
   doesUserExistById: require('./doesUserExistById'),
   getAdminData: require('./getAdminData'),
   getAllBases: require('./getAllBases'),
+  getAllBaseManagersUnderBase: require('./getAllBaseManagersUnderBase'),
   getAllUserData: require('./getAllDataAssociatedWithUser'),
   getAllOrgsUnderBase: require('./getAllOrgsUnderBase'),
   getAllSubscriptionsByPhoneNumber: require('./getAllSubscriptionsByPhoneNumber'),

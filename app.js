@@ -1,6 +1,7 @@
 // NPM Packages
 const express = require('express');
 const cors = require('cors');
+const helmet = require('helmet');
 
 // Initializations
 require('dotenv').config();
@@ -14,6 +15,7 @@ const models = require('./app/db/models');
 const apiRouter = require('./app/routes/api');
 
 // Application Flow
+app.use(helmet());
 app.get('', (req, res) => res.redirect('https://github.com/22arw/megaphone'));
 app.use(cors());
 app.options('*', cors()); // preflight

@@ -3,6 +3,7 @@ const router = express.Router();
 const userController = require('../../controllers/user');
 
 router.get('/', async (req, res) => {
+  console.log('accessing user route');
   const userId = req.userId;
   let result = await userController
     .getUserData(userId)
