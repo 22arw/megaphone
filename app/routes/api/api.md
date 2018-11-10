@@ -7,7 +7,7 @@ GET `/api`
 
 - [Using the API](using-the-api)
 - [Admin](#apiadmin)
-  - [Get Admin Data](#post-apiadmin)
+  - [Get Admin Data](#get-apiadmin)
   - [Create Base](#post-apiadmincreatebase)
   - [Create Base Manager](#post-apiadmincreatebasemanager)
   - [Delete Base Manager](#post-apiadmindeletebasemanager)
@@ -25,8 +25,8 @@ GET `/api`
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
   - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
 - [User](#apiuser)
-  - [Get User Data](#post-apiuser)
-  - [Is User Admin?](#post-apiuserisadmin)
+  - [Get User Data](#get-apiuser)
+  - [Is User Admin?](#get-apiuserisadmin)
 
 ### Using the API
 
