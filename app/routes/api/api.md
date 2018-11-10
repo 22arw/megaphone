@@ -16,6 +16,7 @@ GET `/api`
   - [Create Base Manager](#post-apibasecreatebasemanager)
   - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
+  - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
@@ -270,6 +271,35 @@ Returns:
     bandwidthApiSecret: String,
     createdAt: String,
     updatedAt: String
+  ]
+}
+```
+
+#### POST `/api/base/getAllBaseManagersUnderBase`
+
+|> Returns a list of all base managers for the specified base.
+
+Expects:
+
+```javascript
+{
+  baseId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  baseManagers?: [
+    {
+      userId: Number,
+      email: String,
+      isAdmin: Boolean
+    }
   ]
 }
 ```

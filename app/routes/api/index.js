@@ -42,6 +42,11 @@ router
     '/base/deleteBaseManager',
     mw.requireBaseManager,
     baseController.deleteBaseManager
+  )
+  .post(
+    '/base/getAllBaseManagersUnderBase',
+    mw.requireBaseManager,
+    baseController.getAllBaseManagersUnderBase
   );
 
 // Message Routes

@@ -180,5 +180,33 @@ module.exports = {
         }
       })
       .catch(err => console.error(err));
+  },
+  getAllBaseManagersUnderBase: async (req, res) => {
+    const baseId = _.toNumber(req.body.baseId);
+
+    try {
+      if (isNaN(baseId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      dbInterface.getAllBaseManagersUnderBase(baseId).then(baseManagers => {
+        res.json({
+          token: req.token,
+          success: true,
+          baseManagers: baseManagers
+        });
+      });
+    } catch (error) {
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };
