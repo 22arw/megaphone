@@ -1,4 +1,5 @@
 module.exports = {
   auth: require('./auth'),
-  requireAdmin: require('./requireAdmin')
+  requireAdmin: require('./requireAdmin'),
+  requireBaseManager: require('./requireBaseManager')
 };

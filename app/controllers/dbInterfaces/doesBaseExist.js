@@ -11,7 +11,7 @@ const doesBaseExist = async baseId => {
     }
   }).catch(err => console.error(err));
 
-  return Array.isArray(base) && base.length === 1;
+  return Array.isArray(base) && base.length === 1 && base[0].isActive;
 };
 
 module.exports = doesBaseExist;

@@ -10,8 +10,10 @@ GET `/api`
   - [Get Admin Data](#get-apiadmin)
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin)
+  - [Reset Password](post-apiauthresetpassword)
 - [Base](#apibase)
   - [Create Base](#post-apibasecreatebase)
+  - [Create Base Manager](#post-apibasecreatebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
@@ -144,7 +146,32 @@ Returns:
 
 ```javascript
 {
-  token: String;
+  token: String,
+  needsPasswordChange: Boolean
+}
+```
+
+#### POST `/api/auth/resetPassword`
+
+|> Resets the currently logged in user's password.
+
+Expects:
+
+```javascript
+{
+  oldPassword: String,
+  password: String,
+  confirmPassword: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
 }
 ```
 
@@ -163,6 +190,52 @@ Expects:
   bandwidthUserId: String,
   bandwidthApiToken: String,
   bandwidthApiSecret: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
+}
+```
+
+#### POST `/api/base/createBaseManager`
+
+|> Creates a base manager. If the user supplied does not exist, the user will be created with the email supplied and an email will be sent to the user letting them know to log in.
+
+Expects:
+
+```javascript
+{
+  baseId: String, // Base to create base manager for.
+  newBaseManagerEmail: String // The new base manager's email.
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
+}
+```
+
+#### POST `/api/base/deleteBaseManager`
+
+|> Removes a base manager.
+
+Expects:
+
+```javascript
+{
+  baseId: String, // Base to remove the base manager from.
+  userId: String // The base manager's userId that is being removed.
 }
 ```
 

@@ -59,6 +59,108 @@ module.exports = {
       });
     }
   },
+  createBaseManager: async (req, res) => {
+    const baseId = _.toString(req.body.baseId).trim();
+    const newBaseManagerEmail = _.toString(req.body.newBaseManagerEmail).trim();
+
+    try {
+      if (_.isEmpty(baseId) || _.isEmpty(newBaseManagerEmail)) {
+        throw new Error('Missing data on request.');
+      }
+      if (!utils.isValidEmail(newBaseManagerEmail)) {
+        throw new Error('Email is not valid');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+
+      if (!doesBaseExist) throw new Error('Base does not exist.');
+
+      const base = await dbInterface.getBaseById(baseId);
+
+      const doesUserExist = await dbInterface.doesUserExist(
+        newBaseManagerEmail
+      );
+
+      const password = utils.generateRandomPassword();
+      let user;
+
+      if (doesUserExist) {
+        user = await dbInterface.getUserByEmail(newBaseManagerEmail);
+      } else {
+        user = await dbInterface.createUser(newBaseManagerEmail, password);
+      }
+
+      const isBaseManager = await dbInterface.isBaseManager(user.id, baseId);
+
+      if (isBaseManager) {
+        throw new Error(
+          `${user.email} is already a base manager for ${base.baseName}`
+        );
+      }
+
+      dbInterface.createBaseManager(user.id, baseId).then(() => {
+        if (!doesUserExist) {
+          utils.sendEmail(
+            user.email,
+            'Welcome to Megaphone!',
+            `You've just been made a base manager for ${
+              base.baseName
+            }. Please sign in using the link below. Your temporary password is: ${password}`,
+            process.env.CLIENT_URL
+          );
+        }
+
+        return res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      return res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  deleteBaseManager: async (req, res) => {
+    const baseId = _.toNumber(req.body.baseId);
+    const userId = _.toNumber(req.body.userId);
+
+    try {
+      if (isNaN(baseId) || isNaN(userId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      const isBaseManager = await dbInterface.isBaseManager(userId, baseId);
+      if (!isBaseManager) {
+        throw new Error('User is not a base manager.');
+      }
+
+      await dbInterface.deleteBaseManager(userId, baseId).then(() => {
+        res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   getAllBases: async (req, res) => {
     dbInterface
       .getAllBases()

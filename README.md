@@ -62,6 +62,13 @@ DROP_DATABASE_ON_RESTART=true
 # These must also be initialized on the server in order to work.
 SESSION_SECRET=someSecretPhrase
 SALT_ROUNDS=10
+
+# For sending emails
+SENDGRID_API_KEY=sendgridapikey
+EMAIL_FROM=emailaddressthatemailwillshowfrom
+
+# This is the URL for the client of this application
+CLIENT_URL=theurlwheretheclientishosted
 ```
 
 #### Install dependencies

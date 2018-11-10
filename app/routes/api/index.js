@@ -26,13 +26,24 @@ router.use(mw.auth);
 
 // Auth Routes
 router
-  .get('/auth/test', mw.requireAdmin, authController.test)
-  .post('/auth/login', authController.login);
+  .post('/auth/login', authController.login)
+  .post('/auth/resetPassword', authController.resetPassword);
 
 // Base Routes
 router
   .get('/base/getAllBases', mw.requireAdmin, baseController.getAllBases)
-  .post('/base/createBase', mw.requireAdmin, baseController.createBase);
+  .post('/base/createBase', mw.requireAdmin, baseController.createBase)
+  .post(
+    '/base/createBaseManager',
+    mw.requireBaseManager,
+    baseController.createBaseManager
+  )
+  .post(
+    '/base/deleteBaseManager',
+    mw.requireBaseManager,
+    baseController.deleteBaseManager
+  );
+
 // Message Routes
 // Organization Routes
 // User Routes

@@ -10,6 +10,7 @@ module.exports = {
   doesOrgExist: require('./doesOrgExist'),
   doesOrgExistBySubscriptionCode: require('./doesOrgExistBySubscriptionCode'),
   doesUserExist: require('./doesUserExist'),
+  doesUserExistById: require('./doesUserExistById'),
   getAdminData: require('./getAdminData'),
   getAllBases: require('./getAllBases'),
   getAllUserData: require('./getAllDataAssociatedWithUser'),
@@ -34,5 +35,6 @@ module.exports = {
   logMessage: require('./logMessage'),
   subscribe: require('./subscribe'),
   unsubscribe: require('./unsubscribe'),
-  updateOrgOwner: require('./updateOrgOwner')
+  updateOrgOwner: require('./updateOrgOwner'),
+  updateUser: require('./updateUser')
 };

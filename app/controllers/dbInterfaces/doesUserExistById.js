@@ -1,13 +1,10 @@
 const models = require('../../db/models');
 const utils = require('../../utils');
 
-module.exports = async email => {
-  if (!utils.isValidEmail(email)) {
-    return false;
-  }
+module.exports = async userId => {
   const user = await models.User.findAll({
     where: {
-      email: email
+      id: userId
     }
   }).catch(err => console.error(err));
 
