@@ -208,5 +208,29 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  isBasePhoneNumberUnique: async (req, res) => {
+    const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
+
+    try {
+      if (!utils.isValidPhoneNumber(basePhoneNumber)) {
+        throw new Error(
+          `${basePhoneNumber} is not a valid phone number. Format: "+11231231234"`
+        );
+      }
+      dbInterface.isBasePhoneNumberUnique(basePhoneNumber).then(isUnique => {
+        res.json({
+          token: req.token,
+          success: true,
+          isBasePhoneNumberUnique: isUnique
+        });
+      });
+    } catch (error) {
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };

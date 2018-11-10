@@ -17,6 +17,7 @@ GET `/api`
   - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
   - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
+  - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
@@ -301,6 +302,29 @@ Returns:
       isAdmin: Boolean
     }
   ]
+}
+```
+
+#### POST `/api/base/isBasePhoneNumberUnique`
+
+|> Checks to see if a phone number is unique or not. Each base must have a unique phone number.
+
+Expects:
+
+```javascript
+{
+  basePhoneNumber: String; // Expects the following format: "+11231231234"
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  isBasePhoneNumberUnique?: Boolean
 }
 ```
 

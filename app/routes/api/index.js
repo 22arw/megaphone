@@ -13,9 +13,7 @@ const authController = require('../../controllers/auth');
 const baseController = require('../../controllers/base');
 
 router.get('/', (req, res) => {
-  res.redirect(
-    'https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md'
-  );
+  res.redirect('https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md');
 });
 
 // Bandwidth communicates over this route.
@@ -33,21 +31,10 @@ router
 router
   .get('/base/getAllBases', mw.requireAdmin, baseController.getAllBases)
   .post('/base/createBase', mw.requireAdmin, baseController.createBase)
-  .post(
-    '/base/createBaseManager',
-    mw.requireBaseManager,
-    baseController.createBaseManager
-  )
-  .post(
-    '/base/deleteBaseManager',
-    mw.requireBaseManager,
-    baseController.deleteBaseManager
-  )
-  .post(
-    '/base/getAllBaseManagersUnderBase',
-    mw.requireBaseManager,
-    baseController.getAllBaseManagersUnderBase
-  );
+  .post('/base/createBaseManager', mw.requireBaseManager, baseController.createBaseManager)
+  .post('/base/deleteBaseManager', mw.requireBaseManager, baseController.deleteBaseManager)
+  .post('/base/getAllBaseManagersUnderBase', mw.requireBaseManager, baseController.getAllBaseManagersUnderBase)
+  .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique);
 
 // Message Routes
 // Organization Routes
