@@ -4,7 +4,7 @@ const utils = require('../utils');
 
 module.exports = {
   createBase: async (req, res) => {
-    console.log(req.body.data);
+    console.log(req.body);
     const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
     const baseName = _.toString(req.body.baseName).trim();
     const bandwidthUserId = _.toString(req.body.bandwidthUserId).trim();
