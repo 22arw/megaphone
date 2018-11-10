@@ -14,6 +14,7 @@ GET `/api`
 - [Base](#apibase)
   - [Create Base](#post-apibasecreatebase)
   - [Create Base Manager](#post-apibasecreatebasemanager)
+  - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
