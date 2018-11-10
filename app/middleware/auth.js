@@ -5,6 +5,7 @@ module.exports = (req, res, next) => {
   let token =
     req.body.token || req.query.token || req.headers['x-access-token'];
   console.log('TIME: ', new Date().toLocaleString());
+  console.log(token);
 
   if (req.path == '/auth/login') {
     return next();
