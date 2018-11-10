@@ -8,12 +8,12 @@ GET `/api`
 - [Using the API](using-the-api)
 - [Admin](#apiadmin)
   - [Get Admin Data](#get-apiadmin)
-  - [Create Base](#post-apiadmincreatebase)
   - [Create Base Manager](#post-apiadmincreatebasemanager)
   - [Delete Base Manager](#post-apiadmindeletebasemanager)
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin)
 - [Base](#apibase)
+  - [Create Base](#post-apibasecreatebase)
   - [Create Base Manager](#post-apibasecreatebasemanager)
   - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
@@ -129,32 +129,6 @@ If there is an error, the following will be returned:
 }
 ```
 
-#### POST `/api/admin/createBase`
-
-|> Creates a new Base.
-
-Expects:
-
-```javascript
-{
-  basePhoneNumber: String,
-  baseName: String,
-  bandwidthUserId: String,
-  bandwidthApiToken: String,
-  bandwidthApiSecret: String
-}
-```
-
-Returns:
-
-```typescript
-{
-  token: String,
-  success: Boolean,
-  error?: String
-}
-```
-
 ### /api/auth
 
 #### POST `/api/auth/login`
@@ -179,6 +153,32 @@ Returns:
 ```
 
 ### /api/base
+
+#### POST `/api/base/createBase`
+
+|> Creates a new Base.
+
+Expects:
+
+```javascript
+{
+  basePhoneNumber: String,
+  baseName: String,
+  bandwidthUserId: String,
+  bandwidthApiToken: String,
+  bandwidthApiSecret: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
+}
+```
 
 #### GET `/api/base/getAllBases`
 
