@@ -1,7 +1,7 @@
 const utils = require('../utils');
 const TOKEN = utils.tokenService;
 
-module.exports = async (req, res, next) => {
+module.exports = (req, res, next) => {
   let token =
     req.body.token || req.query.token || req.headers['x-access-token'];
   console.log('TIME: ', new Date().toLocaleString());
