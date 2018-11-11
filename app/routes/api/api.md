@@ -611,7 +611,7 @@ Returns:
       baseId: Number,
       baseName: String,
       basePhoneNumber: String,
-      canCreateOrgs: Boolean,
+      isBaseManager: Boolean,
       orgs: [
         {
           orgId: Number,

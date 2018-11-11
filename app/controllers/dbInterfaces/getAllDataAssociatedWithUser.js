@@ -89,7 +89,7 @@ const getAllDataAssociatedWithUser = async userId => {
         baseId: base.id,
         baseName: base.baseName,
         basePhoneNumber: base.basePhoneNumber,
-        canCreateOrgs: isBaseManager,
+        isBaseManager: isBaseManager,
         orgs: (() => {
           let orgArr = [];
 
