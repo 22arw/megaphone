@@ -34,6 +34,7 @@ router
   .post('/base/createBaseManager', mw.requireBaseManager, baseController.createBaseManager)
   .post('/base/deleteBaseManager', mw.requireBaseManager, baseController.deleteBaseManager)
   .post('/base/getAllBaseManagersUnderBase', mw.requireBaseManager, baseController.getAllBaseManagersUnderBase)
+  .post('/base/getAllMessagesSentByBase', mw.requireBaseManager, baseController.getAllMessagesSentByBase)
   .post('/base/getAllOrgsUnderBase', mw.requireBaseManager, baseController.getAllOrgsUnderBase)
   .post('/base/getAllUsersUnderBase', mw.requireBaseManager, baseController.getAllUsersUnderBase)
   .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique)

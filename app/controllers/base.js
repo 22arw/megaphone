@@ -243,6 +243,64 @@ module.exports = {
       });
     }
   },
+  getAllMessagesSentByBase: async (req, res) => {
+    const baseId = _.toNumber(req.body.baseId);
+
+    try {
+      if (isNaN(baseId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      const orgs = await dbInterface.getAllOrgsUnderBase(baseId);
+      if (_.isEmpty(orgs)) {
+        throw new Error(
+          'There were no orgs found under this base, therefor no messages.'
+        );
+      }
+
+      const orgIds = orgs.map(org => {
+        return org.id;
+      });
+
+      const messages = await dbInterface.getMessagesByOrgIds(orgIds);
+
+      if (_.isEmpty(messages)) {
+        // send an empty array signifying no messages exist yet.
+        return res.json({
+          token: req.token,
+          success: true,
+          messages: []
+        });
+      }
+
+      const filteredMessages = messages.map(message => {
+        return {
+          userId: message.userId,
+          orgId: message.orgId,
+          message: message.message,
+          sent: message.createdAt
+        };
+      });
+
+      res.json({
+        token: req.token,
+        success: true,
+        messages: filteredMessages
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   getAllOrgsUnderBase: async (req, res) => {
     const baseId = _.toNumber(req.body.baseId);
 

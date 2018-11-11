@@ -17,6 +17,7 @@ GET `/api`
   - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
   - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
+  - [Get All Messages Sent By Base](#post-apibasegetallmessagessentbybase)
   - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase)
   - [Get All Users Under Base](#post-apibasegetallusersunderbase)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
@@ -303,6 +304,36 @@ Returns:
       userId: Number,
       email: String,
       isAdmin: Boolean
+    }
+  ]
+}
+```
+
+#### POST `/api/base/getAllMessagesSentByBase`
+
+|> Returns a list of all the messages sent for the specified base.
+
+Expects:
+
+```javascript
+{
+  baseId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  messages?: [
+    {
+      userId: Number,
+      orgId: Number,
+      message: String,
+      sent: String // timestamp the message was sent.
     }
   ]
 }
