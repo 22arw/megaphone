@@ -23,6 +23,7 @@ GET `/api`
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
   - [Update Base](#post-apibaseupdatebase)
 - [Message](#apimessage)
+  - [Get All Messages Ever](#get-apimessagegetallmessagesever)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
   - [Create Organization](#post-apiorganizationcreateorg)
@@ -453,6 +454,28 @@ Returns:
 ```
 
 ### /api/message
+
+#### GET `/api/message/getAllMessagesEver`
+
+|> Returns a list of all the messages ever sent through the application. Of course, admin only.
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  messages?: [
+    {
+      userId: Number,
+      orgId: Number,
+      message: String,
+      sent: String // timestamp the message was sent.
+    }
+  ]
+}
+```
 
 #### POST `/api/message/send`
 

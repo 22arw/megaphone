@@ -3,7 +3,6 @@ const router = express.Router();
 
 const adminRouter = require('./admin');
 const bandwidthRouter = require('./bandwidth');
-const messageRouter = require('./message');
 const orgRouter = require('./organization');
 const userRouter = require('./user');
 
@@ -11,6 +10,7 @@ const mw = require('../../middleware');
 
 const authController = require('../../controllers/auth');
 const baseController = require('../../controllers/base');
+const messageController = require('../../controllers/message');
 
 router.get('/', (req, res) => {
   res.redirect('https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md');
@@ -41,8 +41,9 @@ router
   .post('/base/updateBase', mw.requireBaseManager, baseController.updateBase);
 
 // Message Routes
-// TODO: Refactor this route to use the same pattern as above.
-router.use('/message', mw.requireOrgManager, messageRouter);
+router
+  .post('/message/send', mw.requireOrgManager, messageController.send)
+  .get('/message/getAllMessagesEver', mw.requireAdmin, messageController.allMessagesEver);
 
 // Organization Routes
 // User Routes
