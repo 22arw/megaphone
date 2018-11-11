@@ -153,7 +153,7 @@ npm run dev:rebuildDb
 
 ## Using the application and user roles
 
-When a user creates an account, they do not have access to any organizations or bases. They can upgrade their account to a `Base Manager` by submitting their base code which only gives them access to create organizations under that base. If they do not upgrade their account to `Base Manager`, they can still be invited to be an `Organization Manager` by an `Organization Owner` that will allow them to send messages through that organization, but not create any organizations. A user can manage multiple organizations and bases. Only an `Admin` can create bases.
+When creating a new `Base`, you must have an account at [https://www.bandwidth.com/](https://www.bandwidth.com/) and use the API credentials on your account. An `Admin` must create the `Base` by inputting that information. This retains all payment information outside of the application and puts it in control of the entity that is paying for it. Once a `Base` is created, then you can add `Base Manager`s and so on. When a `User` is added to a `Base` or any other entity, the application will check to see if they are already a user, and if not, then it will create a user and email them temporary login credentials. You must have the appropriate role in order to perform each action. To obtain a higher role, a `User` with a higher role must invite you. `Base Managers` have access to every `Organization` under that `Base`.
 
 - _User_:
   - Can See their own user information and update their own account.
