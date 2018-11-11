@@ -18,6 +18,7 @@ GET `/api`
   - [Get All Bases](#get-apibasegetallbases)
   - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
+  - [Update Base](#post-apibaseupdatebase)
 - [Message](#apimessage)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
@@ -325,6 +326,33 @@ Returns:
   success: Boolean,
   error?: String,
   isBasePhoneNumberUnique?: Boolean
+}
+```
+
+#### POST `/api/base/updateBase`
+
+|> Updates the values for the supplied baseId. Send the current value if no change.
+
+Expects:
+
+```javascript
+{
+  baseId: Number, // Base being updated
+  baseName: String, 
+  basePhoneNumber: String, // Expects the following format: "+11231231234". Must be unique if changing.
+  bandwidthUserId: String,
+  bandwidthApiToken: String,
+  bandwidthApiSecret: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
 }
 ```
 

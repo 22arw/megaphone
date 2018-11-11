@@ -34,7 +34,8 @@ router
   .post('/base/createBaseManager', mw.requireBaseManager, baseController.createBaseManager)
   .post('/base/deleteBaseManager', mw.requireBaseManager, baseController.deleteBaseManager)
   .post('/base/getAllBaseManagersUnderBase', mw.requireBaseManager, baseController.getAllBaseManagersUnderBase)
-  .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique);
+  .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique)
+  .post('/base/updateBase', mw.requireBaseManager, baseController.updateBase);
 
 // Message Routes
 // Organization Routes

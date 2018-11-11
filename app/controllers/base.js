@@ -241,5 +241,85 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  updateBase: async (req, res) => {
+    const baseId = _.toNumber(req.body.baseId);
+    const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
+    const baseName = _.toString(req.body.baseName).trim();
+    const bandwidthUserId = _.toString(req.body.bandwidthUserId).trim();
+    const bandwidthApiToken = _.toString(req.body.bandwidthApiToken).trim();
+    const bandwidthApiSecret = _.toString(req.body.bandwidthApiSecret).trim();
+
+    try {
+      if (
+        isNaN(baseId) ||
+        _.isEmpty(baseName) ||
+        _.isEmpty(basePhoneNumber) ||
+        _.isEmpty(bandwidthUserId) ||
+        _.isEmpty(bandwidthApiToken) ||
+        _.isEmpty(bandwidthApiSecret)
+      ) {
+        throw new Error('Missing data on request.');
+      }
+      if (!utils.isValidPhoneNumber(basePhoneNumber)) {
+        throw new Error(
+          `${basePhoneNumber} is not a valid phone number. Format: "+11231231234"`
+        );
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      const base = await dbInterface.getBaseById(baseId);
+
+      if (
+        base.baseName === baseName &&
+        base.basePhoneNumber === basePhoneNumber &&
+        base.bandwidthUserId === bandwidthUserId &&
+        base.bandwidthApiToken === bandwidthApiToken &&
+        base.bandwidthApiSecret === bandwidthApiSecret
+      ) {
+        throw new Error(
+          'No values changed. Please change a value before submitting.'
+        );
+      }
+
+      if (base.basePhoneNumber !== basePhoneNumber) {
+        const isBasePhoneNumberUnique = await dbInterface.isBasePhoneNumberUnique(
+          basePhoneNumber
+        );
+        if (!isBasePhoneNumberUnique) {
+          throw new Error('Phone number is not unique.');
+        }
+      }
+
+      // update base
+      dbInterface
+        .updateBase(
+          baseId,
+          basePhoneNumber,
+          baseName,
+          bandwidthUserId,
+          bandwidthApiToken,
+          bandwidthApiSecret
+        )
+        .then(recordsUpdated => {
+          if (recordsUpdated !== 1) {
+            throw new Error('Failed to update base.');
+          }
+          res.send({
+            token: req.token,
+            success: true
+          });
+        });
+    } catch (error) {
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };

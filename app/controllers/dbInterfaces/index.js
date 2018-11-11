@@ -37,6 +37,7 @@ module.exports = {
   logMessage: require('./logMessage'),
   subscribe: require('./subscribe'),
   unsubscribe: require('./unsubscribe'),
+  updateBase: require('./updateBase'),
   updateOrgOwner: require('./updateOrgOwner'),
   updateUser: require('./updateUser')
 };
