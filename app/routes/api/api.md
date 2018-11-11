@@ -17,6 +17,7 @@ GET `/api`
   - [Delete Base Manager](#post-apibasedeletebasemanager)
   - [Get All Bases](#get-apibasegetallbases)
   - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
+  - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
   - [Update Base](#post-apibaseupdatebase)
 - [Message](#apimessage)
