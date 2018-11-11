@@ -155,16 +155,19 @@ npm run dev:rebuildDb
 
 When a user creates an account, they do not have access to any organizations or bases. They can upgrade their account to a `Base Manager` by submitting their base code which only gives them access to create organizations under that base. If they do not upgrade their account to `Base Manager`, they can still be invited to be an `Organization Manager` by an `Organization Owner` that will allow them to send messages through that organization, but not create any organizations. A user can manage multiple organizations and bases. Only an `Admin` can create bases.
 
-- _User_
-  - Cannot Send Messages
-  - Cannot Create Organizations
+- _User_:
+  - Can See their own user information and update their own account.
+  - Typically, no user will only be at this level.
 - _Organization Manager_:
-  - Can Send Messages
-  - Cannot Create Organizations
+  - Most users are this role.
+  - Can send messages from the org they manage.
 - _Organization Owner_:
-  - Can invite other users to be an Organization Manager for their organization
+  - Can invite other users to be an Organization Manager for their organization.
+  - Can update the organizations they own.
 - _Base Manager_:
-  - Can Create Organizations
+  - Can manage all operations at the base.
+  - Can update base details.
+  - Can Create Organizations.
 - _Admin_:
   - Can perform all functions across the entire application.
   - Can create bases.
