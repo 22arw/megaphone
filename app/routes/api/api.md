@@ -18,6 +18,7 @@ GET `/api`
   - [Get All Bases](#get-apibasegetallbases)
   - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
   - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase)
+  - [Get All Users Under Base](#post-apibasegetallusersunderbase)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
   - [Update Base](#post-apibaseupdatebase)
 - [Message](#apimessage)
@@ -336,6 +337,35 @@ Returns:
       isActive: Boolean,
       createdAt: String,
       updatedAt: String
+    }
+  ]
+}
+```
+
+#### POST `/api/base/getAllUsersUnderBase`
+
+|> Returns a list of all users for the specified base.
+
+Expects:
+
+```javascript
+{
+  baseId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  users?: [
+    {
+      userId: Number,
+      email: String,
+      isAdmin: Boolean
     }
   ]
 }

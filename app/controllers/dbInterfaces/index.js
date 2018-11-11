@@ -16,6 +16,7 @@ module.exports = {
   getAllBaseManagersUnderBase: require('./getAllBaseManagersUnderBase'),
   getAllUserData: require('./getAllDataAssociatedWithUser'),
   getAllOrgsUnderBase: require('./getAllOrgsUnderBase'),
+  getAllOrgManagersByOrgIds: require('./getAllOrgManagersByOrgIds'),
   getAllSubscriptionsByPhoneNumber: require('./getAllSubscriptionsByPhoneNumber'),
   getBaseByBasePhoneNumber: require('./getBaseByBasePhoneNumber'),
   getBaseById: require('./getBaseById'),

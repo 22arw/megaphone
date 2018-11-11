@@ -203,14 +203,39 @@ module.exports = {
         throw new Error('Base does not exist.');
       }
 
-      dbInterface.getAllBaseManagersUnderBase(baseId).then(baseManagers => {
+      const baseManagers = await dbInterface.getAllBaseManagersUnderBase(
+        baseId
+      );
+
+      if (baseManagers.length === 0) {
+        console.log('No base managers found.');
         res.json({
           token: req.token,
           success: true,
-          baseManagers: baseManagers
+          baseManagers: []
+        });
+      }
+
+      const baseManagerIds = baseManagers.map(baseManager => {
+        return baseManager.userId;
+      });
+
+      dbInterface.getUsersById(baseManagerIds).then(baseManagers => {
+        const users = baseManagers.map(baseManager => {
+          return {
+            userId: baseManager.id,
+            email: baseManager.email,
+            isAdmin: baseManager.isAdmin
+          };
+        });
+        res.json({
+          token: req.token,
+          success: true,
+          baseManagers: users
         });
       });
     } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,
@@ -239,6 +264,80 @@ module.exports = {
         });
       });
     } catch (error) {
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  getAllUsersUnderBase: async (req, res) => {
+    const baseId = _.toNumber(req.body.baseId);
+    try {
+      if (isNaN(baseId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      const baseManagers = await dbInterface.getAllBaseManagersUnderBase(
+        baseId
+      );
+
+      let baseManagerIds;
+      if (baseManagers.length === 0) {
+        baseManagerIds = [];
+      } else {
+        baseManagerIds = baseManagers.map(baseManager => {
+          return baseManager.userId;
+        });
+      }
+
+      // get all orgs under base
+      const orgs = await dbInterface.getAllOrgsUnderBase(baseId);
+
+      let orgManagerIds;
+      if (orgs.length === 0) {
+        orgManagerIds = [];
+      } else {
+        const orgIds = orgs.map(org => {
+          return org.id;
+        });
+        const orgManagers = await dbInterface.getAllOrgManagersByOrgIds(orgIds);
+        orgManagerIds = orgManagers.map(orgManager => {
+          return orgManager.userId;
+        });
+      }
+
+      const userIds = _.uniq(_.concat(baseManagerIds, orgManagerIds));
+
+      if (userIds.length === 0) {
+        return res.json({
+          token: req.token,
+          success: true,
+          users: []
+        });
+      }
+
+      dbInterface.getUsersById(userIds).then(users => {
+        const usersFiltered = users.map(user => {
+          return {
+            userId: user.id,
+            email: user.email,
+            isAdmin: user.isAdmin
+          };
+        });
+        res.json({
+          token: req.token,
+          success: true,
+          users: usersFiltered
+        });
+      });
+    } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,
