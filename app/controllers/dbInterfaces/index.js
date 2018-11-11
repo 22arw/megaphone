@@ -24,7 +24,7 @@ module.exports = {
   getOrgBySubscriptionCode: require('./getOrgBySubscriptionCode'),
   getSubscribers: require('./getSubcribers'),
   getUserByEmail: require('./getUserByEmail'),
-  getUserById: require('./getUserById'),
+  getUsersById: require('./getUsersById'),
   isAdmin: require('./isAdmin'),
   isBaseManager: require('./isBaseManager'),
   isBaseNameUnique: require('./isBaseNameUnique'),

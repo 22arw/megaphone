@@ -56,9 +56,13 @@ module.exports = {
         throw new Error('New password must be different from old password.');
       }
 
-      const user = await dbInterface
-        .getUserById(userId)
-        .catch(err => console.error(err));
+      const users = await dbInterface.getUsersById(userId);
+
+      if (users.length !== 1) {
+        throw new Error('There was an error accessing the user');
+      }
+
+      const user = users[0];
 
       if (!(await bcrypt.compare(oldPassword, user.password))) {
         throw new Error('Incorrect password.');
