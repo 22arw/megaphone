@@ -306,6 +306,40 @@ Returns:
 }
 ```
 
+#### POST `/api/base/getAllOrgsUnderBase`
+
+|> Returns a list of all orgs for the specified base.
+
+Expects:
+
+```javascript
+{
+  baseId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  orgs?: [
+    {
+      id: 1,
+      orgName: String,
+      orgOwner: Number,
+      baseId: Number,
+      subscriptionCode: String,
+      isActive: Boolean,
+      createdAt: String,
+      updatedAt: String
+    }
+  ]
+}
+```
+
 #### POST `/api/base/isBasePhoneNumberUnique`
 
 |> Checks to see if a phone number is unique or not. Each base must have a unique phone number.
@@ -338,7 +372,7 @@ Expects:
 ```javascript
 {
   baseId: Number, // Base being updated
-  baseName: String, 
+  baseName: String,
   basePhoneNumber: String, // Expects the following format: "+11231231234". Must be unique if changing.
   bandwidthUserId: String,
   bandwidthApiToken: String,
