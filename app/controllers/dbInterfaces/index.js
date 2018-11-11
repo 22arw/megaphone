@@ -19,6 +19,7 @@ module.exports = {
   getAllSubscriptionsByPhoneNumber: require('./getAllSubscriptionsByPhoneNumber'),
   getBaseByBasePhoneNumber: require('./getBaseByBasePhoneNumber'),
   getBaseById: require('./getBaseById'),
+  getBasesByUserId: require('./getBasesByUserId'),
   getOrgById: require('./getOrgById'),
   getOrgBySubscriptionCode: require('./getOrgBySubscriptionCode'),
   getSubscribers: require('./getSubcribers'),

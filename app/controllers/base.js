@@ -162,24 +162,33 @@ module.exports = {
     }
   },
   getAllBases: async (req, res) => {
-    dbInterface
-      .getAllBases()
-      .then(bases => {
-        if (bases.length === 0) {
-          return res.json({
-            token: req.token,
-            success: false,
-            error: 'There are no bases.'
-          });
-        } else {
-          return res.json({
-            token: req.token,
-            success: true,
-            bases: bases
-          });
-        }
-      })
-      .catch(err => console.error(err));
+    const userId = req.userId;
+
+    try {
+      const isAdmin = await dbInterface.isAdmin(userId);
+      if (isAdmin) {
+        const bases = await dbInterface.getAllBases();
+        return res.json({
+          token: req.token,
+          success: true,
+          bases: bases
+        });
+      }
+
+      const bases = await dbInterface.getBasesByUserId(userId);
+      return res.json({
+        token: req.token,
+        success: true,
+        bases: bases
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   },
   getAllBaseManagersUnderBase: async (req, res) => {
     const baseId = _.toNumber(req.body.baseId);

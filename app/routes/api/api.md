@@ -254,7 +254,7 @@ Returns:
 
 #### GET `/api/base/getAllBases`
 
-|> Returns a list of all bases.
+|> Returns a list of all bases that the user can see. Based on the user's role, the data is prefiltered so they can only see what they're role has access to.
 
 Returns:
 
@@ -264,14 +264,14 @@ Returns:
   success: Boolean,
   error?: String,
   bases: [
-    id: Number,
-    basePhoneNumber: String,
-    baseName: String,
-    bandwidthUserId: String,
-    bandwidthApiToken: String,
-    bandwidthApiSecret: String,
-    createdAt: String,
-    updatedAt: String
+    id: Number, // user is at least an org manager under this base
+    basePhoneNumber: String, // user is at least an org manager under this base
+    baseName: String, // user is at least an org manager under this base
+    bandwidthUserId?: String, // user is at least a base manager
+    bandwidthApiToken?: String, // user is at least a base manager
+    bandwidthApiSecret?: String, // user is at least a base manager
+    createdAt?: String, // user is at least a base manager
+    updatedAt?: String // user is at least a base manager
   ]
 }
 ```

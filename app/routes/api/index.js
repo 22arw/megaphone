@@ -29,7 +29,7 @@ router
 
 // Base Routes
 router
-  .get('/base/getAllBases', mw.requireAdmin, baseController.getAllBases)
+  .get('/base/getAllBases', baseController.getAllBases)
   .post('/base/createBase', mw.requireAdmin, baseController.createBase)
   .post('/base/createBaseManager', mw.requireBaseManager, baseController.createBaseManager)
   .post('/base/deleteBaseManager', mw.requireBaseManager, baseController.deleteBaseManager)
