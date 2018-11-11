@@ -328,7 +328,7 @@ Returns:
   error?: String,
   orgs?: [
     {
-      id: 1,
+      id: Number,
       orgName: String,
       orgOwner: Number,
       baseId: Number,
