@@ -41,12 +41,14 @@ router
   .post('/base/updateBase', mw.requireBaseManager, baseController.updateBase);
 
 // Message Routes
+// TODO: Refactor this route to use the same pattern as above.
+router.use('/message', mw.requireOrgManager, messageRouter);
+
 // Organization Routes
 // User Routes
 
 // All of the old routes
 router
-  .use('/message', messageRouter)
   .use('/organization', orgRouter)
   .use('/user', userRouter)
   .use('/admin', adminRouter);

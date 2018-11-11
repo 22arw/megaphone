@@ -11,7 +11,6 @@ module.exports = async (req, res, next) => {
   }
 
   const baseId = _.toNumber(req.body.baseId);
-  console.log(`baseId: ${baseId}`);
   if (isNaN(baseId)) {
     return res.sendStatus(401);
   }
