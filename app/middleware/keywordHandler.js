@@ -4,8 +4,8 @@ const util = require('util');
 
 module.exports = async (req, res, next) => {
   console.log(`\nMessage came in: `);
-  console.log(`Host: ${req.headers.host}`);
-  console.log(`Origin: ${req.headers.origin}`);
+  console.log(`Headers: ${req.headers}\n`);
+  console.log(`Body: ${req.body}\n`);
 
   const text = _.toString(req.body.text).trim().toLowerCase();
   const phoneNumber = _.toString(req.body.from).trim();
