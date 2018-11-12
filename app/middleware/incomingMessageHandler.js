@@ -15,7 +15,7 @@ module.exports = async (req, res, next) => {
   console.log(`Headers: ${inspect(req.headers, false, 20, true)}\n`);
   console.log(`Body: ${inspect(req.body, false, 20, true)}\n`);
 
-  console.log(chalk.blue(`/\\/\\/\\/\\/\\/\\ End Message /\\/\\/\\/\\/\\/\\/\\/\\\n`))
+  console.log(`/\\/\\/\\/\\/\\/\\ End Message /\\/\\/\\/\\/\\/\\/\\/\\\n`)
 
   const text = _.toString(req.body.text).trim().toLowerCase();
   const phoneNumber = _.toString(req.body.from).trim();
