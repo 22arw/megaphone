@@ -5,10 +5,10 @@ const {inspect} = require('util');
 module.exports = async (req, res, next) => {
   console.log(`\n\\/\\/\\/\\/\\/\\/\\/ Begin Message \\/\\/\\/\\/\\/\\/\\/\n`);
 
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m' ,'Message Summary:');
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m' ,`from: ${req.body.from}`);
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m' ,`to: ${req.body.to}`);
-  console.log('\x1b[1m\x1b[32m%s\x1b[0m' ,`text: ${req.body.text}`);
+  console.log('Message Summary:');
+  console.log('From: ', '\x1b[1m\x1b[32m' , req.body.from, '\x1b[0m');
+  console.log('To: ', '\x1b[1m\x1b[32m' ,req.body.to, '\x1b[0m');
+  console.log('Text: ', '\x1b[1m\x1b[32m' ,req.body.text, '\x1b[0m');
 
   console.log('\n');
   
