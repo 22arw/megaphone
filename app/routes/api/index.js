@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const adminRouter = require('./admin');
 const bandwidthRouter = require('./bandwidth');
 const userRouter = require('./user');
 
@@ -56,8 +55,6 @@ router
 // User Routes
 
 // All of the old routes
-router
-  .use('/user', userRouter)
-  .use('/admin', adminRouter);
+router.use('/user', userRouter);
 
 module.exports = router;

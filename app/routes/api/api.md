@@ -6,8 +6,6 @@ GET `/api`
 ## Table of Contents
 
 - [Using the API](using-the-api)
-- [Admin](#apiadmin)
-  - [Get Admin Data](#get-apiadmin)
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin)
   - [Reset Password](post-apiauthresetpassword)
@@ -59,81 +57,6 @@ website.com`?token=theTokenString`
 ```
 
 To keep the user logged in, each request to the API returns an updated token. Use this token in the next API call to keep the user logged in.
-
-### /api/admin
-
-#### GET `/api/admin`
-
-|> Returns a json of all data from the database.
-
-Returns:
-
-```javascript
-{
-  token: String,
-  users: [
-    {
-      userId: Number;
-      email: String;
-      isAdmin: Boolean;
-    }
-  ],
-  organizationManagers: [
-    {
-      userId: Number;
-      orgId: Number;
-    }
-  ],
-  organizations: [
-    {
-      id: Number;
-      orgName: String;
-      orgOwner: Number;
-      baseId: Number;
-      subscriptionCode: String;
-    }
-  ],
-  baseManagers: [
-    {
-      baseId: Number;
-      userId: Number;
-    }
-  ],
-  bases: [
-    {
-      id: Number;
-      basePhoneNumber: String;
-      baseName: String;
-      bandwidthUserId: String;
-      bandwidthApiToken: String;
-      bandwidthApiSecret: String;
-    }
-  ],
-  subscriptions: [
-    {
-      orgId: Number;
-      phoneNumber: String;
-    }
-  ],
-  messages: [
-    {
-      id: Number;
-      orgId: Number;
-      userId: Number;
-      message: String;
-    }
-  ];
-}
-```
-
-If there is an error, the following will be returned:
-
-```javascript
-{
-  token: String,
-  error: String;
-}
-```
 
 ### /api/auth
 
