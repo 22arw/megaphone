@@ -49,7 +49,8 @@ router
 // Organization Routes
 router
   .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg)
-  .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager);
+  .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager)
+  .post('/organization/isSubscriptionCodeUnique', orgController.isSubscriptionCodeUnique);
 
 
 // User Routes

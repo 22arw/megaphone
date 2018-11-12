@@ -101,10 +101,11 @@ module.exports = {
 
       const user = await dbInterface.getUserByEmail(newOrgManagerEmail);
 
-
       const isOrgManager = await dbInterface.isOrgManager(user.id, org.id);
       if (isOrgManager) {
-        throw new Error('That user is already a manager for this organization.');
+        throw new Error(
+          'That user is already a manager for this organization.'
+        );
       }
 
       dbInterface.createOrgManager(user.id, org.id).then(() => {
@@ -121,98 +122,37 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  isSubscriptionCodeUnique: async (req, res) => {
+    const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
+
+    try {
+      if (_.isEmpty(subscriptionCode)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      dbInterface.isSubscriptionCodeUnique(subscriptionCode).then(unique => {
+        res.json({
+          token: req.token,
+          success: true,
+          subscriptionCode: unique
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };
 
-// const createOrgManager = async (userId, orgId, newOrgManagerEmail) => {
-//   const isAdmin = await dbInterface
-//     .isAdmin(userId)
-//     .catch(err => console.error(err));
-
-//   const isOrgOwner = await dbInterface
-//     .isOrgOwner(userId, orgId)
-//     .catch(err => console.error(err));
-
-//   if (!(isAdmin || isOrgOwner)) {
-//     return 'You cannot add managers to this organization.';
-//   }
-
-//   const doesOrgExist = await dbInterface
-//     .doesOrgExist(orgId)
-//     .catch(err => console.error(err));
-
-//   if (!doesOrgExist) {
-//     return 'That organization does not exist.';
-//   }
-
-//   const doesUserExist = await dbInterface
-//     .doesUserExist(newOrgManagerEmail)
-//     .catch(err => console.error(err));
-
-//   if (!doesUserExist) {
-//     return 'That user does not exist.';
-//   }
-
-//   const user = await dbInterface
-//     .getUserByEmail(newOrgManagerEmail)
-//     .catch(err => console.error(err));
-
-//   const isOrgManager = await dbInterface
-//     .isOrgManager(user.id, orgId)
-//     .catch(err => console.error(err));
-
-//   if (isOrgManager) {
-//     return 'That user is already a manager for this organization.';
-//   }
-
-//   const orgManager = await dbInterface
-//     .createOrgManager(user.id, orgId)
-//     .catch(err => console.error(err));
-
-//   return orgManager.userId === user.id
-//     ? orgManager
-//     : 'An error occurred when creating the org manager';
-// };
-
-// const createOrg = async (userId, baseId, orgName, subscriptionCode) => {
-//   const isBaseManager = await dbInterface
-//     .isBaseManager(userId, baseId)
-//     .catch(err => console.error(err));
-//   const isAdmin = await dbInterface
-//     .isAdmin(userId)
-//     .catch(err => console.error(err));
-//   const doesBaseExist = await dbInterface
-//     .doesBaseExist(baseId)
-//     .catch(err => console.error(err));
-
-//   if (!(doesBaseExist && (isBaseManager || isAdmin))) {
-//     return 'You do not have permission to create this org under this base.';
-//   }
-//   const isSubscriptionCodeUnique = await dbInterface
-//     .isSubscriptionCodeUnique(subscriptionCode)
-//     .catch(err => console.error(err));
-
-//   if (!isSubscriptionCodeUnique) {
-//     return 'That subscription code is already in use, please chose another one.';
-//   }
-
-//   const org = await dbInterface
-//     .createOrg(userId, baseId, orgName, subscriptionCode)
-//     .catch(err => console.error(err));
-
-//   const orgManager = await dbInterface
-//     .createOrgManager(userId, org.id)
-//     .catch(err => console.error(err));
-
-//   return org.orgOwner === orgManager.userId
-//     ? org
-//     : 'An error occurred creating the organization';
-// };
-
 // const isSubscriptionCodeUnique = async subscriptionCode => {
-//   return await dbInterface
-//     .isSubscriptionCodeUnique(subscriptionCode)
-//     .catch(err => console.error(err));
+// return await dbInterface
+//   .isSubscriptionCodeUnique(subscriptionCode)
+//   .catch(err => console.error(err));
 // };
 
 // const updateOrgOwner = async (userId, orgId, newOrgOwnerEmail) => {
