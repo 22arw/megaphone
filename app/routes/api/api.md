@@ -27,6 +27,7 @@ GET `/api`
   - [Get Organizations](#get-apiorganization)
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
+  - [Is Org Owner?](#post-apiorganizationisorgowner)
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
   - [Update Organization](#post-apiorganizationupdateorg)
   - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
@@ -500,6 +501,28 @@ Returns:
   error?: String; // A description of the error.
 }
 ```
+#### POST `/api/organization/isOrgOwner`
+
+|> Returns a boolean if the user is the org owner..
+
+Expects:
+
+```javascript
+{
+  orgId: Number;
+}
+```
+
+Returns:
+
+```javascript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  isOrgOwner?: Boolean;
+}
+```
 
 #### POST `/api/organization/isSubscriptionCodeUnique`
 
@@ -518,7 +541,9 @@ Returns:
 ```javascript
 {
   token: String,
-  subscriptionCode: Boolean; // Is the subscription code unique?
+  success: Boolean,
+  error?: String,
+  subscriptionCode?: Boolean; // Is the subscription code unique?
 }
 ```
 
