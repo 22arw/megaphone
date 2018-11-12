@@ -4,14 +4,15 @@ const {inspect} = require('util');
 const chalk = require('chalk');
 
 module.exports = async (req, res, next) => {
-  console.log(`\\/\\/\\/\\/\\/\\/\\/ Begin Message \\/\\/\\/\\/\\/\\/\\/\n`);
+  console.log(`\n\\/\\/\\/\\/\\/\\/\\/ Begin Message \\/\\/\\/\\/\\/\\/\\/\n`);
 
   console.log(chalk.bold('Message Summary:'));
   console.log(chalk`from: {blue ${req.body.from}}`);
   console.log(chalk`to: {blue ${req.body.to}}`);
   console.log(chalk`text: {cyanBright ${req.body.text}}`);
-  
 
+  console.log('\n');
+  
   console.log(`Headers: ${inspect(req.headers, false, 20, true)}\n`);
   console.log(`Body: ${inspect(req.body, false, 20, true)}\n`);
 
