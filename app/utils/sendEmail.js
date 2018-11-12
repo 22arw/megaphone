@@ -3,7 +3,7 @@
 const sgMail = require('@sendgrid/mail');
 
 module.exports = (to, subject, text, link) => {
-  console.log(`\nSending email to ${to}`);
+  process.stdout.write(`Sending email to ${to}... `);
   sgMail.setApiKey(process.env.SENDGRID_API_KEY);
   const msg = {
     to: to,
@@ -13,5 +13,5 @@ module.exports = (to, subject, text, link) => {
     html: `<p>${text}<a href="${link}">${link}</a></p>`
   };
   sgMail.send(msg);
-  console.log(`Email sent...`);
+  console.log(`Email sent!`);
 };

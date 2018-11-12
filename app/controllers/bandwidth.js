@@ -1,4 +1,39 @@
 const dbInterface = require('./dbInterfaces');
+const _ = require('lodash');
+const utils = require('../utils');
+
+module.exports = {
+  incomingText = async (req, res) => {
+
+  const text = _.toString(req.body.text).trim().toLowerCase();
+  const phoneNumber = _.toString(req.body.from).trim();
+  const basePhoneNumber = _.toString(req.body.to).trim();
+  }
+
+}
+
+function generateReply() {}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 const help = `The following commands are available on this service:
   HELP - Returns this message.

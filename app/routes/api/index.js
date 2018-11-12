@@ -6,6 +6,7 @@ const bandwidthRouter = require('./bandwidth');
 const mw = require('../../middleware');
 
 const authController = require('../../controllers/auth');
+const bandwidthController = require('../../controllers/bandwidth');
 const baseController = require('../../controllers/base');
 const messageController = require('../../controllers/message');
 const orgController = require('../../controllers/organization');
@@ -16,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 // Bandwidth communicates over this route.
-router.use('/bandwidth', bandwidthRouter);
+router.use('/bandwidth', mw.keywordHandler);
 
 // Must be logged in beyond this point
 router.use(mw.auth);

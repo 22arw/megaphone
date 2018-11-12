@@ -10,6 +10,7 @@ router.post('/', async (req, res) => {
   const phoneNumber = req.body.from;
   const basePhoneNumber = req.body.to;
   if (!(text && phoneNumber && basePhoneNumber)) return res.end();
+  console.log(`Incoming message from ${phoneNumber}: "${text}"`);
   if (text == 'unstop' || text == 'stop') return res.end();
 
   let message = '';

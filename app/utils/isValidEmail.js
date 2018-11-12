@@ -1,4 +1,5 @@
 const isValidEmail = email => {
+  process.stdout.write('Checking if valid email... ');
   if (typeof email !== 'string') {
     return false;
   }
@@ -17,7 +18,17 @@ const isValidEmail = email => {
   const regex = `[a-z0-9!#$%&'*+/=?^_\`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_\`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(${validDomains})$`;
   const pattern = new RegExp(regex, 'gm');
 
-  return pattern.test(email);
+  const isValid = pattern.test(email);
+
+  switch (isValid) {
+    case true:
+      console.log(`${email} is valid!`);
+      break;
+    default:
+      console.log(`${email} is invalid!`);
+  }
+
+  return isValid;
 };
 
 module.exports = isValidEmail;

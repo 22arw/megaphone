@@ -2,7 +2,7 @@ const Bandwidth = require('node-bandwidth');
 const logMessage = require('../controllers/dbInterfaces/logMessage');
 
 module.exports = async (userId, subscribers, org, message, base) => {
-  console.log(`\nSending message to ${org.orgName}...`)
+  console.log(`\nSending message to ${org.orgName}... `);
   const bandwidth = new Bandwidth({
     userId: base.bandwidthUserId,
     apiToken: base.bandwidthApiToken,
@@ -34,7 +34,7 @@ module.exports = async (userId, subscribers, org, message, base) => {
       );
     });
 
-  logMessage(userId, org.id, message)
-    .catch(err => console.error(err));
+  logMessage(userId, org.id, message).catch(err => console.error(err));
+  console.log(`Message to ${org.orgName} logged.`);
   return true;
 };

@@ -1,4 +1,5 @@
 module.exports = phoneNumber => {
+  process.stdout.write('Checking if valid phone number... ');
   if (typeof phoneNumber !== 'string') {
     return false;
   }
@@ -12,8 +13,15 @@ module.exports = phoneNumber => {
     return false;
   }
 
-  // const regex = ;
   const pattern = new RegExp(/^\+[0-9]{11}$/, 'g');
 
-  return pattern.test(phoneNumber);
+  const isValid = pattern.test(phoneNumber);
+
+  if (isValid) {
+    console.log(`${phoneNumber} is valid!`);
+  } else {
+    console.log(`${phoneNumber} is invalid!`);
+  }
+
+  return isValid;
 };
