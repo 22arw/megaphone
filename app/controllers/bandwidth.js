@@ -3,7 +3,7 @@ const _ = require('lodash');
 const utils = require('../utils');
 
 module.exports = {
-  incomingText = async (req, res) => {
+  incomingText: async (req, res) => {
 
   const text = _.toString(req.body.text).trim().toLowerCase();
   const phoneNumber = _.toString(req.body.from).trim();
