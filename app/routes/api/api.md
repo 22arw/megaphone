@@ -525,28 +525,34 @@ Returns:
 
 Returns:
 
-```javascript
+```typescript
 {
   token: String,
-  email: String,
-  isAdmin: Boolean,
-  bases: [
-    {
-      baseId: Number,
-      baseName: String,
-      basePhoneNumber: String,
-      isBaseManager: Boolean,
-      orgs: [
-        {
-          orgId: Number,
-          orgName: String,
-          subscriptionCode: String,
-          numberOfSubscribers: Number,
-          isOrgOwner: Boolean
-        }
-      ]
-    }
-  ]
+  success: Boolean,
+  error?: String,
+  user?: {
+    token: String,
+    success: Boolean,
+    email: String,
+    isAdmin: Boolean,
+    bases: [
+      {
+        baseId: Number,
+        baseName: String,
+        basePhoneNumber: String,
+        isBaseManager: Boolean,
+        orgs: [
+          {
+            orgId: Number,
+            orgName: String,
+            subscriptionCode: String,
+            numberOfSubscribers: Number,
+            isOrgOwner: Boolean
+          }
+        ]
+      }
+    ]
+  }
 }
 ```
 
@@ -556,9 +562,11 @@ Returns:
 
 Returns:
 
-```javascript
+```typescript
 {
   token: String,
-  isAdmin: Boolean;
+  success: Boolean,
+  error?: String,
+  isAdmin?: Boolean
 }
 ```

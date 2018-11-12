@@ -2,7 +2,6 @@ const express = require('express');
 const router = express.Router();
 
 const bandwidthRouter = require('./bandwidth');
-const userRouter = require('./user');
 
 const mw = require('../../middleware');
 
@@ -10,6 +9,7 @@ const authController = require('../../controllers/auth');
 const baseController = require('../../controllers/base');
 const messageController = require('../../controllers/message');
 const orgController = require('../../controllers/organization');
+const userController = require('../../controllers/user');
 
 router.get('/', (req, res) => {
   res.redirect('https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md');
@@ -53,8 +53,8 @@ router
 
 
 // User Routes
-
-// All of the old routes
-router.use('/user', userRouter);
+router
+  .get('/user/isAdmin', userController.isAdmin)
+  .get('/user', userController.getUserData);
 
 module.exports = router;
