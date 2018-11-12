@@ -20,6 +20,7 @@ module.exports = {
   production: {
     url: process.env.DATABASE_URL,
     dialect: 'postgres',
-    protocol: 'postgres'
+    protocol: 'postgres',
+    logging: false
   }
 };

@@ -29,7 +29,6 @@ if (process.env.NODE_ENV === 'production') {
 app.use('/api', apiRouter);
 
 // Sync database and then have app listen for connections.
-
 models.sequelize
   .sync({
     force: process.env.DROP_DATABASE_ON_RESTART === 'true'
