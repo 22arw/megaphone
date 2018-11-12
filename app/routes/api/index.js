@@ -17,7 +17,7 @@ router.get('/', (req, res) => {
 });
 
 // Bandwidth communicates over this route.
-router.use('/bandwidth', mw.incomingMessageHandler);
+router.use('/bandwidth', mw.validateIncomingMessage);
 
 // Must be logged in beyond this point
 router.use(mw.auth);
