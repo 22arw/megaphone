@@ -123,6 +123,48 @@ module.exports = {
       });
     }
   },
+  getOrgs: async (req, res) => {
+    const userId = req.userId;
+
+    // add: return everything for admin
+
+    try {
+      const isAdmin = await dbInterface.isAdmin(userId);
+      if (isAdmin) {
+        const allOrgs = await dbInterface.getAllOrgs();
+        return res.json({
+          token: req.token,
+          success: true,
+          orgs: allOrgs
+        });
+      }
+
+      const orgIds = await dbInterface.getOrgsManagedByUserId(userId);
+
+      if (_.isEmpty(orgIds)) {
+        return res.json({
+          token: req.token,
+          success: true,
+          orgs: []
+        });
+      }
+
+      const orgs = await dbInterface.getOrgById(orgIds);
+
+      res.json({
+        token: req.token,
+        success: true,
+        orgs: orgs
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   isSubscriptionCodeUnique: async (req, res) => {
     const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
 

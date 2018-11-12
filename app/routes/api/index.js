@@ -45,6 +45,7 @@ router
 
 // Organization Routes
 router
+  .get('/organization', orgController.getOrgs)
   .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg)
   .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager)
   .post('/organization/isSubscriptionCodeUnique', orgController.isSubscriptionCodeUnique)

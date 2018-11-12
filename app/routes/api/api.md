@@ -24,6 +24,7 @@ GET `/api`
   - [Get All Messages Ever](#get-apimessagegetallmessagesever)
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
+  - [Get Organizations](#get-apiorganization)
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
@@ -424,6 +425,32 @@ Returns:
 ```
 
 ### /api/organization
+
+#### GET `/api/organization`
+
+|> Gets all organizations for the user.
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  orgs?: [
+    {
+      id: Number,
+      orgName: String,
+      orgOwner: Number, // UserId
+      baseId: Number,
+      subscriptionCode: String,
+      isActive: Boolean,
+      createdAt: String,
+      updatedAt: String
+    }
+  ]
+}
+```
 
 #### POST `/api/organization/createOrg`
 
