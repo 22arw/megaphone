@@ -25,7 +25,6 @@ module.exports = async (req, res, next) => {
     return res.end();
   }
 
-
   if (await dbInterface.isBasePhoneNumberUnique(basePhoneNumber)) {
     return res.end();
   }
@@ -38,10 +37,8 @@ module.exports = async (req, res, next) => {
     apiSecret: base.bandwidthApiSecret
   };
 
-  
   // Handle keywords
   if (_.indexOf(keywords, text) > -1) {
- 
     switch (text) {
       case 'help':
         sendMessage(
@@ -57,9 +54,6 @@ module.exports = async (req, res, next) => {
     }
     return res.end();
   }
-
-
-  console.log('here');
 
   // Does that org exist?
   const doesOrgExist = await dbInterface.doesOrgExistBySubscriptionCode(text);
@@ -156,7 +150,7 @@ async function sendWhoMessage(phoneNumber, base, bandwidthConfig) {
 
   if (_.isEmpty(allSubscriptionsByPhoneNumber)) {
     return sendMessage(
-      'You have no subscriptions',
+      'You have no subscriptions. Reply HELP for more info.',
       phoneNumber,
       base.basePhoneNumber,
       bandwidthConfig

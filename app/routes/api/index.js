@@ -1,8 +1,6 @@
 const express = require('express');
 const router = express.Router();
 
-const bandwidthRouter = require('./bandwidth');
-
 const mw = require('../../middleware');
 
 const authController = require('../../controllers/auth');
@@ -17,7 +15,7 @@ router.get('/', (req, res) => {
 });
 
 // Bandwidth communicates over this route.
-router.use('/bandwidth', mw.validateIncomingMessage);
+router.use('/bandwidth', mw.validateIncomingMessage, bandwidthController.incomingText);
 
 // Must be logged in beyond this point
 router.use(mw.auth);
