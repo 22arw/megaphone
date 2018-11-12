@@ -1,6 +1,6 @@
 module.exports = {
   auth: require('./auth'),
-  keywordHandler: require('./keywordHandler'),
+  incomingMessageHandler: require('./incomingMessageHandler'),
   requireAdmin: require('./requireAdmin'),
   requireBaseManager: require('./requireBaseManager'),
   requireOrgManager: require('./requireOrgManager'),

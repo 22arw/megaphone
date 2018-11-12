@@ -1,12 +1,11 @@
 const dbInterface = require('../controllers/dbInterfaces');
 const _ = require('lodash');
 const {inspect} = require('util');
-const chalk = require('chalk');
 
 module.exports = async (req, res, next) => {
   console.log(`\n\\/\\/\\/\\/\\/\\/\\/ Begin Message \\/\\/\\/\\/\\/\\/\\/\n`);
 
-  console.log(chalk.bold('Message Summary:'));
+  console.log('\x1b[34m%s\x1b[0m' ,'Message Summary:');
   console.log(chalk`from: {blue ${req.body.from}}`);
   console.log(chalk`to: {blue ${req.body.to}}`);
   console.log(chalk`text: {cyanBright ${req.body.text}}`);
