@@ -3,7 +3,6 @@ const router = express.Router();
 
 const adminRouter = require('./admin');
 const bandwidthRouter = require('./bandwidth');
-const orgRouter = require('./organization');
 const userRouter = require('./user');
 
 const mw = require('../../middleware');
