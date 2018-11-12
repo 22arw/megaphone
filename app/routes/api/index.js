@@ -11,6 +11,7 @@ const mw = require('../../middleware');
 const authController = require('../../controllers/auth');
 const baseController = require('../../controllers/base');
 const messageController = require('../../controllers/message');
+const orgController = require('../../controllers/organization');
 
 router.get('/', (req, res) => {
   res.redirect('https://github.com/22arw/megaphone/blob/master/app/routes/api/api.md');
@@ -46,11 +47,14 @@ router
   .get('/message/getAllMessagesEver', mw.requireAdmin, messageController.allMessagesEver);
 
 // Organization Routes
+router
+  .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg);
+
+
 // User Routes
 
 // All of the old routes
 router
-  .use('/organization', orgRouter)
   .use('/user', userRouter)
   .use('/admin', adminRouter);
 

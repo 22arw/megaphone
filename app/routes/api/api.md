@@ -510,6 +510,7 @@ Expects:
 
 ```javascript
 {
+  newOrgOwnerEmail: String, // The user's email that will become the org owner. Can be own email.
   baseId: Number, // The base ID it will be created under
   orgName: String, // The full name of the organization
   subscriptionCode: String // This is the code people will use to sign up for the organization.

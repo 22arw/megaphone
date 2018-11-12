@@ -22,26 +22,6 @@ router
 
     res.json({ token: req.token, success: true });
   })
-  .post('/createOrg', async (req, res) => {
-    const userId = req.userId;
-    const baseId = req.body.baseId;
-    const orgName = req.body.orgName;
-    const subscriptionCode = req.body.subscriptionCode;
-
-    if (!(userId && baseId && orgName && subscriptionCode)) {
-      res.json({ success: false, error: 'Missing data on request.' });
-    }
-
-    const org = await orgController
-      .createOrg(userId, baseId, orgName, subscriptionCode)
-      .catch(err => console.error(err));
-
-    if (!org.id) {
-      res.json({ token: req.token, success: false, error: org });
-    }
-
-    res.json({ token: req.token, success: true });
-  })
   .post('/isSubscriptionCodeUnique', async (req, res) => {
     const subscriptionCode = req.body.subscriptionCode;
     if (!subscriptionCode) {

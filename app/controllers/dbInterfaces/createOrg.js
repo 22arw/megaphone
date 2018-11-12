@@ -1,6 +1,6 @@
 const models = require('../../db/models');
 
-const createOrganization = async (
+module.exports = async (
   userId,
   baseId,
   orgName,
@@ -15,5 +15,3 @@ const createOrganization = async (
 
   return org.dataValues;
 };
-
-module.exports = createOrganization;
