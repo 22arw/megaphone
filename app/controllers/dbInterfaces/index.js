@@ -44,6 +44,7 @@ module.exports = {
   subscribe: require('./subscribe'),
   unsubscribe: require('./unsubscribe'),
   updateBase: require('./updateBase'),
+  updateOrg: require('./updateOrg'),
   updateOrgOwner: require('./updateOrgOwner'),
   updateUser: require('./updateUser')
 };

@@ -189,6 +189,51 @@ module.exports = {
       });
     }
   },
+  updateOrg: async (req, res) => {
+    const orgId = _.toNumber(req.body.orgId);
+    const orgName = _.toString(req.body.orgName).trim();
+    const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
+
+    try {
+      if (_.isEmpty(orgName) || _.isEmpty(subscriptionCode) || isNaN(orgId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('That org does not exist.');
+      }
+
+      const org = await dbInterface.getOrgById(orgId);
+
+      if (org[0].subscriptionCode !== subscriptionCode) {
+        const isSubscriptionCodeUnique = await dbInterface.isSubscriptionCodeUnique(
+          subscriptionCode
+        );
+        if (!isSubscriptionCodeUnique) {
+          throw new Error(
+            'That subscription code is not unique. Please try another.'
+          );
+        }
+      } else if (org[0].orgName === orgName) {
+        throw new Error('Please change the data before sending.');
+      }
+
+      dbInterface.updateOrg(org[0].id, orgName, subscriptionCode).then(() => {
+        return res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   updateOrgOwner: async (req, res) => {
     const orgId = _.toNumber(req.body.orgId);
     const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).trim();

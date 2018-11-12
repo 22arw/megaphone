@@ -28,6 +28,7 @@ GET `/api`
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
+  - [Update Organization](#post-apiorganizationupdateorg)
   - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
 - [User](#apiuser)
   - [Get User Data](#get-apiuser)
@@ -518,6 +519,30 @@ Returns:
 {
   token: String,
   subscriptionCode: Boolean; // Is the subscription code unique?
+}
+```
+
+#### POST `/api/organization/updateOrg`
+
+|> Updates the given organization. Do not attempt to update the organization owner here. See [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
+
+Expects:
+
+```javascript
+{
+  orgId: Number,
+  orgName: String, // The full name of the organization
+  subscriptionCode: String // This is the code people will use to sign up for the organization. Must be unique.
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
 }
 ```
 
