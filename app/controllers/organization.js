@@ -67,6 +67,60 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  createOrgManager: async (req, res) => {
+    const orgId = _.toNumber(req.body.orgId);
+    const newOrgManagerEmail = _.toString(req.body.newOrgManagerEmail).trim();
+
+    try {
+      if (isNaN(orgId) || !utils.isValidEmail(newOrgManagerEmail)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('Org does not exist.');
+      }
+
+      const org = await dbInterface.getOrgById(orgId);
+
+      const doesUserExist = await dbInterface.doesUserExist(newOrgManagerEmail);
+      if (!doesUserExist) {
+        const pass = utils.generateRandomPassword();
+        await dbInterface.createUser(newOrgManagerEmail, pass).then(user => {
+          utils.sendEmail(
+            user.email,
+            'Welcome to Megaphone.',
+            `You're invited to manage ${
+              org.orgName
+            } on Megaphone. Please log in using the following temporary password: ${pass}`,
+            process.env.CLIENT_URL
+          );
+        });
+      }
+
+      const user = await dbInterface.getUserByEmail(newOrgManagerEmail);
+
+
+      const isOrgManager = await dbInterface.isOrgManager(user.id, org.id);
+      if (isOrgManager) {
+        throw new Error('That user is already a manager for this organization.');
+      }
+
+      dbInterface.createOrgManager(user.id, org.id).then(() => {
+        res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };
 

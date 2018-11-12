@@ -529,7 +529,7 @@ Returns:
 
 #### POST `/api/organization/createOrgManager`
 
-|> Creates another org manager for the user's org that they own.
+|> Creates an org manager for the orgId provided. If the email supplied does not belong to any current user, then a user will be created and an email will be sent to them with their login credentials.
 
 Expects:
 
