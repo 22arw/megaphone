@@ -50,7 +50,8 @@ router
 router
   .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg)
   .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager)
-  .post('/organization/isSubscriptionCodeUnique', orgController.isSubscriptionCodeUnique);
+  .post('/organization/isSubscriptionCodeUnique', orgController.isSubscriptionCodeUnique)
+  .post('/organization/updateOrgOwner', mw.requireOrgOwner, orgController.updateOrgOwner);
 
 
 // User Routes
