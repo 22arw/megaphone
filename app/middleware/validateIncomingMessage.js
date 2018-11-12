@@ -25,6 +25,7 @@ module.exports = async (req, res, next) => {
     return res.end();
   }
 
+
   if (await dbInterface.isBasePhoneNumberUnique(basePhoneNumber)) {
     return res.end();
   }
@@ -37,9 +38,10 @@ module.exports = async (req, res, next) => {
     apiSecret: base.bandwidthApiSecret
   };
 
+  
   // Handle keywords
-  if (_.findIndex(keywords, text) === -1) {
-    // more logic here
+  if (_.indexOf(keywords, text) > -1) {
+ 
     switch (text) {
       case 'help':
         sendMessage(
@@ -55,6 +57,9 @@ module.exports = async (req, res, next) => {
     }
     return res.end();
   }
+
+
+  console.log('here');
 
   // Does that org exist?
   const doesOrgExist = await dbInterface.doesOrgExistBySubscriptionCode(text);
@@ -122,13 +127,13 @@ function sendMessage(message, phoneNumber, basePhoneNumber, bandwidthConfig) {
 function getHelpMessage() {
   return `The following commands are available on this service:
 
-    HELP - Returns this message.
-    WHO - Returns a message with all of your subscriptions.
+HELP - Returns this message.
+WHO - Returns a message with all of your subscriptions.
     
-  To block this number and kill all subscriptions, reply 'stop'.
+To block this number and kill all subscriptions, reply 'stop'.
 
-  To SUBSCRIBE send subscription code.
-  To UNSUBSCRIBE send the same subscription code.`;
+To SUBSCRIBE send subscription code.
+To UNSUBSCRIBE send the same subscription code.`;
 }
 
 async function sendWhoMessage(phoneNumber, base, bandwidthConfig) {
