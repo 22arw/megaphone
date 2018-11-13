@@ -110,14 +110,20 @@ Demo users:
 email: admin@mail.mil
 password: asdf
 
-// These users are standard users
+// This user is a base admin
 email: kevin@mail.mil
 password: asdf
 
+// This user is an org owner
 email: coach@mail.mil
 password: asdf
 
+// This user is an org manager
 email: aaron@mail.mil
+password: asdf
+
+// This user is a plain 'ol user.
+email: user@mail.mil
 password: asdf
 ```
 
