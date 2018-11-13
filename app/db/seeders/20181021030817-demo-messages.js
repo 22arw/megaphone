@@ -45,7 +45,8 @@ async function getDemoUsers() {
         'admin@mail.mil',
         'kevin@mail.mil',
         'coach@mail.mil',
-        'aaron@mail.mil'
+        'aaron@mail.mil',
+        'user@mail.mil'
       ]
     }
   });

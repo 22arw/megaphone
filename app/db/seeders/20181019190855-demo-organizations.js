@@ -28,7 +28,7 @@ module.exports = {
         },
         {
           orgName: 'Test Organization 3',
-          orgOwner: demoUsers[1],
+          orgOwner: demoUsers[2],
           baseId: demoBases[1],
           subscriptionCode: 'testorg3',
           createdAt: new Date(),
@@ -55,7 +55,8 @@ async function getDemoUsers() {
         'admin@mail.mil',
         'kevin@mail.mil',
         'coach@mail.mil',
-        'aaron@mail.mil'
+        'aaron@mail.mil',
+        'user@mail.mil'
       ]
     }
   });

@@ -17,14 +17,8 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          baseId: demoBases[0],
-          userId: demoUsers[2],
-          createdAt: new Date(),
-          updatedAt: new Date()
-        },
-        {
           baseId: demoBases[1],
-          userId: demoUsers[3],
+          userId: demoUsers[1],
           createdAt: new Date(),
           updatedAt: new Date()
         }
@@ -50,7 +44,8 @@ async function getDemoUsers() {
         'admin@mail.mil',
         'kevin@mail.mil',
         'coach@mail.mil',
-        'aaron@mail.mil'
+        'aaron@mail.mil',
+        'user@mail.mil'
       ]
     }
   });

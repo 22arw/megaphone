@@ -23,13 +23,13 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          userId: demoUsers[2],
+          userId: demoUsers[3],
           orgId: demoOrganizations[0],
           createdAt: new Date(),
           updatedAt: new Date()
         },
         {
-          userId: demoUsers[2],
+          userId: demoUsers[3],
           orgId: demoOrganizations[2],
           createdAt: new Date(),
           updatedAt: new Date()
@@ -57,7 +57,8 @@ async function getDemoUsers() {
         'admin@mail.mil',
         'kevin@mail.mil',
         'coach@mail.mil',
-        'aaron@mail.mil'
+        'aaron@mail.mil',
+        'user@mail.mil'
       ]
     }
   });

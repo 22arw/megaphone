@@ -42,6 +42,14 @@ module.exports = {
           isAdmin: false,
           createdAt: new Date(),
           updatedAt: new Date()
+        },
+        {
+          email: 'user@mail.mil',
+          password:
+            '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
+          isAdmin: false,
+          createdAt: new Date(),
+          updatedAt: new Date()
         }
       ],
       {}
