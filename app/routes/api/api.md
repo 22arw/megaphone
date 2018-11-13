@@ -18,6 +18,7 @@ GET `/api`
   - [Get All Messages Sent By Base](#post-apibasegetallmessagessentbybase)
   - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase)
   - [Get All Users Under Base](#post-apibasegetallusersunderbase)
+  - [Is Base Manager?](#post-apibaseisbasemanager)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
   - [Update Base](#post-apibaseupdatebase)
 - [Message](#apimessage)
