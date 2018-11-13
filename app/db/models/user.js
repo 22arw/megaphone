@@ -33,10 +33,12 @@ module.exports = (sequelize, DataTypes) => {
     {
       hooks: {
         afterValidate: async user => {
-          user.password = await bcrypt.hash(
-            user.password,
-            Number(process.env.SALT_ROUNDS)
-          );
+          if (user.password) {
+            user.password = await bcrypt.hash(
+              user.password,
+              Number(process.env.SALT_ROUNDS)
+            );
+          }
         }
       }
     }

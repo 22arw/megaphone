@@ -1,4 +1,5 @@
 const dbInterface = require('./dbInterfaces');
+const _ = require('lodash');
 
 module.exports = {
   isAdmin: (req, res) => {
@@ -39,13 +40,31 @@ module.exports = {
   },
   updateIsAdmin: async (req, res) => {
     const userId = _.toNumber(req.body.userId);
-    const isAdmin = req.body.isAdmin;
+    const isAdmin = _.toString(req.body.isAdmin);
+
+    console.log(isAdmin);
 
     try {
-      if (isNaN(userId) || typeof isAdmin != typeof true) {
+      if (isNaN(userId) || _.isEmpty(isAdmin)) {
         throw new Error('Invalid data on request.');
       }
-      res.sendStatus(501);
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      let bool = false
+      if (isAdmin === 'true') {
+        bool = true;
+      }
+
+      dbInterface.updateIsAdmin(userId, bool).then(() => {
+        res.json({
+          token: req.token,
+          success: true
+        });
+      });
     } catch (error) {
       console.error(error);
       res.json({

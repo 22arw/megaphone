@@ -39,6 +39,7 @@ GET `/api`
 - [User](#apiuser)
   - [Get User Data](#get-apiuser)
   - [Is User Admin?](#get-apiuserisadmin)
+  - [Update isAdmin](#post-apiuserupdateisadmin)
 
 ### Using the API
 
