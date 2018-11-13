@@ -49,14 +49,16 @@ module.exports = {
         throw new Error('Invalid data on request.');
       }
 
+      let bool = false;
+      if (isAdmin === 'true') {
+        bool = true;
+      } else if (isAdmin !== 'false') {
+        throw new Error('Invalid data on request.');
+      }
+
       const doesUserExist = await dbInterface.doesUserExistById(userId);
       if (!doesUserExist) {
         throw new Error('User does not exist.');
-      }
-
-      let bool = false
-      if (isAdmin === 'true') {
-        bool = true;
       }
 
       dbInterface.updateIsAdmin(userId, bool).then(() => {
