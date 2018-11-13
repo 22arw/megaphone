@@ -27,10 +27,9 @@ module.exports = async (req, res, next) => {
   const org = await dbInterface
     .getOrgById(orgId)
     .catch(err => console.error(err));
-  const baseId = org.baseId;
 
   const isBaseManager = await dbInterface
-    .isBaseManager(req.userId, baseId)
+    .isBaseManager(req.userId, org[0].baseId)
     .catch(err => console.error(err));
 
   if (isBaseManager) {

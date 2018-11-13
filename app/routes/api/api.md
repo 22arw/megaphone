@@ -26,6 +26,7 @@ GET `/api`
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
   - [Get Organizations](#get-apiorganization)
+  - [Get Organization Managers](#post-apiorganizationgetorgmanagers)
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
   - [Is Org Manager?](#post-apiorganizationisorgmanager)
@@ -475,6 +476,33 @@ Returns:
       createdAt: String,
       updatedAt: String
     }
+  ]
+}
+```
+
+#### POST `/api/organization/getOrgManagers`
+
+|> Returns all of the organization managers for the provided orgId.
+
+Expects:
+
+```javascript
+{
+  orgId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
+  orgManagers?: [
+    userId: Number,
+    email: String,
+    isActive: Boolean // Is this user account currently active? You'll want to filter these out.
   ]
 }
 ```

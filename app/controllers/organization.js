@@ -165,6 +165,54 @@ module.exports = {
       });
     }
   },
+  getOrgManagers: async (req, res) => {
+    const orgId = _.toNumber(req.body.orgId);
+
+    try {
+      if (isNaN(orgId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('That org does not exist.');
+      }
+
+      const orgManagers = await dbInterface.getAllOrgManagersByOrgIds(orgId);
+      if (_.isEmpty(orgManagers)) {
+        return res.json({
+          token: req.token,
+          success: true,
+          orgManagers: []
+        });
+      }
+
+      const userIds = orgManagers.map(row => {
+        return row.userId;
+      });
+
+      dbInterface.getUsersById(userIds).then(users => {
+        res.json({
+          token: req.token,
+          success: true,
+          orgManagers: users.map(user => {
+            return {
+              userId: user.id,
+              email: user.email,
+              isActive: user.isActive
+            };
+          })
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   isOrgManager: async (req, res) => {
     const userId = req.userId;
     const orgId = _.toNumber(req.body.orgId);
