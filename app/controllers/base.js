@@ -403,6 +403,36 @@ module.exports = {
       });
     }
   },
+  isBaseManager: async (req, res) => {
+    const userId = req.userId;
+    const baseId = _.toNumber(req.body.baseId);
+
+    try {
+      if (isNaN(baseId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      dbInterface.isBaseManager(userId, baseId).then(isBaseManager => {
+        res.json({
+          token: req.token,
+          success: true,
+          isBaseManager: isBaseManager
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   isBasePhoneNumberUnique: async (req, res) => {
     const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
 

@@ -329,6 +329,29 @@ Returns:
 }
 ```
 
+#### POST `/api/base/isBaseManager`
+
+|> Returns a boolean if the user is a base manager.
+
+Expects:
+
+```javascript
+{
+  baseId: Number;
+}
+```
+
+Returns:
+
+```javascript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  isBaseManager?: Boolean;
+}
+```
+
 #### POST `/api/base/isBasePhoneNumberUnique`
 
 |> Checks to see if a phone number is unique or not. Each base must have a unique phone number.

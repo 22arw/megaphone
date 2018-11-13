@@ -35,6 +35,7 @@ router
   .post('/base/getAllMessagesSentByBase', mw.requireBaseManager, baseController.getAllMessagesSentByBase)
   .post('/base/getAllOrgsUnderBase', mw.requireBaseManager, baseController.getAllOrgsUnderBase)
   .post('/base/getAllUsersUnderBase', mw.requireBaseManager, baseController.getAllUsersUnderBase)
+  .post('/base/isBaseManager', baseController.isBaseManager)
   .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique)
   .post('/base/updateBase', mw.requireBaseManager, baseController.updateBase);
 
