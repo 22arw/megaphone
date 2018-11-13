@@ -43,11 +43,12 @@ module.exports = {
           bandwidthApiToken,
           bandwidthApiSecret
         )
-        .then(() => {
+        .then((base) => {
           console.log('Success!');
           res.json({
             token: req.token,
-            success: true
+            success: true,
+            base: base
           });
         })
         .catch(err => {
