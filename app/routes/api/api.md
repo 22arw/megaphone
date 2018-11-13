@@ -525,6 +525,30 @@ Returns:
   error?: String; // A description of the error.
 }
 ```
+
+#### POST `/api/organization/isOrgOwner`
+
+|> Returns a boolean if the user is an org manager.
+
+Expects:
+
+```javascript
+{
+  orgId: Number;
+}
+```
+
+Returns:
+
+```javascript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  isOrgManager?: Boolean;
+}
+```
+
 #### POST `/api/organization/isOrgOwner`
 
 |> Returns a boolean if the user is the org owner..
