@@ -31,9 +31,11 @@ GET `/api`
   - [Get Organization Managers](#post-apiorganizationgetorgmanagers)
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
+  - [Delete Organization Manager](#post-apiorganizationdeleteorgmanager)
   - [Is Org Manager?](#post-apiorganizationisorgmanager)
   - [Is Org Owner?](#post-apiorganizationisorgowner)
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
+  - [Update Organization isActive](#post-apiorganizationupdateisactive)
   - [Update Organization](#post-apiorganizationupdateorg)
   - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
 - [User](#apiuser)
@@ -143,7 +145,17 @@ Returns:
 {
   token: String,
   success: Boolean,
-  error?: String
+  error?: String,
+  base?: {
+    id: Number,
+    basePhoneNumber: String,
+    baseName: String,
+    bandwidthUserId?: String,
+    bandwidthApiToken?: String,
+    bandwidthApiSecret?: String,
+    createdAt?: String,
+    updatedAt?: String
+  }
 }
 ```
 
@@ -615,6 +627,29 @@ Returns:
 }
 ```
 
+#### POST `/api/organization/deleteOrgManager`
+
+|> Deletes the org manager from the orgId provided.
+
+Expects:
+
+```javascript
+{
+  userId: Number, // The email of the user being removed from the org
+  orgId: Number // The org that is having a manager removed from
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean // Did the operation succeed?
+  error?: String // A description of the error.
+}
+```
+
 #### POST `/api/organization/isOrgManager`
 
 |> Returns a boolean if the user is an org manager.
@@ -681,6 +716,32 @@ Returns:
   success: Boolean,
   error?: String,
   subscriptionCode?: Boolean; // Is the subscription code unique?
+}
+```
+
+#### POST `/api/organization/updateIsActive`
+
+|> Updates the isActive field of the organization. This is a _light_ delete route. Nothing is ever completely deleted.
+
+*WARNING*: _If setting `isActive = false`, it removes all orgManagers, orgOwner, and subscriptionCode, irreversibly._
+If `isActive = true`, it just flips that value. You'll need to update the org with proper values to get it going.
+
+Expects:
+
+```javascript
+{
+  orgId: Number,
+  isActive: Boolean
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
 }
 ```
 

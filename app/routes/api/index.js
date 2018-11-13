@@ -49,15 +49,16 @@ router
   .get('/organization', orgController.getOrgs)
   .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg)
   .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager)
+  .post('/organization/deleteOrgManager', mw.requireOrgOwner, orgController.deleteOrgManager)
   .post('/organization/getAllMessagesSentByOrg', mw.requireOrgManager, orgController.getAllMessagesSentByOrg)
   .post('/organization/getNumberOfSubscribers', mw.requireOrgManager, orgController.getNumberOfSubscribers)
   .post('/organization/getOrgManagers', mw.requireOrgOwner, orgController.getOrgManagers)
   .post('/organization/isOrgManager', orgController.isOrgManager)
   .post('/organization/isOrgOwner', orgController.isOrgOwner)
   .post('/organization/isSubscriptionCodeUnique', orgController.isSubscriptionCodeUnique)
+  .post('/organization/updateIsActive', mw.requireOrgOwner, orgController.updateIsActive)
   .post('/organization/updateOrg', mw.requireOrgOwner, orgController.updateOrg)
   .post('/organization/updateOrgOwner', mw.requireOrgOwner, orgController.updateOrgOwner);
-
 
 // User Routes
 router

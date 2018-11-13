@@ -5,6 +5,8 @@ module.exports = {
   createOrgManager: require('./createOrgManager'),
   createUser: require('./createUser'),
   deleteBaseManager: require('./deleteBaseManager'),
+  deleteOrgManager: require('./deleteOrgManager'),
+  deleteOrgManagersByOrgId: require('./deleteOrgManagersByOrgId'),
   doesBaseExist: require('./doesBaseExist'),
   doesOrgBelongToBase: require('./doesOrgBelongToBase'),
   doesOrgExist: require('./doesOrgExist'),
@@ -48,6 +50,7 @@ module.exports = {
   updateBase: require('./updateBase'),
   updateIsAdmin: require('./updateIsAdmin'),
   updateOrg: require('./updateOrg'),
+  updateOrgIsActive: require('./updateOrgIsActive'),
   updateOrgOwner: require('./updateOrgOwner'),
   updateUser: require('./updateUser'),
   updateUserEmail: require('./updateUserEmail')

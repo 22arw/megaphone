@@ -133,6 +133,47 @@ module.exports = {
       });
     }
   },
+  deleteOrgManager: async (req, res) => {
+    process.stdout.write('Attempting to delete org manager... ');
+    const userId = _.toNumber(req.body.userId);
+    const orgId = _.toNumber(req.body.orgId);
+
+    try {
+      if (isNaN(userId) || isNaN(orgId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('Org does not exist.');
+      }
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      const isOrgManager = await dbInterface.isOrgManager(userId, orgId);
+      if (!isOrgManager) {
+        throw new Error('This user is not an org manager for this org.');
+      }
+
+      dbInterface.deleteOrgManager(orgId, userId).then(() => {
+        console.log('success!');
+        res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   getOrgs: async (req, res) => {
     process.stdout.write('Attempting to get orgs... ');
     const userId = req.userId;
@@ -376,6 +417,52 @@ module.exports = {
           success: true,
           subscriptionCode: unique
         });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  updateIsActive: async (req, res) => {
+    process.stdout.write('Attempting to update isActive for organization... ');
+    const isActive = _.toString(req.body.isActive)
+      .trim()
+      .toLowerCase();
+    const orgId = _.toNumber(req.body.orgId);
+
+    try {
+      if (!(isActive === 'true' || isActive === 'false') || isNaN(orgId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('Org does not exist.');
+      }
+
+      const org = await dbInterface.getOrgById(orgId);
+
+      if (isActive === 'true') {
+        await dbInterface.updateOrgIsActive(orgId, true);
+        console.log('org has been reactivated.');
+      } else if (isActive === 'false') {
+        process.stdout.write('deactivating org... ');
+        await dbInterface.deleteOrgManagersByOrgId(orgId);
+        await dbInterface.updateOrgOwner(null, orgId);
+        await dbInterface.updateOrg(orgId, org[0].orgName, null);
+        await dbInterface.updateOrgIsActive(orgId, false);
+        console.log('deactivated.');
+      } else {
+        throw new Error('Something went wrong. Please try again.');
+      }
+
+      res.json({
+        token: req.token,
+        success: true
       });
     } catch (error) {
       console.error(error);
