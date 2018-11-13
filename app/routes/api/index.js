@@ -61,7 +61,8 @@ router
 
 // User Routes
 router
+  .get('/user', userController.getUserData)
   .get('/user/isAdmin', userController.isAdmin)
-  .get('/user', userController.getUserData);
+  .post('/user/updateIsAdmin', mw.requireAdmin, userController.updateIsAdmin);
 
 module.exports = router;

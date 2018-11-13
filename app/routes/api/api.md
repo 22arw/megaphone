@@ -86,7 +86,8 @@ Returns:
 ```javascript
 {
   token: String,
-  needsPasswordChange: Boolean
+  needsPasswordChange: Boolean,
+  role: Number // corresponds to a level of access.
 }
 ```
 
@@ -777,5 +778,28 @@ Returns:
   success: Boolean,
   error?: String,
   isAdmin?: Boolean
+}
+```
+
+#### POST `/api/user/updateIsAdmin`
+
+|> Updates the user's role to admin.
+
+Expects:
+
+```javascript
+{
+  userId: Number,
+  isAdmin: Boolean
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
 }
 ```

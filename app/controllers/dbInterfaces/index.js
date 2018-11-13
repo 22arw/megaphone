@@ -23,6 +23,7 @@ module.exports = {
   getBaseById: require('./getBaseById'),
   getBasesByUserId: require('./getBasesByUserId'),
   getBasesManagedByUserId: require('./getBasesManagedByUserId'),
+  getHighestRole: require('./getHighestRole'),
   getMessagesByOrgIds: require('./getMessagesByOrgIds'),
   getOrgById: require('./getOrgById'),
   getOrgBySubscriptionCode: require('./getOrgBySubscriptionCode'),

@@ -155,20 +155,20 @@ npm run dev:rebuildDb
 
 When creating a new `Base`, you must have an account at [https://www.bandwidth.com/](https://www.bandwidth.com/) and use the API credentials on your account. An `Admin` must create the `Base` by inputting that information. This retains all payment information outside of the application and puts it in control of the entity that is paying for it. Once a `Base` is created, then you can add `Base Manager`s and so on. When a `User` is added to a `Base` or any other entity, the application will check to see if they are already a user, and if not, then it will create a user and email them temporary login credentials. You must have the appropriate role in order to perform each action. To obtain a higher role, a `User` with a higher role must invite you. `Base Managers` have access to every `Organization` under that `Base`.
 
-- _User_:
+1. _User_:
   - Can See their own user information and update their own account.
   - Typically, no user will only be at this level.
-- _Organization Manager_:
+2. _Organization Manager_:
   - Most users are this role.
   - Can send messages from the org they manage.
-- _Organization Owner_:
+3. _Organization Owner_:
   - Can invite other users to be an Organization Manager for their organization.
   - Can update the organizations they own.
-- _Base Manager_:
+4. _Base Manager_:
   - Can manage all operations at the base.
   - Can update base details.
   - Can Create Organizations.
-- _Admin_:
+5. _Admin_:
   - Can perform all functions across the entire application.
   - Can create bases.
 

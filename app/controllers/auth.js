@@ -6,32 +6,36 @@ const _ = require('lodash');
 
 module.exports = {
   login: async (req, res) => {
-    const email = req.body.email;
-    const password = req.body.password;
+    const email = _.toString(req.body.email).trim();
+    const password = _.toString(req.body.password).trim();
 
-    if (!(email && password)) {
-      console.log('\nMissing data on login request.');
-      return res.sendStatus(401);
-    }
-
-    const doesUserExist = await dbInterface
-      .doesUserExist(email)
-      .catch(err => console.error(err));
-
-    if (!doesUserExist) return res.sendStatus(401);
-
-    dbInterface.getUserByEmail(email).then(async user => {
-      if (!(await bcrypt.compare(password, user.password))) {
-        console.log('\nIncorrect password at login.');
-        return res.sendStatus(401);
-      } else {
-        return res.json({
-          token: TOKEN.generate(user.id),
-          needsPasswordChange:
-            _.toString(user.createdAt) === _.toString(user.updatedAt)
-        });
+    try {
+      if (_.isEmpty(password) || !utils.isValidEmail(email)) {
+        throw new Error('Invalid data on request.');
       }
-    });
+
+      const doesUserExist = await dbInterface.doesUserExist(email);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      const user = await dbInterface.getUserByEmail(email);
+      if (!(await bcrypt.compare(password, user.password))) {
+        throw new Error('Incorrect password at login.');
+      }
+
+      const highestRole = await dbInterface.getHighestRole(user.id);
+
+      res.json({
+        token: TOKEN.generate(user.id),
+        needsPasswordChange:
+          _.toString(user.createdAt) === _.toString(user.updatedAt),
+        role: highestRole
+      });
+    } catch (error) {
+      console.error(error);
+      res.sendStatus(401);
+    }
   },
   resetPassword: async (req, res) => {
     const userId = req.userId;
