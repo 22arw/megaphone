@@ -1,5 +1,6 @@
 const dbInterface = require('./dbInterfaces');
 const _ = require('lodash');
+const utils = require('../utils');
 
 module.exports = {
   isAdmin: (req, res) => {
@@ -19,6 +20,39 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  isEmailUnique: async (req, res) => {
+    const email = _.toString(req.body.email).trim();
+
+    try {
+      if (!utils.isValidEmail(email)) {
+        throw new Error('That is not a valid email address.');
+      }
+
+      dbInterface.isUserEmailUnique(email).then(bool => {
+        res.json({
+          token: req.token,
+          success: true,
+          isEmailUnique: bool
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  getAllUsersEver: async (req, res) => {
+    const users = await dbInterface.getAllUsersEver();
+
+    res.json({
+      token: req.token,
+      success: true,
+      users: users
+    });
   },
   getUserData: (req, res) => {
     try {

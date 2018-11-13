@@ -38,7 +38,9 @@ GET `/api`
   - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
 - [User](#apiuser)
   - [Get User Data](#get-apiuser)
+  - [Get All Users Ever](#get-apiusergetallusersever)
   - [Is User Admin?](#get-apiuserisadmin)
+  - [Is Email Unique?](#post-apiuserisemailunique)
   - [Update isAdmin](#post-apiuserupdateisadmin)
 
 ### Using the API
@@ -767,6 +769,27 @@ Returns:
 }
 ```
 
+#### GET `/api/user/getAllUsersEver`
+
+|> Returns all of the users ever.
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  users?: [
+    {
+      userId: Number,
+      email: String,
+      isAdmin: Boolean
+    }
+  ]
+}
+```
+
 #### GET `/api/user/isAdmin`
 
 |> Returns a json object describing if the currently logged in user is an Admin.
@@ -779,6 +802,29 @@ Returns:
   success: Boolean,
   error?: String,
   isAdmin?: Boolean
+}
+```
+
+#### POST `/api/user/isEmailUnique`
+
+|> Returns a boolean of whether the email supplied is unique or not.
+
+Expects:
+
+```javascript
+{
+  email: String
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  isEmailUnique?: Boolean
 }
 ```
 
