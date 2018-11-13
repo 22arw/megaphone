@@ -784,7 +784,8 @@ Returns:
     {
       userId: Number,
       email: String,
-      isAdmin: Boolean
+      isAdmin: Boolean,
+      isActive: Boolean
     }
   ]
 }

@@ -7,7 +7,8 @@ module.exports = () => {
     return {
       userId: user.dataValues.id,
       email: user.dataValues.email,
-      isAdmin: user.dataValues.isAdmin
+      isAdmin: user.dataValues.isAdmin,
+      isActive: user.dataValues.isActive
     };
   });
 };
