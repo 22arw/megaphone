@@ -28,6 +28,7 @@ GET `/api`
   - [Get Organizations](#get-apiorganization)
   - [Create Organization](#post-apiorganizationcreateorg)
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
+  - [Is Org Manager?](#post-apiorganizationisorgmanager)
   - [Is Org Owner?](#post-apiorganizationisorgowner)
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
   - [Update Organization](#post-apiorganizationupdateorg)
@@ -526,7 +527,7 @@ Returns:
 }
 ```
 
-#### POST `/api/organization/isOrgOwner`
+#### POST `/api/organization/isOrgManager`
 
 |> Returns a boolean if the user is an org manager.
 
@@ -551,7 +552,7 @@ Returns:
 
 #### POST `/api/organization/isOrgOwner`
 
-|> Returns a boolean if the user is the org owner..
+|> Returns a boolean if the user is the org owner.
 
 Expects:
 
