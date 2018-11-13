@@ -500,18 +500,7 @@ Returns:
   token: String,
   success: Boolean,
   error?: String,
-  orgs?: [
-    {
-      id: Number,
-      orgName: String,
-      orgOwner: Number, // UserId
-      baseId: Number,
-      subscriptionCode: String,
-      isActive: Boolean,
-      createdAt: String,
-      updatedAt: String
-    }
-  ]
+  numberOfSubscribers?: Number
 }
 ```
 
