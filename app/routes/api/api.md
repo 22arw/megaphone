@@ -26,6 +26,7 @@ GET `/api`
   - [Send Message](#post-apimessagesend)
 - [Organization](#apiorganization)
   - [Get Organizations](#get-apiorganization)
+  - [Get All Messages Sent By Org](#post-apiorganizationgetallmessagessentbyorg)
   - [Get the Number of Subscribers for an Organization](#post-apiorganizationgetnumberofsubscribers)
   - [Get Organization Managers](#post-apiorganizationgetorgmanagers)
   - [Create Organization](#post-apiorganizationcreateorg)
@@ -476,6 +477,36 @@ Returns:
       isActive: Boolean,
       createdAt: String,
       updatedAt: String
+    }
+  ]
+}
+```
+
+#### POST `/api/organization/getAllMessagesSentByOrg`
+
+|> Gets the number of subscribers for an organization.
+
+Expects:
+
+```javascript
+{
+  orgId: Number;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String,
+  messages?: [
+    {
+      userId: Number,
+      orgId: Number,
+      message: String,
+      sent: String // timestamp the message was sent.
     }
   ]
 }

@@ -49,6 +49,7 @@ router
   .get('/organization', orgController.getOrgs)
   .post('/organization/createOrg', mw.requireBaseManager, orgController.createOrg)
   .post('/organization/createOrgManager', mw.requireOrgOwner, orgController.createOrgManager)
+  .post('/organization/getAllMessagesSentByOrg', mw.requireOrgManager, orgController.getAllMessagesSentByOrg)
   .post('/organization/getNumberOfSubscribers', mw.requireOrgManager, orgController.getNumberOfSubscribers)
   .post('/organization/getOrgManagers', mw.requireOrgOwner, orgController.getOrgManagers)
   .post('/organization/isOrgManager', orgController.isOrgManager)
