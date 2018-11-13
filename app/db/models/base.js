@@ -1,4 +1,10 @@
 'use strict';
+
+/**
+ * psql allows multiple null values in unique rows. 
+ * reference: https://www.postgresql.org/docs/8.2/ddl-constraints.html#AEN2058
+ */
+
 module.exports = (sequelize, DataTypes) => {
   const Base = sequelize.define(
     'Base',
@@ -6,10 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       basePhoneNumber: {
         type: DataTypes.STRING,
         unique: true,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       baseName: {
         type: DataTypes.STRING,
@@ -20,24 +23,15 @@ module.exports = (sequelize, DataTypes) => {
       },
       bandwidthUserId: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       bandwidthApiToken: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       bandwidthApiSecret: {
         type: DataTypes.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       isActive: {
         type: DataTypes.BOOLEAN,

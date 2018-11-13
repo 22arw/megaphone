@@ -17,10 +17,7 @@ module.exports = {
       },
       orgOwner: {
         type: Sequelize.INTEGER,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       baseId: {
         type: Sequelize.INTEGER,
@@ -32,10 +29,7 @@ module.exports = {
       subscriptionCode: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true,
-        validate: {
-          notEmpty: true
-        }
+        unique: true
       },
       isActive: {
         type: Sequelize.BOOLEAN,

@@ -11,10 +11,7 @@ module.exports = {
       basePhoneNumber: {
         type: Sequelize.STRING,
         unique: true,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       baseName: {
         type: Sequelize.STRING,
@@ -25,24 +22,15 @@ module.exports = {
       },
       bandwidthUserId: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       bandwidthApiToken: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       bandwidthApiSecret: {
         type: Sequelize.STRING,
-        allowNull: false,
-        validate: {
-          notEmpty: true
-        }
+        allowNull: true
       },
       isActive: {
         type: Sequelize.BOOLEAN,
