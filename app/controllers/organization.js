@@ -4,6 +4,7 @@ const utils = require('../utils');
 
 module.exports = {
   createOrg: async (req, res) => {
+    process.stdout.write('Attempting to create an org... ');
     const baseId = _.toNumber(req.body.baseId);
     const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).trim();
     const orgName = _.toString(req.body.orgName).trim();
@@ -33,6 +34,9 @@ module.exports = {
 
       const doesUserExist = await dbInterface.doesUserExist(newOrgOwnerEmail);
       if (!doesUserExist) {
+        console.log(
+          'This is a new user, creating an account for them and sending them an email.'
+        );
         const pass = utils.generateRandomPassword();
         await dbInterface.createUser(newOrgOwnerEmail, pass).then(user => {
           utils.sendEmail(
@@ -54,6 +58,7 @@ module.exports = {
       );
 
       dbInterface.createOrgManager(user.id, org.id).then(() => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true
@@ -69,6 +74,7 @@ module.exports = {
     }
   },
   createOrgManager: async (req, res) => {
+    process.stdout.write('Attempting to create an org manager... ');
     const orgId = _.toNumber(req.body.orgId);
     const newOrgManagerEmail = _.toString(req.body.newOrgManagerEmail).trim();
 
@@ -86,6 +92,9 @@ module.exports = {
 
       const doesUserExist = await dbInterface.doesUserExist(newOrgManagerEmail);
       if (!doesUserExist) {
+        console.log(
+          'This is a new user, creating an account for them and sending them an email.'
+        );
         const pass = utils.generateRandomPassword();
         await dbInterface.createUser(newOrgManagerEmail, pass).then(user => {
           utils.sendEmail(
@@ -109,6 +118,7 @@ module.exports = {
       }
 
       dbInterface.createOrgManager(user.id, org.id).then(() => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true
@@ -124,14 +134,14 @@ module.exports = {
     }
   },
   getOrgs: async (req, res) => {
+    process.stdout.write('Attempting to get orgs... ');
     const userId = req.userId;
-
-    // add: return everything for admin
 
     try {
       const isAdmin = await dbInterface.isAdmin(userId);
       if (isAdmin) {
         const allOrgs = await dbInterface.getAllOrgs();
+        console.log('This user is an admin. Success!');
         return res.json({
           token: req.token,
           success: true,
@@ -142,6 +152,7 @@ module.exports = {
       const orgIds = await dbInterface.getOrgsManagedByUserId(userId);
 
       if (_.isEmpty(orgIds)) {
+        console.log('No orgs exist.');
         return res.json({
           token: req.token,
           success: true,
@@ -151,6 +162,7 @@ module.exports = {
 
       const orgs = await dbInterface.getOrgById(orgIds);
 
+      console.log('Success!');
       res.json({
         token: req.token,
         success: true,
@@ -166,6 +178,7 @@ module.exports = {
     }
   },
   getAllMessagesSentByOrg: async (req, res) => {
+    process.stdout.write('Attempting to get all messages sent by org... ');
     const orgId = _.toNumber(req.body.orgId);
 
     try {
@@ -178,6 +191,7 @@ module.exports = {
       }
 
       dbInterface.getMessagesByOrgIds(orgId).then(msgs => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true,
@@ -201,6 +215,7 @@ module.exports = {
     }
   },
   getNumberOfSubscribers: async (req, res) => {
+    process.stdout.write('Attempting to get number of subscribers... ');
     const orgId = _.toNumber(req.body.orgId);
 
     try {
@@ -214,6 +229,7 @@ module.exports = {
       }
 
       dbInterface.getSubscribers(orgId).then(subs => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true,
@@ -230,6 +246,7 @@ module.exports = {
     }
   },
   getOrgManagers: async (req, res) => {
+    process.stdout.write('Attempting to get org managers... ');
     const orgId = _.toNumber(req.body.orgId);
 
     try {
@@ -244,6 +261,7 @@ module.exports = {
 
       const orgManagers = await dbInterface.getAllOrgManagersByOrgIds(orgId);
       if (_.isEmpty(orgManagers)) {
+        console.log('There are none.');
         return res.json({
           token: req.token,
           success: true,
@@ -256,6 +274,7 @@ module.exports = {
       });
 
       dbInterface.getUsersById(userIds).then(users => {
+        console.log('success!');
         res.json({
           token: req.token,
           success: true,
@@ -278,6 +297,7 @@ module.exports = {
     }
   },
   isOrgManager: async (req, res) => {
+    process.stdout.write('Attempting isOrgManager... ');
     const userId = req.userId;
     const orgId = _.toNumber(req.body.orgId);
 
@@ -292,6 +312,7 @@ module.exports = {
       }
 
       dbInterface.isOrgManager(userId, orgId).then(isOrgManager => {
+        console.log(`is org manager: ${isOrgManager}`);
         res.json({
           token: req.token,
           success: true,
@@ -308,6 +329,7 @@ module.exports = {
     }
   },
   isOrgOwner: async (req, res) => {
+    process.stdout.write('Attempting isOrgOwner... ');
     const userId = req.userId;
     const orgId = _.toNumber(req.body.orgId);
 
@@ -322,6 +344,7 @@ module.exports = {
       }
 
       dbInterface.isOrgOwner(userId, orgId).then(status => {
+        console.log(`is org owner: ${status}`);
         res.json({
           token: req.token,
           success: true,
@@ -338,6 +361,7 @@ module.exports = {
     }
   },
   isSubscriptionCodeUnique: async (req, res) => {
+    process.stdout.write('Attempting isSubscriptionCodeUnique... ');
     const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
 
     try {
@@ -346,6 +370,7 @@ module.exports = {
       }
 
       dbInterface.isSubscriptionCodeUnique(subscriptionCode).then(unique => {
+        console.log(unique);
         res.json({
           token: req.token,
           success: true,
@@ -362,6 +387,7 @@ module.exports = {
     }
   },
   updateOrg: async (req, res) => {
+    process.stdout.write('Attempting to update org... ');
     const orgId = _.toNumber(req.body.orgId);
     const orgName = _.toString(req.body.orgName).trim();
     const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
@@ -392,7 +418,8 @@ module.exports = {
       }
 
       dbInterface.updateOrg(org[0].id, orgName, subscriptionCode).then(() => {
-        return res.json({
+        console.log('success!');
+        res.json({
           token: req.token,
           success: true
         });
@@ -407,6 +434,7 @@ module.exports = {
     }
   },
   updateOrgOwner: async (req, res) => {
+    process.stdout.write('Attempting to transfer org owner... ');
     const orgId = _.toNumber(req.body.orgId);
     const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).trim();
 
@@ -419,6 +447,9 @@ module.exports = {
 
       const doesUserExist = await dbInterface.doesUserExist(newOrgOwnerEmail);
       if (!doesUserExist) {
+        console.log(
+          'That is a new user, creating an account and emailing them their credentials...'
+        );
         const pass = utils.generateRandomPassword();
         await dbInterface.createUser(newOrgOwnerEmail, pass).then(user => {
           utils.sendEmail(
@@ -440,6 +471,7 @@ module.exports = {
       }
 
       dbInterface.updateOrgOwner(user.id, org.id).then(() => {
+        console.log('success!');
         res.json({
           token: req.token,
           success: true

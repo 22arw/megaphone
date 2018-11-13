@@ -2,12 +2,14 @@ const dbInterface = require('../controllers/dbInterfaces');
 const _ = require('lodash');
 
 module.exports = async (req, res, next) => {
+  process.stdout.write('This route requires at least an org manager... ');
   // Check if admin
   const isAdmin = await dbInterface
     .isAdmin(req.userId)
     .catch(err => console.error(err));
 
   if (isAdmin) {
+    console.log('This user is an admin.');
     return next();
   }
 
@@ -32,6 +34,7 @@ module.exports = async (req, res, next) => {
     .catch(err => console.error(err));
 
   if (isBaseManager) {
+    console.log('This user is a base manager.');
     return next();
   }
 
@@ -40,9 +43,11 @@ module.exports = async (req, res, next) => {
     .isOrgOwner(req.userId, orgId)
     .catch(err => console.error(err));
   if (isOrgOwner) {
+    console.log('This user is the org owner.');
     return next();
   }
 
+  // check if org manager
   const isOrgManager = await dbInterface
     .isOrgManager(req.userId, orgId)
     .catch(err => console.error(err));
@@ -50,5 +55,6 @@ module.exports = async (req, res, next) => {
     return res.sendStatus(401);
   }
 
+  console.log('This user is an org manager.');
   next();
 };

@@ -4,8 +4,10 @@ const utils = require('../utils');
 
 module.exports = {
   isAdmin: (req, res) => {
+    process.stdout.write('Attempting isAdmin... ');
     try {
       dbInterface.isAdmin(req.userId).then(isAdmin => {
+        console.log(`is this user an admin? ${isAdmin}`);
         res.json({
           token: req.token,
           success: true,
@@ -22,6 +24,7 @@ module.exports = {
     }
   },
   isEmailUnique: async (req, res) => {
+    process.stdout.write('Attempting isEmailUnique... ');
     const email = _.toString(req.body.email).trim();
 
     try {
@@ -30,6 +33,7 @@ module.exports = {
       }
 
       dbInterface.isUserEmailUnique(email).then(bool => {
+        console.log(`is that email unique? ${bool}`);
         res.json({
           token: req.token,
           success: true,
@@ -46,8 +50,9 @@ module.exports = {
     }
   },
   getAllUsersEver: async (req, res) => {
+    process.stdout.write('Attempting to get ALL USERS EVERRR... ');
     const users = await dbInterface.getAllUsersEver();
-
+    console.log('Get all users successful.');
     res.json({
       token: req.token,
       success: true,
@@ -55,8 +60,10 @@ module.exports = {
     });
   },
   getUserData: (req, res) => {
+    process.stdout.write('Attempting to get user data... ');
     try {
       dbInterface.getAllUserData(req.userId).then(user => {
+        console.log('User data request successful.');
         res.json({
           token: req.token,
           success: true,
@@ -73,10 +80,9 @@ module.exports = {
     }
   },
   updateIsAdmin: async (req, res) => {
+    process.stdout.write('Attempting to update isAdmin... ');
     const userId = _.toNumber(req.body.userId);
     const isAdmin = _.toString(req.body.isAdmin);
-
-    console.log(isAdmin);
 
     try {
       if (isNaN(userId) || _.isEmpty(isAdmin)) {
@@ -96,6 +102,7 @@ module.exports = {
       }
 
       dbInterface.updateIsAdmin(userId, bool).then(() => {
+        console.log('isAdmin update complete.');
         res.json({
           token: req.token,
           success: true
@@ -111,6 +118,7 @@ module.exports = {
     }
   },
   updateUserEmail: async (req, res) => {
+    process.stdout.write('Attempting to update user email... ');
     const userId = _.toNumber(req.body.userId);
     const email = _.toString(req.body.email).trim();
 

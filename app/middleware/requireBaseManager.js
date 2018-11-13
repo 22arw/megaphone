@@ -2,11 +2,13 @@ const dbInterface = require('../controllers/dbInterfaces');
 const _ = require('lodash');
 
 module.exports = async (req, res, next) => {
+  process.stdout.write('This route requires a base manager... ');
   const isAdmin = await dbInterface
     .isAdmin(req.userId)
     .catch(err => console.error(err));
 
   if (isAdmin) {
+    console.log('This user is an admin.');
     return next();
   }
 
@@ -20,6 +22,7 @@ module.exports = async (req, res, next) => {
     .catch(err => console.error(err));
 
   if (isBaseManager) {
+    console.log('This user is a base manager.');
     next();
   } else {
     res.sendStatus(401);

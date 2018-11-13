@@ -6,6 +6,7 @@ const _ = require('lodash');
 
 module.exports = {
   login: async (req, res) => {
+    process.stdout.write('Attempting to login... ');
     const email = _.toString(req.body.email).trim();
     const password = _.toString(req.body.password).trim();
 
@@ -26,6 +27,7 @@ module.exports = {
 
       const highestRole = await dbInterface.getHighestRole(user.id);
 
+      console.log('success!');
       res.json({
         token: TOKEN.generate(user.id),
         needsPasswordChange:
@@ -33,11 +35,13 @@ module.exports = {
         role: highestRole
       });
     } catch (error) {
+      console.log('failure.');
       console.error(error);
       res.sendStatus(401);
     }
   },
   resetPassword: async (req, res) => {
+    process.stdout.write('Attempting to reset password... ');
     const userId = req.userId;
     const oldPassword = _.toString(req.body.oldPassword).trim();
     const password = _.toString(req.body.password).trim();
@@ -78,6 +82,7 @@ module.exports = {
           if (rows !== 1) {
             throw new Error(`Password update failed, returned: ${rows}`);
           }
+          console.log('Successfully reset password.');
           return res.json({
             token: req.token,
             success: true
@@ -88,6 +93,7 @@ module.exports = {
           throw new Error('Password update failed.');
         });
     } catch (error) {
+      console.error(error);
       return res.json({
         token: req.token,
         success: false,

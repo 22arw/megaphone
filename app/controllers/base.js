@@ -4,6 +4,7 @@ const utils = require('../utils');
 
 module.exports = {
   createBase: async (req, res) => {
+    process.stdout.write('Attempting to create a base... ');
     const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
     const baseName = _.toString(req.body.baseName).trim();
     const bandwidthUserId = _.toString(req.body.bandwidthUserId).trim();
@@ -34,7 +35,7 @@ module.exports = {
       if (!isBasePhoneNumberUnique)
         throw new Error('Phone number is not unique.');
 
-      const base = await dbInterface
+      dbInterface
         .createBase(
           basePhoneNumber,
           baseName,
@@ -42,16 +43,19 @@ module.exports = {
           bandwidthApiToken,
           bandwidthApiSecret
         )
+        .then(() => {
+          console.log('Success!');
+          res.json({
+            token: req.token,
+            success: true
+          });
+        })
         .catch(err => {
           console.error(err);
           throw new Error('Error creating base.');
         });
-
-      return res.json({
-        token: req.token,
-        success: true
-      });
     } catch (error) {
+      console.error(error);
       return res.json({
         token: req.token,
         success: false,
@@ -60,6 +64,7 @@ module.exports = {
     }
   },
   createBaseManager: async (req, res) => {
+    process.stdout.write('Attempting to create a base manager... ');
     const baseId = _.toString(req.body.baseId).trim();
     const newBaseManagerEmail = _.toString(req.body.newBaseManagerEmail).trim();
 
@@ -100,6 +105,9 @@ module.exports = {
 
       dbInterface.createBaseManager(user.id, baseId).then(() => {
         if (!doesUserExist) {
+          console.log(
+            'This is a new user. Sending them an email with login credentials.'
+          );
           utils.sendEmail(
             user.email,
             'Welcome to Megaphone!',
@@ -110,7 +118,8 @@ module.exports = {
           );
         }
 
-        return res.json({
+        console.log('Success!');
+        res.json({
           token: req.token,
           success: true
         });
@@ -124,6 +133,7 @@ module.exports = {
     }
   },
   deleteBaseManager: async (req, res) => {
+    process.stdout.write('Attempting to delete a base manager... ');
     const baseId = _.toNumber(req.body.baseId);
     const userId = _.toNumber(req.body.userId);
 
@@ -147,7 +157,8 @@ module.exports = {
         throw new Error('User is not a base manager.');
       }
 
-      await dbInterface.deleteBaseManager(userId, baseId).then(() => {
+      dbInterface.deleteBaseManager(userId, baseId).then(() => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true
@@ -162,12 +173,14 @@ module.exports = {
     }
   },
   getAllBases: async (req, res) => {
+    process.stdout.write('Attempting to get all bases... ');
     const userId = req.userId;
 
     try {
       const isAdmin = await dbInterface.isAdmin(userId);
       if (isAdmin) {
         const bases = await dbInterface.getAllBases();
+        console.log('Got all bases for admin.');
         return res.json({
           token: req.token,
           success: true,
@@ -176,7 +189,8 @@ module.exports = {
       }
 
       const bases = await dbInterface.getBasesByUserId(userId);
-      return res.json({
+      console.log('success!');
+      res.json({
         token: req.token,
         success: true,
         bases: bases
@@ -191,6 +205,7 @@ module.exports = {
     }
   },
   getAllBaseManagersUnderBase: async (req, res) => {
+    process.stdout.write('Attempting to get all base managers under base... ');
     const baseId = _.toNumber(req.body.baseId);
 
     try {
@@ -228,6 +243,7 @@ module.exports = {
             isAdmin: baseManager.isAdmin
           };
         });
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true,
@@ -244,6 +260,7 @@ module.exports = {
     }
   },
   getAllMessagesSentByBase: async (req, res) => {
+    process.stdout.write('Attempting to get all messages sent by base... ');
     const baseId = _.toNumber(req.body.baseId);
 
     try {
@@ -271,6 +288,7 @@ module.exports = {
 
       if (_.isEmpty(messages)) {
         // send an empty array signifying no messages exist yet.
+        console.log('There are no messages.');
         return res.json({
           token: req.token,
           success: true,
@@ -287,6 +305,7 @@ module.exports = {
         };
       });
 
+      console.log('Success!');
       res.json({
         token: req.token,
         success: true,
@@ -302,6 +321,7 @@ module.exports = {
     }
   },
   getAllOrgsUnderBase: async (req, res) => {
+    process.stdout.write('Attempting to get all orgs under base... ');
     const baseId = _.toNumber(req.body.baseId);
 
     try {
@@ -315,6 +335,7 @@ module.exports = {
       }
 
       dbInterface.getAllOrgsUnderBase(baseId).then(orgs => {
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true,
@@ -330,6 +351,7 @@ module.exports = {
     }
   },
   getAllUsersUnderBase: async (req, res) => {
+    process.stdout.write('Attempting to get all users under base... ');
     const baseId = _.toNumber(req.body.baseId);
     try {
       if (isNaN(baseId)) {
@@ -373,6 +395,7 @@ module.exports = {
       const userIds = _.uniq(_.concat(baseManagerIds, orgManagerIds));
 
       if (userIds.length === 0) {
+        console.log('No users exist.');
         return res.json({
           token: req.token,
           success: true,
@@ -388,6 +411,7 @@ module.exports = {
             isAdmin: user.isAdmin
           };
         });
+        console.log('Success!');
         res.json({
           token: req.token,
           success: true,
@@ -404,6 +428,7 @@ module.exports = {
     }
   },
   isBaseManager: async (req, res) => {
+    process.stdout.write('Attempting isBaseManager... ');
     const userId = req.userId;
     const baseId = _.toNumber(req.body.baseId);
 
@@ -418,6 +443,7 @@ module.exports = {
       }
 
       dbInterface.isBaseManager(userId, baseId).then(isBaseManager => {
+        console.log(`is user a base manager: ${isBaseManager}`);
         res.json({
           token: req.token,
           success: true,
@@ -434,6 +460,7 @@ module.exports = {
     }
   },
   isBasePhoneNumberUnique: async (req, res) => {
+    process.stdout.write('Attempting isBasePhoneNumberUnique... ');
     const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
 
     try {
@@ -443,6 +470,7 @@ module.exports = {
         );
       }
       dbInterface.isBasePhoneNumberUnique(basePhoneNumber).then(isUnique => {
+        console.log(`is base phone number unique: ${isUnique}`);
         res.json({
           token: req.token,
           success: true,
@@ -450,6 +478,7 @@ module.exports = {
         });
       });
     } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,
@@ -458,6 +487,7 @@ module.exports = {
     }
   },
   updateBase: async (req, res) => {
+    process.stdout.write('Attempting to update base... ');
     const baseId = _.toNumber(req.body.baseId);
     const basePhoneNumber = _.toString(req.body.basePhoneNumber).trim();
     const baseName = _.toString(req.body.baseName).trim();
@@ -524,6 +554,7 @@ module.exports = {
           if (recordsUpdated !== 1) {
             throw new Error('Failed to update base.');
           }
+          console.log('Success!');
           res.send({
             token: req.token,
             success: true

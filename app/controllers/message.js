@@ -4,6 +4,7 @@ const _ = require('lodash');
 
 module.exports = {
   send: async (req, res) => {
+    process.stdout.write('Attempting to send a message... ');
     const userId = req.userId;
     const orgId = _.toNumber(req.body.orgId);
     const message = _.toString(req.body.message).trim();
@@ -27,6 +28,7 @@ module.exports = {
 
       const status = utils.sendMessage(userId, subscribers, org, message, base);
       if (status instanceof Error) throw status;
+      console.log('Success!');
       res.json({
         token: req.token,
         success: true
@@ -42,12 +44,14 @@ module.exports = {
   },
   allMessagesEver: async (req, res) => {
     // admin only
+    process.stdout.write('Attempting to get all messages ever!... ');
     try {
       const { Message } = require('../db/models');
 
       const messages = await Message.findAll();
 
       if (_.isEmpty(messages)) {
+        console.log('No messages found.');
         return res.json({
           token: req.token,
           success: true,
@@ -64,6 +68,7 @@ module.exports = {
         };
       });
 
+      console.log('Success!');
       res.json({
         token: req.token,
         success: true,

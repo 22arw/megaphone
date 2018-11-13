@@ -7,6 +7,7 @@ module.exports = async (req, res, next) => {
   });
 
   if (isAdmin) {
+    console.log(`requireSelfOrAdmin: This user is an admin.`);
     return next();
   }
 
@@ -19,5 +20,6 @@ module.exports = async (req, res, next) => {
   }
 
   req.body.userId = userId; // Set userId in case none was provided.
+  console.log('This user is accessing this route for themselves.');
   next();
 };

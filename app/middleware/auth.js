@@ -2,6 +2,7 @@ const utils = require('../utils');
 const TOKEN = utils.tokenService;
 
 module.exports = (req, res, next) => {
+  process.stdout.write('Attempting to authenticate... ');
   let token =
     req.body.token || req.query.token || req.headers['x-access-token'];
   // console.log('TIME: ', new Date().toLocaleString());
@@ -17,6 +18,7 @@ module.exports = (req, res, next) => {
         if (validToken) {
           req.userId = JSON.parse(validToken.data);
           req.token = TOKEN.generate(validToken.data);
+          console.log('authenticated!');
           return next();
         }
       });
