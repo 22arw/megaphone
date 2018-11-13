@@ -49,5 +49,6 @@ module.exports = {
   updateIsAdmin: require('./updateIsAdmin'),
   updateOrg: require('./updateOrg'),
   updateOrgOwner: require('./updateOrgOwner'),
-  updateUser: require('./updateUser')
+  updateUser: require('./updateUser'),
+  updateUserEmail: require('./updateUserEmail')
 };

@@ -109,5 +109,45 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  updateUserEmail: async (req, res) => {
+    const userId = _.toNumber(req.body.userId);
+    const email = _.toString(req.body.email).trim();
+
+    try {
+      if (isNaN(userId) || !utils.isValidEmail(email)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      const user = await dbInterface.getUsersById(userId);
+      if (user[0].email === email) {
+        throw new Error('Please change the email when calling this route.');
+      }
+
+      const isEmailUnique = await dbInterface.isUserEmailUnique(email);
+      if (!isEmailUnique) {
+        throw new Error('That email address is not unique.');
+      }
+
+      dbInterface.updateUserEmail(userId, email).then(() => {
+        console.log('User email updated successfully.');
+        res.json({
+          token: req.token,
+          success: true
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };

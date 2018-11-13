@@ -42,6 +42,7 @@ GET `/api`
   - [Is User Admin?](#get-apiuserisadmin)
   - [Is Email Unique?](#post-apiuserisemailunique)
   - [Update isAdmin](#post-apiuserupdateisadmin)
+  - [Update User Email](#post-apiuserupdateuseremail)
 
 ### Using the API
 
@@ -814,7 +815,7 @@ Expects:
 
 ```javascript
 {
-  email: String
+  email: String;
 }
 ```
 
@@ -839,6 +840,29 @@ Expects:
 {
   userId: Number,
   isAdmin: Boolean
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
+}
+```
+
+#### POST `/api/user/updateUserEmail`
+
+|> Updates the user's email. Must be self or admin.
+
+Expects:
+
+```javascript
+{
+  userId?: Number, // if no userId supplied, the user making the request will have their own email updated.
+  email: String
 }
 ```
 

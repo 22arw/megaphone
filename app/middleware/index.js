@@ -4,5 +4,6 @@ module.exports = {
   requireBaseManager: require('./requireBaseManager'),
   requireOrgManager: require('./requireOrgManager'),
   requireOrgOwner: require('./requireOrgOwner'),
+  requireSelfOrAdmin: require('./requireSelfOrAdmin'),
   validateIncomingMessage: require('./validateIncomingMessage')
 };
