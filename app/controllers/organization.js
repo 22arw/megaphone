@@ -165,6 +165,35 @@ module.exports = {
       });
     }
   },
+  getNumberOfSubscribers: async (req, res) => {
+    const orgId = _.toNumber(req.body.orgId);
+
+    try {
+      if (isNaN(orgId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('That org does not exist.');
+      }
+
+      dbInterface.getSubscribers(orgId).then(subs => {
+        res.json({
+          token: req.token,
+          success: true,
+          numberOfSubscribers: subs.length
+        });
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
   getOrgManagers: async (req, res) => {
     const orgId = _.toNumber(req.body.orgId);
 
