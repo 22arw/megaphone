@@ -25,6 +25,7 @@ module.exports = async (req, res, next) => {
     console.log('This user is a base manager.');
     next();
   } else {
+    console.log('BLOCKED!');
     res.sendStatus(401);
   }
 };

@@ -20,7 +20,8 @@ GET `/api`
   - [Get All Users Under Base](#post-apibasegetallusersunderbase)
   - [Is Base Manager?](#post-apibaseisbasemanager)
   - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
-  - [Update Base](#post-apibaseupdatebase)
+  - [Update Base](#post-apibaseupdatebase),
+  - [Update Base isActive](#post-apibaseupdateisactive)
 - [Message](#apimessage)
   - [Get All Messages Ever](#get-apimessagegetallmessagesever)
   - [Send Message](#post-apimessagesend)
@@ -95,6 +96,28 @@ Returns:
   token: String,
   needsPasswordChange: Boolean,
   role: Number // corresponds to a level of access.
+}
+```
+
+#### POST `/api/auth/forceResetPassword`
+
+|> Force resets the provided user's password. After resetting, sends an email to the user to log in with the generated password.
+
+Expects:
+
+```javascript
+{
+  userId: Number; // If no userId supplied, the application will use the self.
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean,
+  error?: String
 }
 ```
 
@@ -425,6 +448,32 @@ Returns:
 }
 ```
 
+#### POST `/api/base/updateIsActive`
+
+|> **DANGER** Updates the isActive field of the base. This is a _light_ delete route. Nothing is ever completely deleted.
+
+**WARNING**: _If setting `isActive = false`, it deactivates all orgs under it, removes any subscriptions, and removes all roles irreversibly._ Don't do this unless you're absolutely sure you want to deactivate a base.
+If `isActive = true`, the user becomes activated, their password is reset, and a notification email is sent to them.
+
+Expects:
+
+```javascript
+{
+  baseId: Number,
+  isActive: Boolean
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
+}
+```
+
 ### /api/message
 
 #### GET `/api/message/getAllMessagesEver`
@@ -722,7 +771,7 @@ Returns:
 
 #### POST `/api/organization/updateIsActive`
 
-|> Updates the isActive field of the organization. This is a _light_ delete route. Nothing is ever completely deleted.
+|> **DANGER** Updates the isActive field of the organization. This is a _light_ delete route. Nothing is ever completely deleted.
 
 **WARNING**: _If setting `isActive = false`, it removes all orgManagers, orgOwner, and subscriptionCode, irreversibly._
 If `isActive = true`, it just flips that value. You'll need to update the org with proper values to get it going.
@@ -894,7 +943,7 @@ Returns:
 
 #### POST `/api/user/updateIsActive`
 
-|> Updates the isActive field of the user. This is a _light_ delete route. Nothing is ever completely deleted.
+|> **DANGER** Updates the isActive field of the user. This is a _light_ delete route. Nothing is ever completely deleted.
 
 **WARNING**: _If setting `isActive = false`, it removes all of their roles irreversibly._
 If `isActive = true`, the user becomes activated, their password is reset, and a notification email is sent to them.

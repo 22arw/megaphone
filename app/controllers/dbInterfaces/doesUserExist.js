@@ -7,8 +7,7 @@ module.exports = async email => {
   }
   const user = await models.User.findAll({
     where: {
-      email: email,
-      isActive: true
+      email: email
     }
   }).catch(err => console.error(err));
 

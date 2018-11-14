@@ -21,6 +21,11 @@ module.exports = {
       }
 
       const user = await dbInterface.getUserByEmail(email);
+
+      if (!user.isActive) {
+        throw new Error('User is not active.');
+      }
+
       if (!(await bcrypt.compare(password, user.password))) {
         throw new Error('Incorrect password at login.');
       }
@@ -92,6 +97,49 @@ module.exports = {
           console.error(err);
           throw new Error('Password update failed.');
         });
+    } catch (error) {
+      console.error(error);
+      return res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  forcePasswordReset: async (req, res) => {
+    process.stdout.write('Attempting to force a password reset... ');
+    const userId = _.toNumber(req.body.userId);
+
+    try {
+      if (isNaN(userId)) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('That user does not exist.');
+      }
+      const user = await dbInterface.getUsersById(userId);
+      const pass = utils.generateRandomPassword();
+
+      if (!user[0].isActive) {
+        await dbInterface.updateUserIsActive(userId, true);
+      }
+      
+      await dbInterface.updateUser(userId, user[0].email, pass);
+
+      utils.sendEmail(
+        user[0].email,
+        'Your password has been reset. Megaphone.',
+        `You're password has been reset by an administrator, please log in using: ${pass}`,
+        process.env.CLIENT_URL
+      );
+
+      console.log('success!');
+      res.json({
+        token: req.token,
+        success: true
+      });
     } catch (error) {
       console.error(error);
       return res.json({

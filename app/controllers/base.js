@@ -32,8 +32,9 @@ module.exports = {
         .isBasePhoneNumberUnique(basePhoneNumber)
         .catch(err => console.error(err));
 
-      if (!isBasePhoneNumberUnique)
+      if (!isBasePhoneNumberUnique) {
         throw new Error('Phone number is not unique.');
+      }
 
       dbInterface
         .createBase(
@@ -43,17 +44,13 @@ module.exports = {
           bandwidthApiToken,
           bandwidthApiSecret
         )
-        .then((base) => {
+        .then(base => {
           console.log('Success!');
           res.json({
             token: req.token,
             success: true,
             base: base
           });
-        })
-        .catch(err => {
-          console.error(err);
-          throw new Error('Error creating base.');
         });
     } catch (error) {
       console.error(error);
@@ -78,8 +75,16 @@ module.exports = {
       }
 
       const doesBaseExist = await dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
 
-      if (!doesBaseExist) throw new Error('Base does not exist.');
+      const isBaseActive = await dbInterface.isBaseActive(baseId);
+      if (!isBaseActive) {
+        throw new Error(
+          'Base is deactivated. Activate base before adding a base manager.'
+        );
+      }
 
       const base = await dbInterface.getBaseById(baseId);
 
@@ -94,6 +99,13 @@ module.exports = {
         user = await dbInterface.getUserByEmail(newBaseManagerEmail);
       } else {
         user = await dbInterface.createUser(newBaseManagerEmail, password);
+      }
+
+      const isUserActive = await dbInterface.isUserActive(user.id);
+      if (!isUserActive) {
+        throw new Error(
+          'User is deactivated. Activate user before adding a base manager.'
+        );
       }
 
       const isBaseManager = await dbInterface.isBaseManager(user.id, baseId);
@@ -126,6 +138,7 @@ module.exports = {
         });
       });
     } catch (error) {
+      console.error(error);
       return res.json({
         token: req.token,
         success: false,
@@ -166,6 +179,7 @@ module.exports = {
         });
       });
     } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,
@@ -217,6 +231,11 @@ module.exports = {
       const doesBaseExist = await dbInterface.doesBaseExist(baseId);
       if (!doesBaseExist) {
         throw new Error('Base does not exist.');
+      }
+
+      const isBaseActive = await dbInterface.isBaseActive(baseId);
+      if (!isBaseActive) {
+        throw new Error('Base is deactivated. Therefore, no base managers.');
       }
 
       const baseManagers = await dbInterface.getAllBaseManagersUnderBase(
@@ -344,6 +363,7 @@ module.exports = {
         });
       });
     } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,
@@ -443,6 +463,11 @@ module.exports = {
         throw new Error('Base does not exist.');
       }
 
+      const isBaseActive = await dbInterface.isBaseActive(baseId);
+      if (!(isBaseActive)) {
+        throw new Error('Base is deactivated. Activate base before adding a base manager.');
+      }
+
       dbInterface.isBaseManager(userId, baseId).then(isBaseManager => {
         console.log(`is user a base manager: ${isBaseManager}`);
         res.json({
@@ -507,15 +532,22 @@ module.exports = {
       ) {
         throw new Error('Missing data on request.');
       }
-      if (!utils.isValidPhoneNumber(basePhoneNumber)) {
-        throw new Error(
-          `${basePhoneNumber} is not a valid phone number. Format: "+11231231234"`
-        );
-      }
+      
 
       const doesBaseExist = await dbInterface.doesBaseExist(baseId);
       if (!doesBaseExist) {
         throw new Error('Base does not exist.');
+      }
+
+      const isBaseActive = await dbInterface.isBaseActive(baseId);
+      if (!(isBaseActive)) {
+        throw new Error('Base is deactivated. Activate base before updating.');
+      }
+
+      if (!utils.isValidPhoneNumber(basePhoneNumber)) {
+        throw new Error(
+          `${basePhoneNumber} is not a valid phone number. Format: "+11231231234"`
+        );
       }
 
       const base = await dbInterface.getBaseById(baseId);
@@ -562,6 +594,64 @@ module.exports = {
           });
         });
     } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
+  },
+  updateIsActive: async (req, res) => {
+    process.stdout.write('Attempting to update base isActive... ');
+    const baseId = _.toNumber(req.body.baseId);
+    const isActive = _.toString(req.body.isActive)
+      .trim()
+      .toLowerCase();
+
+    try {
+      if (isNaN(baseId) || !(isActive === 'true' || isActive === 'false')) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesBaseExist = dbInterface.doesBaseExist(baseId);
+      if (!doesBaseExist) {
+        throw new Error('Base does not exist.');
+      }
+
+      if (isActive === 'true') {
+        process.stdout.write('activating base... ');
+        await dbInterface.updateBaseIsActive(baseId, true); // Activates the base.
+        console.log('activated.');
+      } else if (isActive === 'false') {
+        process.stdout.write('deactivating base... ');
+        const base = await dbInterface.getBaseById(baseId);
+        const orgs = await dbInterface.getAllOrgsUnderBase(baseId);
+        const orgIds = orgs.map(org => {
+          return org.id;
+        });
+        await dbInterface.updateBaseIsActive(baseId, false); // Deactivates base.
+        await dbInterface.deleteOrgManagersByOrgId(orgIds); // Removes all org managers for orgs under this base.
+        await dbInterface.updateOrgOwnerToNullForOrgIds(orgIds); // Removes all org owners from orgs under this base.
+        await dbInterface.deleteBaseManagersByBaseId(baseId); // Removes all base managers for this base.
+        await dbInterface.deleteSubscribersForOrgId(orgIds); // Removes all subscriptions for orgs under this base.
+        await dbInterface.updateBase(
+          baseId,
+          null,
+          base.baseName,
+          null,
+          null,
+          null
+        ); // Sets all protected values to null.
+        console.log('deactivated.');
+      }
+
+      res.json({
+        token: req.token,
+        success: true
+      });
+    } catch (error) {
+      console.error(error);
       res.json({
         token: req.token,
         success: false,

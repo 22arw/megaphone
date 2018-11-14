@@ -7,8 +7,7 @@ const doesBaseExist = async baseId => {
 
   const base = await models.Base.findAll({
     where: {
-      id: baseId,
-      isActive: true
+      id: baseId
     }
   }).catch(err => console.error(err));
 

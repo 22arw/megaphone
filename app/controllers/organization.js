@@ -50,6 +50,12 @@ module.exports = {
 
       const user = await dbInterface.getUserByEmail(newOrgOwnerEmail);
 
+      if (!user.isActive) {
+        throw new Error(
+          'User is not active. Please activate their account before making changes.'
+        );
+      }
+
       const org = await dbInterface.createOrg(
         user.id,
         baseId,
@@ -88,6 +94,11 @@ module.exports = {
         throw new Error('Org does not exist.');
       }
 
+      const isOrgActive = await dbInterface.isOrgActive(orgId);
+      if (!isOrgActive) {
+        throw new Error('Org is not active. Please activate org before adding a org manager.');
+      }
+
       const org = await dbInterface.getOrgById(orgId);
 
       const doesUserExist = await dbInterface.doesUserExist(newOrgManagerEmail);
@@ -109,6 +120,12 @@ module.exports = {
       }
 
       const user = await dbInterface.getUserByEmail(newOrgManagerEmail);
+
+      if (!user.isActive) {
+        throw new Error(
+          'User is not active. Please activate their account before making changes.'
+        );
+      }
 
       const isOrgManager = await dbInterface.isOrgManager(user.id, org.id);
       if (isOrgManager) {
@@ -269,6 +286,11 @@ module.exports = {
         throw new Error('That org does not exist.');
       }
 
+      const isOrgActive = await dbInterface.isOrgActive(orgId);
+      if (!isOrgActive) {
+        throw new Error('Org is not active, therefor, no subscribers.');
+      }
+
       dbInterface.getSubscribers(orgId).then(subs => {
         console.log('Success!');
         res.json({
@@ -298,6 +320,11 @@ module.exports = {
       const doesOrgExist = await dbInterface.doesOrgExist(orgId);
       if (!doesOrgExist) {
         throw new Error('That org does not exist.');
+      }
+
+      const isOrgActive = await dbInterface.isOrgActive(orgId);
+      if (!isOrgActive) {
+        throw new Error('Org is not active, therefor, no org managers.');
       }
 
       const orgManagers = await dbInterface.getAllOrgManagersByOrgIds(orgId);
@@ -447,17 +474,17 @@ module.exports = {
       const org = await dbInterface.getOrgById(orgId);
 
       if (isActive === 'true') {
-        await dbInterface.updateOrgIsActive(orgId, true);
-        console.log('org has been reactivated.');
+        process.stdout.write('activating org... ');
+        await dbInterface.updateOrgIsActive(orgId, true); // Activates org.
+        console.log('activated.');
       } else if (isActive === 'false') {
         process.stdout.write('deactivating org... ');
-        await dbInterface.deleteOrgManagersByOrgId(orgId);
-        await dbInterface.updateOrgOwner(null, orgId);
-        await dbInterface.updateOrg(orgId, org[0].orgName, null);
-        await dbInterface.updateOrgIsActive(orgId, false);
+        await dbInterface.deleteOrgManagersByOrgId(orgId); // Removes all org managers
+        await dbInterface.updateOrgOwner(null, orgId); // Removes org owner
+        await dbInterface.updateOrg(orgId, org[0].orgName, null); // Releases subscription code.
+        await dbInterface.updateOrgIsActive(orgId, false); // Deactivates org.
+        await dbInterface.deleteSubscribersForOrgId(orgId); // Removes all subscriptions to org.
         console.log('deactivated.');
-      } else {
-        throw new Error('Something went wrong. Please try again.');
       }
 
       res.json({
@@ -487,6 +514,11 @@ module.exports = {
       const doesOrgExist = await dbInterface.doesOrgExist(orgId);
       if (!doesOrgExist) {
         throw new Error('That org does not exist.');
+      }
+
+      const isOrgActive = await dbInterface.isOrgActive(orgId);
+      if (!isOrgActive) {
+        throw new Error('Org is not active, please activate before updating.');
       }
 
       const org = await dbInterface.getOrgById(orgId);
@@ -530,6 +562,16 @@ module.exports = {
         throw new Error('Invalid data on request');
       }
 
+      const doesOrgExist = await dbInterface.doesOrgExist(orgId);
+      if (!doesOrgExist) {
+        throw new Error('That org does not exist.');
+      }
+
+      const isOrgActive = await dbInterface.isOrgActive(orgId);
+      if (!isOrgActive) {
+        throw new Error('Org is not active, please activate before updating.');
+      }
+
       const org = await dbInterface.getOrgById(orgId);
 
       const doesUserExist = await dbInterface.doesUserExist(newOrgOwnerEmail);
@@ -551,6 +593,11 @@ module.exports = {
       }
 
       const user = await dbInterface.getUserByEmail(newOrgOwnerEmail);
+
+      const isUserActive = await dbInterface.isUserActive(user.id);
+      if (!isUserActive) {
+        throw new Error('User is not active, please activate before making org owner. See admin.');
+      }
 
       const isOrgOwner = await dbInterface.isOrgOwner(user.id, org.id);
       if (isOrgOwner) {

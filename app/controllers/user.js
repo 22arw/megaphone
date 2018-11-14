@@ -101,6 +101,11 @@ module.exports = {
         throw new Error('User does not exist.');
       }
 
+      const isUserActive = await dbInterface.isUserActive(userId);
+      if (!isUserActive) {
+        throw new Error('User is not active. Make sure they account is active before making it an admin.');
+      }
+
       dbInterface.updateIsAdmin(userId, bool).then(() => {
         console.log('isAdmin update complete.');
         res.json({
@@ -130,6 +135,11 @@ module.exports = {
       const doesUserExist = await dbInterface.doesUserExistById(userId);
       if (!doesUserExist) {
         throw new Error('User does not exist.');
+      }
+
+      const isUserActive = await dbInterface.isUserActive(userId);
+      if (!isUserActive) {
+        throw new Error('User is not active. Please activate their account before making changes.');
       }
 
       const user = await dbInterface.getUsersById(userId);

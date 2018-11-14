@@ -13,7 +13,7 @@ const isValidEmail = email => {
     return false;
   }
 
-  const validDomainsArray = ['mil', 'gov'];
+  const validDomainsArray = ['mil', 'gov', 'com'];
   const validDomains = validDomainsArray.join('|');
   const regex = `[a-z0-9!#$%&'*+/=?^_\`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_\`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+(${validDomains})$`;
   const pattern = new RegExp(regex, 'gm');

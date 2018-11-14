@@ -23,6 +23,7 @@ router.use(mw.auth);
 // Auth Routes
 router
   .post('/auth/login', authController.login)
+  .post('/auth/forcePasswordReset', mw.requireSelfOrBaseManager, authController.forcePasswordReset)
   .post('/auth/resetPassword', authController.resetPassword);
 
 // Base Routes
@@ -37,6 +38,7 @@ router
   .post('/base/getAllUsersUnderBase', mw.requireBaseManager, baseController.getAllUsersUnderBase)
   .post('/base/isBaseManager', baseController.isBaseManager)
   .post('/base/isBasePhoneNumberUnique', baseController.isBasePhoneNumberUnique)
+  .post('/base/updateIsActive', mw.requireBaseManager, baseController.updateIsActive)
   .post('/base/updateBase', mw.requireBaseManager, baseController.updateBase);
 
 // Message Routes

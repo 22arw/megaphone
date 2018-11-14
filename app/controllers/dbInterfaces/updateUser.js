@@ -12,7 +12,7 @@ module.exports = async (userId, email, password, isActive) => {
         id: userId
       }
     }
-  ).catch(err => console.error(err));
+  );
 
   return user[0];
 };
