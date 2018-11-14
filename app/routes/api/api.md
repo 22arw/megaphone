@@ -43,6 +43,7 @@ GET `/api`
   - [Get All Users Ever](#get-apiusergetallusersever)
   - [Is User Admin?](#get-apiuserisadmin)
   - [Is Email Unique?](#post-apiuserisemailunique)
+  - [Update User isActive](#post-apiuserupdateisactive)
   - [Update isAdmin](#post-apiuserupdateisadmin)
   - [Update User Email](#post-apiuserupdateuseremail)
 
@@ -723,7 +724,7 @@ Returns:
 
 |> Updates the isActive field of the organization. This is a _light_ delete route. Nothing is ever completely deleted.
 
-*WARNING*: _If setting `isActive = false`, it removes all orgManagers, orgOwner, and subscriptionCode, irreversibly._
+**WARNING**: _If setting `isActive = false`, it removes all orgManagers, orgOwner, and subscriptionCode, irreversibly._
 If `isActive = true`, it just flips that value. You'll need to update the org with proper values to get it going.
 
 Expects:
@@ -888,6 +889,32 @@ Returns:
   success: Boolean,
   error?: String,
   isEmailUnique?: Boolean
+}
+```
+
+#### POST `/api/organization/updateIsActive`
+
+|> Updates the isActive field of the user. This is a _light_ delete route. Nothing is ever completely deleted.
+
+**WARNING**: _If setting `isActive = false`, it removes all of their roles irreversibly._
+If `isActive = true`, the user becomes activated, their password is reset, and a notification email is sent to them.
+
+Expects:
+
+```javascript
+{
+  userId?: Number, // If no userId is supplied, the application will assume that it's the user making the call.
+  isActive: Boolean
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: String,
+  success: Boolean // Did the operation succeed?
+  error?: String; // A description of the error.
 }
 ```
 

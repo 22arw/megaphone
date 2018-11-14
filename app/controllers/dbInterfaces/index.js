@@ -5,8 +5,10 @@ module.exports = {
   createOrgManager: require('./createOrgManager'),
   createUser: require('./createUser'),
   deleteBaseManager: require('./deleteBaseManager'),
+  deleteBasesManagedByUserId: require('./deleteBasesManagedByUserId'),
   deleteOrgManager: require('./deleteOrgManager'),
   deleteOrgManagersByOrgId: require('./deleteOrgManagersByOrgId'),
+  deleteOrgsManagedByUserId: require('./deleteOrgsManagedByUserId'),
   doesBaseExist: require('./doesBaseExist'),
   doesOrgBelongToBase: require('./doesOrgBelongToBase'),
   doesOrgExist: require('./doesOrgExist'),
@@ -19,6 +21,7 @@ module.exports = {
   getAllUserData: require('./getAllDataAssociatedWithUser'),
   getAllUsersEver: require('./getAllUsersEver'),
   getAllOrgs: require('./getAllOrgs'),
+  getAllOrgsOwnedByUserId: require('./getAllOrgsOwnedByUserId'),
   getAllOrgsUnderBase: require('./getAllOrgsUnderBase'),
   getAllOrgManagersByOrgIds: require('./getAllOrgManagersByOrgIds'),
   getAllSubscriptionsByPhoneNumber: require('./getAllSubscriptionsByPhoneNumber'),
@@ -52,6 +55,8 @@ module.exports = {
   updateOrg: require('./updateOrg'),
   updateOrgIsActive: require('./updateOrgIsActive'),
   updateOrgOwner: require('./updateOrgOwner'),
+  updateOrgOwnerToNullForUserId: require('./updateOrgOwnerToNullForUserId'),
   updateUser: require('./updateUser'),
-  updateUserEmail: require('./updateUserEmail')
+  updateUserEmail: require('./updateUserEmail'),
+  updateUserIsActive: require('./updateUserIsActive')
 };

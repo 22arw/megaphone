@@ -7,7 +7,7 @@ module.exports = async (req, res, next) => {
   });
 
   if (isAdmin) {
-    console.log(`requireSelfOrAdmin: This user is an admin.`);
+    console.log(`requireSelfOrAdmin: This user is an admin. ✅`);
     return next();
   }
 
@@ -15,11 +15,11 @@ module.exports = async (req, res, next) => {
   const userId = req.body.userId || req.userId;
 
   if (userId != req.userId) {
-    console.log(`requireSelfOrAdmin: This user (${req.userId}), is attempting to update this user: (${userId}). BLOCKED!`);
+    console.log(`requireSelfOrAdmin: This user (${req.userId}), is attempting to update this user: (${userId}). BLOCKED! ⛔️`);
     return res.sendStatus(401);
   }
 
   req.body.userId = userId; // Set userId in case none was provided.
-  console.log('This user is accessing this route for themselves.');
+  console.log('This user is accessing this route for themselves. ✅');
   next();
 };

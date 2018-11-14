@@ -157,5 +157,73 @@ module.exports = {
         error: error.message
       });
     }
+  },
+  updateIsActive: async (req, res) => {
+    process.stdout.write('Attempting to update user isActive... ');
+    const userId = _.toNumber(req.body.userId);
+    const isActive = _.toString(req.body.isActive).trim();
+
+    try {
+      if (isNaN(userId) || !(isActive === 'true' || isActive === 'false')) {
+        throw new Error('Invalid data on request.');
+      }
+
+      const doesUserExist = await dbInterface.doesUserExistById(userId);
+      if (!doesUserExist) {
+        throw new Error('User does not exist.');
+      }
+
+      // you cannot deactivate an admin unless you are another admin.
+      const myself = await dbInterface.isAdmin(req.userId);
+      const them = await dbInterface.isAdmin(userId);
+      if (them === true && myself === false) {
+        throw new Error('You must be an admin to update another admin.');
+      }
+
+      if (isActive === 'true') {
+        process.stdout.write('activating user... ');
+        const user = await dbInterface.getUsersById(userId);
+
+        if (user[0].isActive === true) {
+          throw new Error('That user is already active.');
+        }
+
+        console.log(
+          "That user's account is inactive. Resetting password and emailing them to log in... "
+        );
+
+        const pass = utils.generateRandomPassword();
+        await dbInterface.updateUser(userId, user[0].email, pass, true);
+
+        utils.sendEmail(
+          user[0].email,
+          'Welcome back to Megaphone!',
+          `You're account has been reactivated and you're password has been reset. Please use this password to login: ${pass}`,
+          process.env.CLIENT_URL
+        );
+
+        console.log('activated.');
+      } else if (isActive === 'false') {
+        process.stdout.write('deactivating user... ');
+        await dbInterface.updateOrgOwnerToNullForUserId(userId); // remove org owner roles
+        await dbInterface.deleteOrgsManagedByUserId(userId); // remove org manager roles
+        await dbInterface.deleteBasesManagedByUserId(userId); // remove base manager roles
+        await dbInterface.updateIsAdmin(userId, false); // remove admin role
+        await dbInterface.updateUserIsActive(userId, false); // deactivate user
+        console.log('deactivated.');
+      }
+
+      res.json({
+        token: req.token,
+        success: true
+      });
+    } catch (error) {
+      console.error(error);
+      res.json({
+        token: req.token,
+        success: false,
+        error: error.message
+      });
+    }
   }
 };
