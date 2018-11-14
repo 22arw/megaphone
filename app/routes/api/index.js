@@ -70,6 +70,6 @@ router
   .post('/user/isEmailUnique', userController.isEmailUnique)
   .post('/user/updateIsAdmin', mw.requireAdmin, userController.updateIsAdmin)
   .post('/user/updateIsActive', mw.requireSelfOrBaseManager, userController.updateIsActive)
-  .post('/user/updateUserEmail', mw.requireSelfOrAdmin, userController.updateUserEmail);
+  .post('/user/updateUserEmail', mw.requireSelfOrBaseManager, userController.updateUserEmail);
 
 module.exports = router;

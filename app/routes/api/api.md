@@ -5,49 +5,51 @@ GET `/api`
 
 ## Table of Contents
 
+Route roles are displayed to the right of the link. It represents the lowest role a user must be to access the route.
+
 - [Using the API](using-the-api)
 - [Auth](#apiauth)
-  - [Login](#post-apiauthlogin)
-  - [Force Password Reset](#post-apiauthforcepasswordreset)
-  - [Reset Password](post-apiauthresetpassword)
+  - [Login](#post-apiauthlogin) _any_
+  - [Force Password Reset](#post-apiauthforcepasswordreset) _self or base manager_
+  - [Reset Password](post-apiauthresetpassword) _self_
 - [Base](#apibase)
-  - [Create Base](#post-apibasecreatebase)
-  - [Create Base Manager](#post-apibasecreatebasemanager)
-  - [Delete Base Manager](#post-apibasedeletebasemanager)
-  - [Get All Bases](#get-apibasegetallbases)
-  - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase)
-  - [Get All Messages Sent By Base](#post-apibasegetallmessagessentbybase)
-  - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase)
-  - [Get All Users Under Base](#post-apibasegetallusersunderbase)
-  - [Is Base Manager?](#post-apibaseisbasemanager)
-  - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique)
-  - [Update Base](#post-apibaseupdatebase),
-  - [Update Base isActive](#post-apibaseupdateisactive)
+  - [Create Base](#post-apibasecreatebase) _admin_
+  - [Create Base Manager](#post-apibasecreatebasemanager) _base manager_
+  - [Delete Base Manager](#post-apibasedeletebasemanager) _base manager_
+  - [Get All Bases](#get-apibasegetallbases) _self_
+  - [Get All Base Managers Under Base](#post-apibasegetallbasemanagersunderbase) _base manager_
+  - [Get All Messages Sent By Base](#post-apibasegetallmessagessentbybase) _base manager_
+  - [Get All Orgs Under Base](#post-apibasegetallorgsunderbase) _base manager_
+  - [Get All Users Under Base](#post-apibasegetallusersunderbase) _base manager_
+  - [Is Base Manager?](#post-apibaseisbasemanager) _self_
+  - [Is Base Phone Number Unique?](#post-apibaseisbasephonenumberunique) _user_
+  - [Update Base](#post-apibaseupdatebase) _base manager_
+  - [Update Base isActive](#post-apibaseupdateisactive) _base manager_
 - [Message](#apimessage)
-  - [Get All Messages Ever](#get-apimessagegetallmessagesever)
-  - [Send Message](#post-apimessagesend)
+  - [Get All Messages Ever](#get-apimessagegetallmessagesever) _admin_
+  - [Send Message](#post-apimessagesend) _org manager_
 - [Organization](#apiorganization)
-  - [Get Organizations](#get-apiorganization)
-  - [Get All Messages Sent By Org](#post-apiorganizationgetallmessagessentbyorg)
-  - [Get the Number of Subscribers for an Organization](#post-apiorganizationgetnumberofsubscribers)
-  - [Get Organization Managers](#post-apiorganizationgetorgmanagers)
-  - [Create Organization](#post-apiorganizationcreateorg)
-  - [Create Organization Manager](#post-apiorganizationcreateorgmanager)
-  - [Delete Organization Manager](#post-apiorganizationdeleteorgmanager)
-  - [Is Org Manager?](#post-apiorganizationisorgmanager)
-  - [Is Org Owner?](#post-apiorganizationisorgowner)
-  - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique)
-  - [Update Organization isActive](#post-apiorganizationupdateisactive)
-  - [Update Organization](#post-apiorganizationupdateorg)
-  - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
+  - [Get Organizations](#get-apiorganization) _self_
+  - [Get All Messages Sent By Org](#post-apiorganizationgetallmessagessentbyorg) _org manager_
+  - [Get the Number of Subscribers for an Organization](#post-apiorganizationgetnumberofsubscribers) _org manager_
+  - [Get Organization Managers](#post-apiorganizationgetorgmanagers) _org owner_
+  - [Create Organization](#post-apiorganizationcreateorg) _base manager_
+  - [Create Organization Manager](#post-apiorganizationcreateorgmanager) _org owner_
+  - [Delete Organization Manager](#post-apiorganizationdeleteorgmanager) _org owner_
+  - [Is Org Manager?](#post-apiorganizationisorgmanager) _self_
+  - [Is Org Owner?](#post-apiorganizationisorgowner)  _self_
+  - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique) _self_
+  - [Update Organization isActive](#post-apiorganizationupdateisactive) _org owner_
+  - [Update Organization](#post-apiorganizationupdateorg) _org owner_
+  - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager) _org owner_
 - [User](#apiuser)
-  - [Get User Data](#get-apiuser)
-  - [Get All Users Ever](#get-apiusergetallusersever)
-  - [Is User Admin?](#get-apiuserisadmin)
-  - [Is Email Unique?](#post-apiuserisemailunique)
-  - [Update User isActive](#post-apiuserupdateisactive)
-  - [Update isAdmin](#post-apiuserupdateisadmin)
-  - [Update User Email](#post-apiuserupdateuseremail)
+  - [Get User Data](#get-apiuser) _self_
+  - [Get All Users Ever](#get-apiusergetallusersever) _admin_
+  - [Is User Admin?](#get-apiuserisadmin) _self_
+  - [Is Email Unique?](#post-apiuserisemailunique) _user_
+  - [Update User isActive](#post-apiuserupdateisactive) _self or base manager_
+  - [Update isAdmin](#post-apiuserupdateisadmin) _admin_
+  - [Update User Email](#post-apiuserupdateuseremail) _require self or base manager_
 
 ### Using the API
 
