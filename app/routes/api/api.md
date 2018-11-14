@@ -8,6 +8,7 @@ GET `/api`
 - [Using the API](using-the-api)
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin)
+  - [Force Password Reset](#post-apiauthforcepasswordreset)
   - [Reset Password](post-apiauthresetpassword)
 - [Base](#apibase)
   - [Create Base](#post-apibasecreatebase)
@@ -99,7 +100,7 @@ Returns:
 }
 ```
 
-#### POST `/api/auth/forceResetPassword`
+#### POST `/api/auth/forcePasswordReset`
 
 |> Force resets the provided user's password. After resetting, sends an email to the user to log in with the generated password.
 
