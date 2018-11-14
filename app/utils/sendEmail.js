@@ -10,7 +10,7 @@ module.exports = (to, subject, text, link) => {
     from: process.env.EMAIL_FROM || 'test@example.com',
     subject: subject,
     text: text,
-    html: `<p>${text}<a href="${link}">${link}</a></p>`
+    html: `<p>${text}</p><a href="${link}">${link}</a>`
   };
   sgMail.send(msg);
   console.log(`Email sent!`);
