@@ -892,7 +892,7 @@ Returns:
 }
 ```
 
-#### POST `/api/organization/updateIsActive`
+#### POST `/api/user/updateIsActive`
 
 |> Updates the isActive field of the user. This is a _light_ delete route. Nothing is ever completely deleted.
 
