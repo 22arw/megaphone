@@ -7,7 +7,8 @@ const isAdmin = async userId => {
 
   const user = await models.User.findAll({
     where: {
-      id: userId
+      id: userId,
+      isActive: true
     }
   }).catch(err => console.error(err));
 
