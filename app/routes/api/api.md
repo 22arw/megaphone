@@ -7,7 +7,7 @@ GET `/api`
 
 Route roles are displayed to the right of the link. It represents the lowest role a user must be to access the route.
 
-- [Using the API](using-the-api)
+- [Using the API](#using-the-api)
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin) _any_
   - [Force Password Reset](#post-apiauthforcepasswordreset) _self or base manager_
