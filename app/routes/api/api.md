@@ -57,9 +57,9 @@ When making a call to the API for any of these routes, the token received upon l
 
 1. In the body of the request:
 
-```javascript
+```typescript
 {
-  token: String;
+  token: string;
 }
 ```
 
@@ -69,9 +69,9 @@ website.com`?token=theTokenString`
 
 3. As a value in the header:
 
-```javascript
+```typescript
 {
-  x-access-token: String
+  x-access-token: string;
 }
 ```
 
@@ -85,20 +85,20 @@ To keep the user logged in, each request to the API returns an updated token. Us
 
 Expects:
 
-```javascript
+```typescript
 {
-  email: String,
-  password: String
+  email: string;
+  password: string;
 }
 ```
 
 Returns:
 
-```javascript
+```typescript
 {
-  token: String,
-  needsPasswordChange: Boolean,
-  role: Number // corresponds to a level of access.
+  token: string;
+  needsPasswordChange: boolean;
+  role: number; // corresponds to a level of access.
 }
 ```
 
@@ -108,9 +108,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  userId: Number; // If no userId supplied, the application will use the self.
+  userId: number; // If no userId supplied, the application will use the self.
 }
 ```
 
@@ -118,9 +118,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -130,11 +130,11 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  oldPassword: String,
-  password: String,
-  confirmPassword: String
+  oldPassword: string;
+  password: string;
+  confirmPassword: string;
 }
 ```
 
@@ -142,9 +142,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -156,13 +156,13 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  basePhoneNumber: String,
-  baseName: String,
-  bandwidthUserId: String,
-  bandwidthApiToken: String,
-  bandwidthApiSecret: String
+  basePhoneNumber: string;
+  baseName: string;
+  bandwidthUserId: string;
+  bandwidthApiToken: string;
+  bandwidthApiSecret: string;
 }
 ```
 
@@ -170,18 +170,18 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   base?: {
-    id: Number,
-    basePhoneNumber: String,
-    baseName: String,
-    bandwidthUserId?: String,
-    bandwidthApiToken?: String,
-    bandwidthApiSecret?: String,
-    createdAt?: String,
-    updatedAt?: String
+    id: number;
+    basePhoneNumber: string;
+    baseName: string;
+    bandwidthUserId?: string;
+    bandwidthApiToken?: string;
+    bandwidthApiSecret?: string;
+    createdAt?: string; // Date
+    updatedAt?: string; // Date
   }
 }
 ```
@@ -192,10 +192,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: String, // Base to create base manager for.
-  newBaseManagerEmail: String // The new base manager's email.
+  baseId: number; // Base to create base manager for.
+  newBaseManagerEmail: string; // The new base manager's email.
 }
 ```
 
@@ -203,9 +203,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -215,10 +215,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: String, // Base to remove the base manager from.
-  userId: String // The base manager's userId that is being removed.
+  baseId: number; // Base to remove the base manager from.
+  userId: number; // The base manager's userId that is being removed.
 }
 ```
 
@@ -226,9 +226,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -240,18 +240,18 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   bases: [
-    id: Number, // user is at least an org manager under this base
-    basePhoneNumber: String, // user is at least an org manager under this base
-    baseName: String, // user is at least an org manager under this base
-    bandwidthUserId?: String, // user is at least a base manager
-    bandwidthApiToken?: String, // user is at least a base manager
-    bandwidthApiSecret?: String, // user is at least a base manager
-    createdAt?: String, // user is at least a base manager
-    updatedAt?: String // user is at least a base manager
+    id: number; // user is at least an org manager under this base
+    basePhoneNumber: string; // user is at least an org manager under this base
+    baseName: string; // user is at least an org manager under this base
+    bandwidthUserId?: string; // user is at least a base manager
+    bandwidthApiToken?: string; // user is at least a base manager
+    bandwidthApiSecret?: string; // user is at least a base manager
+    createdAt?: string; // (Date) user is at least a base manager
+    updatedAt?: string; // (Date) user is at least a base manager
   ]
 }
 ```
@@ -262,9 +262,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number;
+  baseId: number;
 }
 ```
 
@@ -272,14 +272,14 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   baseManagers?: [
     {
-      userId: Number,
-      email: String,
-      isAdmin: Boolean
+      userId: number;
+      email: string;
+      isAdmin: boolean;
     }
   ]
 }
@@ -291,9 +291,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number;
+  baseId: number;
 }
 ```
 
@@ -301,15 +301,15 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   messages?: [
     {
-      userId: Number,
-      orgId: Number,
-      message: String,
-      sent: String // timestamp the message was sent.
+      userId: number;
+      orgId: number;
+      message: string;
+      sent: string; // timestamp the message was sent.
     }
   ]
 }
@@ -321,9 +321,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number;
+  baseId: number;
 }
 ```
 
@@ -331,19 +331,19 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   orgs?: [
     {
-      id: Number,
-      orgName: String,
-      orgOwner: Number,
-      baseId: Number,
-      subscriptionCode: String,
-      isActive: Boolean,
-      createdAt: String,
-      updatedAt: String
+      id: number;
+      orgName: string;
+      orgOwner: number;
+      baseId: number;
+      subscriptionCode: string;
+      isActive: boolean;
+      createdAt: string;
+      updatedAt: string;
     }
   ]
 }
@@ -355,9 +355,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number;
+  baseId: number;
 }
 ```
 
@@ -365,14 +365,14 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   users?: [
     {
-      userId: Number,
-      email: String,
-      isAdmin: Boolean
+      userId: number;
+      email: string;
+      isAdmin: boolean;
     }
   ]
 }
@@ -384,20 +384,20 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number;
+  baseId: number;
 }
 ```
 
 Returns:
 
-```javascript
+```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isBaseManager?: Boolean;
+  token: string;
+  success: boolean;
+  error?: string;
+  isBaseManager?: boolean;
 }
 ```
 
@@ -407,9 +407,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  basePhoneNumber: String; // Expects the following format: "+11231231234"
+  basePhoneNumber: string; // Expects the following format: "+11231231234"
 }
 ```
 
@@ -417,10 +417,10 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isBasePhoneNumberUnique?: Boolean
+  token: string;
+  success: boolean;
+  error?: string;
+  isBasePhoneNumberUnique?: boolean;
 }
 ```
 
@@ -430,14 +430,14 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number, // Base being updated
-  baseName: String,
-  basePhoneNumber: String, // Expects the following format: "+11231231234". Must be unique if changing.
-  bandwidthUserId: String,
-  bandwidthApiToken: String,
-  bandwidthApiSecret: String
+  baseId: number; // Base being updated
+  baseName: string;
+  basePhoneNumber: string; // Expects the following format: "+11231231234". Must be unique if changing.
+  bandwidthUserId: string;
+  bandwidthApiToken: string;
+  bandwidthApiSecret: string;
 }
 ```
 
@@ -445,9 +445,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -460,10 +460,10 @@ If `isActive = true`, the user becomes activated, their password is reset, and a
 
 Expects:
 
-```javascript
+```typescript
 {
-  baseId: Number,
-  isActive: Boolean
+  baseId: number;
+  isActive: boolean;
 }
 ```
 
@@ -471,9 +471,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -487,15 +487,15 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   messages?: [
     {
-      userId: Number,
-      orgId: Number,
-      message: String,
-      sent: String // timestamp the message was sent.
+      userId: number;
+      orgId: number;
+      message: string;
+      sent: string; // timestamp the message was sent.
     }
   ]
 }
@@ -507,10 +507,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: String,
-  message: String
+  orgId: number;
+  message: string;
 }
 ```
 
@@ -518,9 +518,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String;
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
@@ -534,19 +534,19 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   orgs?: [
     {
-      id: Number,
-      orgName: String,
-      orgOwner: Number, // UserId
-      baseId: Number,
-      subscriptionCode: String,
-      isActive: Boolean,
-      createdAt: String,
-      updatedAt: String
+      id: number;
+      orgName: string;
+      orgOwner: number; // UserId
+      baseId: number;
+      subscriptionCode: string;
+      isActive: boolean;
+      createdAt: string;
+      updatedAt: string;
     }
   ]
 }
@@ -558,9 +558,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number;
+  orgId: number;
 }
 ```
 
@@ -568,15 +568,15 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   messages?: [
     {
-      userId: Number,
-      orgId: Number,
-      message: String,
-      sent: String // timestamp the message was sent.
+      userId: number;
+      orgId: number;
+      message: string;
+      sent: string; // timestamp the message was sent.
     }
   ]
 }
@@ -588,9 +588,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number;
+  orgId: number;
 }
 ```
 
@@ -598,10 +598,10 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  numberOfSubscribers?: Number
+  token: string;
+  success: boolean;
+  error?: string;
+  numberOfSubscribers?: number;
 }
 ```
 
@@ -611,9 +611,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number;
+  orgId: number;
 }
 ```
 
@@ -621,13 +621,13 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
   orgManagers?: [
-    userId: Number,
-    email: String,
-    isActive: Boolean // Is this user account currently active? You'll want to filter these out.
+    userId: number;
+    email: string;
+    isActive: boolean; // Is this user account currently active? You'll want to filter these out.
   ]
 }
 ```
@@ -638,12 +638,12 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  newOrgOwnerEmail: String, // The user's email that will become the org owner. Can be own email.
-  baseId: Number, // The base ID it will be created under
-  orgName: String, // The full name of the organization
-  subscriptionCode: String // This is the code people will use to sign up for the organization.
+  newOrgOwnerEmail: string; // The user's email that will become the org owner. Can be own email.
+  baseId: number; // The base ID it will be created under
+  orgName: string; // The full name of the organization
+  subscriptionCode: string; // This is the code people will use to sign up for the organization.
 }
 ```
 
@@ -651,9 +651,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -663,10 +663,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  newOrgManagerEmail: String, // The email of the user being added to the org
-  orgId: Number, // The org that is having a manager added to
+  newOrgManagerEmail: string; // The email of the user being added to the org
+  orgId: number; // The org that is having a manager added to
 }
 ```
 
@@ -674,9 +674,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -686,10 +686,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  userId: Number, // The email of the user being removed from the org
-  orgId: Number // The org that is having a manager removed from
+  userId: number; // The email of the user being removed from the org
+  orgId: number; // The org that is having a manager removed from
 }
 ```
 
@@ -697,9 +697,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -709,20 +709,20 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number;
+  orgId: number;
 }
 ```
 
 Returns:
 
-```javascript
+```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isOrgManager?: Boolean;
+  token: string;
+  success: boolean;
+  error?: string;
+  isOrgManager?: boolean;
 }
 ```
 
@@ -732,20 +732,20 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number;
+  orgId: number;
 }
 ```
 
 Returns:
 
-```javascript
+```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isOrgOwner?: Boolean;
+  token: string;
+  success: boolean;
+  error?: string;
+  isOrgOwner?: boolean;
 }
 ```
 
@@ -755,20 +755,20 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  subscriptionCode: String; // This is the code people will use to sign up for the organization.
+  subscriptionCode: string; // This is the code people will use to sign up for the organization.
 }
 ```
 
 Returns:
 
-```javascript
+```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  subscriptionCode?: Boolean; // Is the subscription code unique?
+  token: string;
+  success: boolean;
+  error?: string;
+  subscriptionCode?: boolean; // Is the subscription code unique?
 }
 ```
 
@@ -781,10 +781,10 @@ If `isActive = true`, it just flips that value. You'll need to update the org wi
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number,
-  isActive: Boolean
+  orgId: number;
+  isActive: boolean;
 }
 ```
 
@@ -792,9 +792,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -804,11 +804,11 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  orgId: Number,
-  orgName: String, // The full name of the organization
-  subscriptionCode: String // This is the code people will use to sign up for the organization. Must be unique.
+  orgId: number;
+  orgName: string; // The full name of the organization
+  subscriptionCode: string; // This is the code people will use to sign up for the organization. Must be unique.
 }
 ```
 
@@ -816,9 +816,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -828,10 +828,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  newOrgOwnerEmail: String, // The email of the user gaining ownership
-  orgId: Number, // The org that is transferring ownership
+  newOrgOwnerEmail: string; // The email of the user gaining ownership
+  orgId: number; // The org that is transferring ownership
 }
 ```
 
@@ -839,9 +839,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -855,27 +855,27 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   user?: {
-    token: String,
-    success: Boolean,
-    email: String,
-    isAdmin: Boolean,
+    token: string;
+    success: boolean;
+    email: string;
+    isAdmin: boolean;
     bases: [
       {
-        baseId: Number,
-        baseName: String,
-        basePhoneNumber: String,
-        isBaseManager: Boolean,
+        baseId: number;
+        baseName: string;
+        basePhoneNumber: string;
+        isBaseManager: boolean;
         orgs: [
           {
-            orgId: Number,
-            orgName: String,
-            subscriptionCode: String,
-            numberOfSubscribers: Number,
-            isOrgOwner: Boolean
+            orgId: number;
+            orgName: string;
+            subscriptionCode: string;
+            numberOfSubscribers: number;
+            isOrgOwner: boolean;
           }
         ]
       }
@@ -892,15 +892,15 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
+  token: string;
+  success: boolean;
+  error?: string;
   users?: [
     {
-      userId: Number,
-      email: String,
-      isAdmin: Boolean,
-      isActive: Boolean
+      userId: number;
+      email: string;
+      isAdmin: boolean;
+      isActive: boolean;
     }
   ]
 }
@@ -914,10 +914,10 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isAdmin?: Boolean
+  token: string;
+  success: boolean;
+  error?: string;
+  isAdmin?: boolean;
 }
 ```
 
@@ -927,9 +927,9 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  email: String;
+  email: string;
 }
 ```
 
@@ -937,10 +937,10 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String,
-  isEmailUnique?: Boolean
+  token: string;
+  success: boolean;
+  error?: string;
+  isEmailUnique?: boolean;
 }
 ```
 
@@ -953,10 +953,10 @@ If `isActive = true`, the user becomes activated, their password is reset, and a
 
 Expects:
 
-```javascript
+```typescript
 {
-  userId?: Number, // If no userId is supplied, the application will assume that it's the user making the call.
-  isActive: Boolean
+  userId?: number; // If no userId is supplied, the application will assume that it's the user making the call.
+  isActive: boolean;
 }
 ```
 
@@ -964,9 +964,9 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean // Did the operation succeed?
-  error?: String; // A description of the error.
+  token: string;
+  success: boolean; // Did the operation succeed?
+  error?: string; // A description of the error.
 }
 ```
 
@@ -976,10 +976,10 @@ Returns:
 
 Expects:
 
-```javascript
+```typescript
 {
-  userId: Number,
-  isAdmin: Boolean
+  userId: number;
+  isAdmin: boolean;
 }
 ```
 
@@ -987,22 +987,22 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
 
 #### POST `/api/user/updateUserEmail`
 
-|> Updates the user's email. Must be self or admin.
+|> Updates the user's email. Must be self or at least base manager.
 
 Expects:
 
-```javascript
+```typescript
 {
-  userId?: Number, // if no userId supplied, the user making the request will have their own email updated.
-  email: String
+  userId?: number; // if no userId supplied, the user making the request will have their own email updated.
+  email: string;
 }
 ```
 
@@ -1010,8 +1010,8 @@ Returns:
 
 ```typescript
 {
-  token: String,
-  success: Boolean,
-  error?: String
+  token: string;
+  success: boolean;
+  error?: string;
 }
 ```
