@@ -9,6 +9,7 @@ module.exports = (req, res, next) => {
   console.log(`TOKEN BODY: ${req.body.token}`);
   console.log(`TOKEN QUERY: ${req.query.token}`);
   console.log(`TOKEN HEADER: ${req.headers['x-access-token']}`);
+  console.log(`Headers: ${req.headers}`);
 
   if (req.path == '/auth/login') {
     return next();
