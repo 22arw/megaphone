@@ -248,6 +248,7 @@ Returns:
       id: number; // user is at least an org manager under this base
       basePhoneNumber: string; // user is at least an org manager under this base
       baseName: string; // user is at least an org manager under this base
+      isActive: string; // user is at least a base manager
       bandwidthUserId?: string; // user is at least a base manager
       bandwidthApiToken?: string; // user is at least a base manager
       bandwidthApiSecret?: string; // user is at least a base manager
