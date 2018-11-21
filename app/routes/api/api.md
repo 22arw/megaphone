@@ -577,6 +577,7 @@ Returns:
   messages?: [
     {
       userId: number;
+      email: string;
       orgId: number;
       message: string;
       sent: string; // timestamp the message was sent.

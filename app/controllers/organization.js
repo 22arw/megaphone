@@ -96,7 +96,9 @@ module.exports = {
 
       const isOrgActive = await dbInterface.isOrgActive(orgId);
       if (!isOrgActive) {
-        throw new Error('Org is not active. Please activate org before adding a org manager.');
+        throw new Error(
+          'Org is not active. Please activate org before adding a org manager.'
+        );
       }
 
       const org = await dbInterface.getOrgById(orgId);
@@ -248,20 +250,38 @@ module.exports = {
         throw new Error('That org does not exist.');
       }
 
-      dbInterface.getMessagesByOrgIds(orgId).then(msgs => {
-        console.log('Success!');
-        res.json({
-          token: req.token,
-          success: true,
-          messages: msgs.map(msg => {
-            return {
-              userId: msg.userId,
-              orgId: msg.orgId,
-              message: msg.message,
-              sent: msg.createdAt
-            };
-          })
-        });
+      const messages = await dbInterface.getMessagesByOrgIds(orgId);
+
+      const userIds = messages.map(msg => {
+        return msg.userId;
+      });
+
+      const users = await dbInterface.getUsersById(userIds);
+
+      const msgs = messages.map(msg => {
+        let email = '';
+
+        for (let i = 0; i < users.length; i++) {
+          if (users[i].id === msg.userId) {
+            email = users[i].email;
+            break;
+          }
+        }
+
+        return {
+          userId: msg.userId,
+          email: email,
+          orgId: msg.orgId,
+          message: msg.message,
+          sent: msg.createdAt
+        };
+      });
+
+      console.log('Success!');
+      res.json({
+        token: req.token,
+        success: true,
+        messages: msgs
       });
     } catch (error) {
       console.error(error);
@@ -596,7 +616,9 @@ module.exports = {
 
       const isUserActive = await dbInterface.isUserActive(user.id);
       if (!isUserActive) {
-        throw new Error('User is not active, please activate before making org owner. See admin.');
+        throw new Error(
+          'User is not active, please activate before making org owner. See admin.'
+        );
       }
 
       const isOrgOwner = await dbInterface.isOrgOwner(user.id, org.id);
