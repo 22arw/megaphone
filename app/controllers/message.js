@@ -15,7 +15,7 @@ module.exports = {
       }
 
       const doesOrgExist = await dbInterface.doesOrgExist(orgId);
-      if (!doesOrgExist) return new Error('You cannot send from this org.');
+      if (!doesOrgExist) {return new Error('You cannot send from this org.')};
 
       const org = await dbInterface.getOrgById(orgId);
 
@@ -24,9 +24,9 @@ module.exports = {
         return new Error('There are no subscribers for this organization');
       }
 
-      const base = await dbInterface.getBaseById(org.baseId);
+      const base = await dbInterface.getBaseById(org[0].baseId);
 
-      const status = utils.sendMessage(userId, subscribers, org, message, base);
+      const status = utils.sendMessage(userId, subscribers, org[0], message, base);
       if (status instanceof Error) throw status;
       console.log('Success!');
       res.json({
