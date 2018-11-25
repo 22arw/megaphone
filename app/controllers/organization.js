@@ -114,7 +114,7 @@ module.exports = {
             user.email,
             'Welcome to Megaphone.',
             `You're invited to manage ${
-              org.orgName
+              org[0].orgName
             } on Megaphone. Please log in using the following temporary password: ${pass}`,
             process.env.CLIENT_URL
           );
@@ -129,14 +129,14 @@ module.exports = {
         );
       }
 
-      const isOrgManager = await dbInterface.isOrgManager(user.id, org.id);
+      const isOrgManager = await dbInterface.isOrgManager(user.id, org[0].id);
       if (isOrgManager) {
         throw new Error(
           'That user is already a manager for this organization.'
         );
       }
 
-      dbInterface.createOrgManager(user.id, org.id).then(() => {
+      dbInterface.createOrgManager(user.id, org[0].id).then(() => {
         console.log('Success!');
         res.json({
           token: req.token,
