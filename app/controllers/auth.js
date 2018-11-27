@@ -7,7 +7,9 @@ const _ = require('lodash');
 module.exports = {
   login: async (req, res) => {
     process.stdout.write('Attempting to login... ');
-    const email = _.toString(req.body.email).toLowerCase().trim();
+    const email = _.toString(req.body.email)
+      .toLowerCase()
+      .trim();
     const password = _.toString(req.body.password).trim();
 
     try {
@@ -32,11 +34,24 @@ module.exports = {
 
       const highestRole = await dbInterface.getHighestRole(user.id);
 
+      const passwordDuration = 365 * 24 * 60 * 60 * 1000; // 1 year => days * hours * minutes * seconds * milliseconds
+      const now = new Date().getTime(); // time in milliseconds
+      const updatedAt = new Date(user.updatedAt).getTime(); // time in milliseconds of last update
+
+      console.log(`
+      passwordDuration: ${passwordDuration}
+      now: ${now}
+      updatedAt: ${updatedAt}
+      `);
+
+      const passRequiresUpdate =
+        _.toString(user.createdAt) === _.toString(user.updatedAt) ||
+        now - updatedAt >= passwordDuration;
+
       console.log('success!');
       res.json({
         token: TOKEN.generate(user.id),
-        needsPasswordChange:
-          _.toString(user.createdAt) === _.toString(user.updatedAt),
+        needsPasswordChange: passRequiresUpdate,
         role: highestRole
       });
     } catch (error) {
@@ -125,7 +140,7 @@ module.exports = {
       if (!user[0].isActive) {
         await dbInterface.updateUserIsActive(userId, true);
       }
-      
+
       await dbInterface.updateUser(userId, user[0].email, pass);
 
       utils.sendEmail(
