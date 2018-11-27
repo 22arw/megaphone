@@ -11,7 +11,7 @@ Route roles are displayed to the right of the link. It represents the lowest rol
 - [Auth](#apiauth)
   - [Login](#post-apiauthlogin) _any_
   - [Force Password Reset](#post-apiauthforcepasswordreset) _self or base manager_
-  - [Reset Password](post-apiauthresetpassword) _self_
+  - [Reset Password](#post-apiauthresetpassword) _self_
 - [Base](#apibase)
   - [Create Base](#post-apibasecreatebase) _admin_
   - [Create Base Manager](#post-apibasecreatebasemanager) _base manager_
