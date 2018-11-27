@@ -41,7 +41,7 @@ Route roles are displayed to the right of the link. It represents the lowest rol
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique) _self_
   - [Update Organization isActive](#post-apiorganizationupdateisactive) _org owner_
   - [Update Organization](#post-apiorganizationupdateorg) _org owner_
-  - [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager) _org owner_
+  - [Transfer Organization Ownership](#post-apiorganizationupdateorgowner) _org owner_
 - [User](#apiuser)
   - [Get User Data](#get-apiuser) _self_
   - [Get All Users Ever](#get-apiusergetallusersever) _admin_
@@ -804,7 +804,7 @@ Returns:
 
 #### POST `/api/organization/updateOrg`
 
-|> Updates the given organization. Do not attempt to update the organization owner here. See [Transfer Organization Ownership](#post-apiorganizationupdateorgmanager)
+|> Updates the given organization. Do not attempt to update the organization owner here. See [Transfer Organization Ownership](#post-apiorganizationupdateorgowner)
 
 Expects:
 
@@ -826,7 +826,7 @@ Returns:
 }
 ```
 
-#### POST `/api/organization/updateOrgManager`
+#### POST `/api/organization/updateOrgOwner`
 
 |> Transfers ownership of the organization to another user.
 
