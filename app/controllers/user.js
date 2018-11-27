@@ -25,7 +25,7 @@ module.exports = {
   },
   isEmailUnique: async (req, res) => {
     process.stdout.write('Attempting isEmailUnique... ');
-    const email = _.toString(req.body.email).trim();
+    const email = _.toString(req.body.email).toLowerCase().trim();
 
     try {
       if (!utils.isValidEmail(email)) {
@@ -125,7 +125,7 @@ module.exports = {
   updateUserEmail: async (req, res) => {
     process.stdout.write('Attempting to update user email... ');
     const userId = _.toNumber(req.body.userId);
-    const email = _.toString(req.body.email).trim();
+    const email = _.toString(req.body.email).toLowerCase().trim();
 
     try {
       if (isNaN(userId) || !utils.isValidEmail(email)) {

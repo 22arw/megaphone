@@ -6,7 +6,7 @@ module.exports = {
   createOrg: async (req, res) => {
     process.stdout.write('Attempting to create an org... ');
     const baseId = _.toNumber(req.body.baseId);
-    const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).trim();
+    const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).toLowerCase().trim();
     const orgName = _.toString(req.body.orgName).trim();
     const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
 
@@ -82,7 +82,7 @@ module.exports = {
   createOrgManager: async (req, res) => {
     process.stdout.write('Attempting to create an org manager... ');
     const orgId = _.toNumber(req.body.orgId);
-    const newOrgManagerEmail = _.toString(req.body.newOrgManagerEmail).trim();
+    const newOrgManagerEmail = _.toString(req.body.newOrgManagerEmail).toLowerCase().trim();
 
     try {
       if (isNaN(orgId) || !utils.isValidEmail(newOrgManagerEmail)) {
@@ -575,7 +575,7 @@ module.exports = {
   updateOrgOwner: async (req, res) => {
     process.stdout.write('Attempting to transfer org owner... ');
     const orgId = _.toNumber(req.body.orgId);
-    const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).trim();
+    const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).toLowerCase().trim();
 
     try {
       if (isNaN(orgId) || !utils.isValidEmail(newOrgOwnerEmail)) {

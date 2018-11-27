@@ -64,7 +64,7 @@ module.exports = {
   createBaseManager: async (req, res) => {
     process.stdout.write('Attempting to create a base manager... ');
     const baseId = _.toString(req.body.baseId).trim();
-    const newBaseManagerEmail = _.toString(req.body.newBaseManagerEmail).trim();
+    const newBaseManagerEmail = _.toString(req.body.newBaseManagerEmail).toLowerCase().trim();
 
     try {
       if (_.isEmpty(baseId) || _.isEmpty(newBaseManagerEmail)) {

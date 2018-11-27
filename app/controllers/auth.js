@@ -7,7 +7,7 @@ const _ = require('lodash');
 module.exports = {
   login: async (req, res) => {
     process.stdout.write('Attempting to login... ');
-    const email = _.toString(req.body.email).trim();
+    const email = _.toString(req.body.email).toLowerCase().trim();
     const password = _.toString(req.body.password).trim();
 
     try {
