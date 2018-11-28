@@ -8,7 +8,7 @@ module.exports = {
     const baseId = _.toNumber(req.body.baseId);
     const newOrgOwnerEmail = _.toString(req.body.newOrgOwnerEmail).toLowerCase().trim();
     const orgName = _.toString(req.body.orgName).trim();
-    const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
+    const subscriptionCode = _.toString(req.body.subscriptionCode).trim().toLowerCase();
 
     try {
       if (
@@ -450,7 +450,7 @@ module.exports = {
   },
   isSubscriptionCodeUnique: async (req, res) => {
     process.stdout.write('Attempting isSubscriptionCodeUnique... ');
-    const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
+    const subscriptionCode = _.toString(req.body.subscriptionCode).trim().toLowerCase();
 
     try {
       if (_.isEmpty(subscriptionCode)) {
@@ -524,7 +524,7 @@ module.exports = {
     process.stdout.write('Attempting to update org... ');
     const orgId = _.toNumber(req.body.orgId);
     const orgName = _.toString(req.body.orgName).trim();
-    const subscriptionCode = _.toString(req.body.subscriptionCode).trim();
+    const subscriptionCode = _.toString(req.body.subscriptionCode).trim().toLowerCase();
 
     try {
       if (_.isEmpty(orgName) || _.isEmpty(subscriptionCode) || isNaN(orgId)) {
