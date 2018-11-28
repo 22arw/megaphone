@@ -7,5 +7,6 @@ module.exports = async subscriptionCode => {
     }
   }).catch(err => console.error(err));
 
+  console.log(org[0].dataValues);
   return org[0].dataValues;
 };
