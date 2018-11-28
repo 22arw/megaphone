@@ -65,6 +65,8 @@ module.exports = async (req, res, next) => {
 
   const org = await dbInterface.getOrgBySubscriptionCode(text);
 
+  console.log('Org: ', org);
+
   // Does this org belong to the base we're trying to access via the basePhoneNumber?
   const doesOrgBelongToBase = await dbInterface.doesOrgBelongToBase(
     org.id,
