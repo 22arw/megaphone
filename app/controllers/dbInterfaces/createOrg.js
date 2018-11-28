@@ -10,7 +10,7 @@ module.exports = async (
     orgName: orgName,
     orgOwner: userId,
     baseId: baseId,
-    subscriptionCode: subscriptionCode.toUpperCase()
+    subscriptionCode: subscriptionCode
   }).catch(err => console.error(err));
 
   return org.dataValues;
