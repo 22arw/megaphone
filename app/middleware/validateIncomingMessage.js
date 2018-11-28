@@ -90,9 +90,9 @@ function logMessageToConsole(req) {
   );
 
   console.log('Message Summary:');
-  console.log('From: ', '\x1b[1m\x1b[32m', req.body.from, '\x1b[0m');
-  console.log('To: ', '\x1b[1m\x1b[32m', req.body.to, '\x1b[0m');
-  console.log('Text: ', '\x1b[1m\x1b[32m', req.body.text, '\x1b[0m');
+  console.log('From: ', req.body.from);
+  console.log('To: ', req.body.to);
+  console.log('Text: ', req.body.text);
 
   console.log('\n');
 
