@@ -69,6 +69,10 @@ EMAIL_FROM=emailaddressthatemailwillshowfrom
 
 # This is the URL for the client of this application
 CLIENT_URL=theurlwheretheclientishosted
+
+# These are optional if you want people to be able to post issues to the repo.
+GITHUB_USERNAME=username
+GITHUB_PASSWORD=password
 ```
 
 #### Install dependencies

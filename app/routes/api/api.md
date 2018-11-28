@@ -37,7 +37,7 @@ Route roles are displayed to the right of the link. It represents the lowest rol
   - [Create Organization Manager](#post-apiorganizationcreateorgmanager) _org owner_
   - [Delete Organization Manager](#post-apiorganizationdeleteorgmanager) _org owner_
   - [Is Org Manager?](#post-apiorganizationisorgmanager) _self_
-  - [Is Org Owner?](#post-apiorganizationisorgowner)  _self_
+  - [Is Org Owner?](#post-apiorganizationisorgowner) _self_
   - [Is Subscription Code Unique?](#post-apiorganizationissubscriptioncodeunique) _self_
   - [Update Organization isActive](#post-apiorganizationupdateisactive) _org owner_
   - [Update Organization](#post-apiorganizationupdateorg) _org owner_
@@ -50,6 +50,8 @@ Route roles are displayed to the right of the link. It represents the lowest rol
   - [Update User isActive](#post-apiuserupdateisactive) _self or base manager_
   - [Update isAdmin](#post-apiuserupdateisadmin) _admin_
   - [Update User Email](#post-apiuserupdateuseremail) _require self or base manager_
+- [Github](#apigithub)
+  - [Post an issue to the github repo](#post-apigithub) _requires logged in user_
 
 ### Using the API
 
@@ -1007,6 +1009,31 @@ Expects:
 {
   userId?: number; // if no userId supplied, the user making the request will have their own email updated.
   email: string;
+}
+```
+
+Returns:
+
+```typescript
+{
+  token: string;
+  success: boolean;
+  error?: string;
+}
+```
+
+### /api/github
+
+#### POST `/api/github`
+
+|> Posts an issue to the github repo.
+
+Expects:
+
+```typescript
+{
+  title: string;
+  body: string;
 }
 ```
 

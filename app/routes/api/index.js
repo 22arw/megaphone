@@ -6,6 +6,7 @@ const mw = require('../../middleware');
 const authController = require('../../controllers/auth');
 const bandwidthController = require('../../controllers/bandwidth');
 const baseController = require('../../controllers/base');
+const githubController = require('../../controllers/github');
 const messageController = require('../../controllers/message');
 const orgController = require('../../controllers/organization');
 const userController = require('../../controllers/user');
@@ -71,5 +72,8 @@ router
   .post('/user/updateIsAdmin', mw.requireAdmin, userController.updateIsAdmin)
   .post('/user/updateIsActive', mw.requireSelfOrBaseManager, userController.updateIsActive)
   .post('/user/updateUserEmail', mw.requireSelfOrBaseManager, userController.updateUserEmail);
+
+// Feedback gets posted as a github issue on the repo
+router.post('/github', githubController.createIssue);
 
 module.exports = router;
