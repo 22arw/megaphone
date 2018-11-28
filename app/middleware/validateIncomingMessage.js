@@ -57,6 +57,7 @@ module.exports = async (req, res, next) => {
 
   // Does that org exist?
   const doesOrgExist = await dbInterface.doesOrgExistBySubscriptionCode(text);
+  console.log('doesOrgExist:', doesOrgExist);
   if (!doesOrgExist) {
     message = 'That is an invalid command. Reply "HELP" for more info.';
     sendMessage(message, phoneNumber, basePhoneNumber, bandwidthConfig);
