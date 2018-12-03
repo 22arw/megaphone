@@ -101,6 +101,7 @@ function logMessageToConsole(req) {
 
   console.log(`Headers: ${inspect(req.headers, false, 20, true)}\n`);
   console.log(`Body: ${inspect(req.body, false, 20, true)}\n`);
+  console.log(`REQUEST PACKAGE: ${inspect(req.body, false, 20, true)}\n`);
 
   console.log(`/\\/\\/\\/\\/\\/\\ End Message /\\/\\/\\/\\/\\/\\/\\/\\\n`);
 }
