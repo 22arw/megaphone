@@ -54,11 +54,11 @@ async function getDemoUsers() {
   let demoUsers = await models.User.findAll({
     where: {
       email: [
-        'admin@mail.mil',
-        'kevin@mail.mil',
-        'coach@mail.mil',
-        'aaron@mail.mil',
-        'user@mail.mil'
+        'admin@mail.com',
+        'kevin@mail.com',
+        'coach@mail.com',
+        'aaron@mail.com',
+        'user@mail.com'
       ]
     }
   });

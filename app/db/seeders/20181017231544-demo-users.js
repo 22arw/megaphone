@@ -12,7 +12,7 @@ module.exports = {
       'Users',
       [
         {
-          email: 'admin@mail.mil',
+          email: 'admin@mail.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: true,
@@ -20,7 +20,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          email: 'kevin@mail.mil',
+          email: 'kevin@mail.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: false,
@@ -28,7 +28,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          email: 'coach@mail.mil',
+          email: 'coach@mail.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: false,
@@ -36,7 +36,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          email: 'aaron@mail.mil',
+          email: 'aaron@mail.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: false,
@@ -44,7 +44,7 @@ module.exports = {
           updatedAt: new Date()
         },
         {
-          email: 'user@mail.mil',
+          email: 'user@mail.com',
           password:
             '$2a$10$/a7/3838gg7Ogrt.rq8cS.qCCs2D14M23xN0JcMHl3fVF5P.5iOTm', // password: asdf
           isAdmin: false,
@@ -59,7 +59,7 @@ module.exports = {
   down: (queryInterface, Sequelize) => {
     return queryInterface.bulkDelete('Users', null, {
       where: {
-        email: ['kevin@mail.mil', 'coach@mail.mil', 'aaron@mail.mil']
+        email: ['kevin@mail.com', 'coach@mail.com', 'aaron@mail.com']
       }
     });
   }
